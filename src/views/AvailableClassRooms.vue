@@ -6,7 +6,7 @@
 export default {
   name: "AvailableClassRooms",
   components: {
-    // delcarer les components importés ici
+    // déclarer les components importés ici
   },
   methods: {
   },

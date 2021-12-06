@@ -9,7 +9,7 @@
 export default {
   name: "App",
   components: {
-    // delcarer les components importés ici
+    // déclarer les components importés ici
   },
   methods: {
     test() {
