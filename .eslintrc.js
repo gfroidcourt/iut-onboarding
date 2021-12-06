@@ -44,5 +44,6 @@ module.exports = {
         "object-shorthand": 2,
         "prefer-destructuring": [2, { "object": true, "array": false }],
         "prefer-template": 2,
+        "no-unused-vars": 1,
     },
 };
