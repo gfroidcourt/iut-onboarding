@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     /**
-     * @param duration temps d'affiche de l'overlay de chargement
+     * @param duration overlay duration
      * @default 2000 ms
      */
     show(duration = 2000) {
@@ -55,18 +55,6 @@ export default {
 #loading-overlay-container img {
   width: 300px;
   height: 300px;
-}
-
-#path {
-  stroke-dasharray: 2000;
-  animation: dash 2s linear infinite;
-  position: absolute;
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: 3000;
-  }
 }
 
 @keyframes background-in {
