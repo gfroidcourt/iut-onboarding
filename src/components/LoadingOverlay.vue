@@ -15,6 +15,10 @@ export default {
     };
   },
   methods: {
+    /**
+     * @param duration temps d'affiche de l'overlay de chargement
+     * @default 2000 ms
+     */
     show(duration = 2000) {
       this.active = true;
       this.duration = duration;
@@ -37,7 +41,6 @@ export default {
 </script>
 
 <style>
-
 #loading-overlay-container {
   position: absolute;
   height: 100vh;
