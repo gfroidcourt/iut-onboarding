@@ -16,11 +16,6 @@ import "./stylesheets/reset.css";
 
 export default {
   name: "App",
-  data() {
-    return {
-      showLoadingOverlay: false,
-    };
-  },
   components: {
     LoadingOverlay,
   },
