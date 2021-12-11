@@ -1,20 +1,28 @@
 <template>
-  <div>
-    <img alt="Vue logo" src="./assets/logo.png" />
+  <div style="background-color: #ccc">
+    <LoadingOverlay ref="loading" />
+    <h1>Hello world</h1>
+    <input
+      @click="$refs.loading.show()"
+      value="Afficher chargement"
+      type="button"
+    />
   </div>
 </template>
 
 <script>
+import LoadingOverlay from "./components/LoadingOverlay.vue";
+import "./stylesheets/reset.css";
 
 export default {
   name: "App",
-  components: {
-    // déclarer les components importés ici
+  data() {
+    return {
+      showLoadingOverlay: false,
+    };
   },
-  methods: {
-    test() {
-      console.log("Hey");
-    },
+  components: {
+    LoadingOverlay,
   },
 };
 </script>
@@ -26,6 +34,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
