@@ -1,5 +1,8 @@
 <template>
-  <div :style="`background-color: ${this.color};`" id="background-container">
+  <div
+    :style="`background-color: ${colors[currentColor]};`"
+    id="background-container"
+  >
     <transition
       v-for="(line, index) in lines"
       :key="index"
@@ -18,23 +21,16 @@
 <script>
 export default {
   name: "Background",
-  props: {
-    color: {
-      type: String,
-      required: true,
-    },
-    // decorationStyle: {
-    //   type: String,
-    // },
-  },
   data() {
     return {
       decorationStyle: "lines",
+      colors: ["#91E59B", "#cfcfcf", "red", "cyan", "blue"],
+      currentColor: 0,
       lines: [
         {
           svg: require("../assets/path1.svg"),
           posStyle: " left: -300px;",
-          transition: "slide-left",
+          transition: "slide-left;",
         },
         {
           svg: require("../assets/path2.svg"),
@@ -51,6 +47,7 @@ export default {
   },
   methods: {
     next() {
+      if (++this.currentColor >= this.colors.length) this.currentColor = 0;
       if (this.decorationStyle === "lines") this.decorationStyle = null;
       else this.decorationStyle = "lines";
     },
@@ -100,6 +97,8 @@ export default {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
+  transition: background-color 1s;
 }
 
 .line {

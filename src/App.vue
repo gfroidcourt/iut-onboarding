@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Background ref="background" color="#91E59B"/>
+    <Background ref="background"/>
     <LoadingOverlay ref="loading" />
     <input
       @click="$refs.loading.show()"
