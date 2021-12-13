@@ -138,11 +138,6 @@ export default {
      * @default null go to next decoration style
      */
     async changeDecoration(style = null) {
-      if (style !== null) {
-        // using strict equality so we can use undefined in the case we just want to disable decorations
-        this.currentDecoration = style;
-      }
-
       // disable all decorations
       for (const deco of Object.values(this.decorations)) {
         for (const item of deco) {
@@ -151,10 +146,15 @@ export default {
         }
       }
 
-      // changing to next style
-      const styles = Object.keys(this.decorations);
-      this.currentDecoration =
-        styles[styles.indexOf(this.currentDecoration) + 1] || styles[0];
+      if (style !== null) {
+        // using strict equality so we can use undefined in the case we just want to disable decorations
+        this.currentDecoration = style;
+      } else {
+        // changing to next style
+        const styles = Object.keys(this.decorations);
+        this.currentDecoration =
+          styles[styles.indexOf(this.currentDecoration) + 1] || styles[0];
+      }
 
       // enable only the desired decoration
       for (const [decoName, deco] of Object.entries(this.decorations)) {
@@ -165,6 +165,10 @@ export default {
       }
     },
 
+    /**
+     * Change to next background
+     * (Switch color and decoration style)
+     */
     next() {
       this.changeBackgroundColor();
       this.changeDecoration();

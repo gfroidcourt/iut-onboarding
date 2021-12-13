@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Background ref="background"/>
+    <Background ref="background" />
     <LoadingOverlay ref="loading" />
     <input
       @click="$refs.loading.show()"
@@ -9,7 +9,7 @@
     />
     <input
       @click="$refs.background.next()"
-      value="Afficher decorations"
+      value="Changer background"
       type="button"
     />
   </div>
@@ -25,7 +25,7 @@ export default {
   name: "App",
   components: {
     LoadingOverlay,
-    Background
+    Background,
   },
 };
 </script>
@@ -36,5 +36,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+}
+
+input {
+  background-color: rgba(97, 97, 97, 0.2);
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  color: rgb(255, 255, 255);
+  transition: background-color 0.2s;
+}
+input:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 </style>
