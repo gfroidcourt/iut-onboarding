@@ -3,33 +3,15 @@
     <p id="title">Tram <span>B</span></p>
     <div class="trip">
       <div class="progressbar">
-        <vue-ellipse-progress
-          :data="circles"
-          :progress="progress"
-          :angle="-90"
-          color="blue"
-          :colorFill="colorFillGradient"
-          emptyColor="#8ec5fc"
-          :emptyColorFill="emptyColorFillGradient"
-          :size="300"
-          :thickness="10"
-          emptyThickness="10%"
-          lineMode="in 10"
-          :legend="true"
-          :legendValue="180"
-          legendClass="legend-custom-style"
-          dash="60 0.9"
-          animation="reverse 700 400"
-          :noData="false"
-          :loading="false"
-          fontColor="white"
-          :half="false"
-          :gap="10"
-          dot="10 blue"
-          fontSize="5rem"
+        <radial-progress-bar
+          :diameter="150"
+          :total-steps="10"
+          :completed-steps="completed_steps"
         >
-        </vue-ellipse-progress>
+          <p>{{ totalTime }}</p>
+        </radial-progress-bar>
       </div>
+      <input type="button" @click="click" />
       <p class="infos">Gardignan, Beausoleil</p>
     </div>
     <div class="trip">
@@ -40,12 +22,12 @@
 </template>
 
 <script>
-import VueEllipseProgress from "vue-ellipse-progress";
+import RadialProgressBar from "../../node_modules//vue-radial-progress";
 
 export default {
   name: "TransportCard",
   components: {
-    VueEllipseProgress,
+    RadialProgressBar,
   },
   props: {
     lineColor: String,
@@ -57,9 +39,17 @@ export default {
     height: String,
   },
   data() {
-    return {};
+    return {
+      totalTime: 1,
+      completed_steps: 1,
+    };
   },
-  methods: {},
+  methods: {
+    click() {
+      this.completed_steps += 1;
+      this.totalTime += 1;
+    },
+  },
   computed: {
     style() {
       return `height: ${this.height}px; 
@@ -96,6 +86,6 @@ span {
 .trip {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 </style>
