@@ -20,6 +20,7 @@ import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 
 import "./stylesheets/reset.css";
+import * as scrapMeal from "./scrapMeal.js";
 
 export default {
   name: "App",
@@ -27,6 +28,11 @@ export default {
     LoadingOverlay,
     Background,
   },
+  mounted() {
+    scrapMeal.getAllRestaurantsMenus().then(res => {
+      console.log(res);
+    });
+  }
 };
 </script>
 
