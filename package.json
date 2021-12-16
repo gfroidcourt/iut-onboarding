@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
-    "core-js": "^3.,6.5",
+    "core-js": "^3.6.5",
     "node-fetch": "^2.6.6",
     "vue": "^3.0.0"
   },

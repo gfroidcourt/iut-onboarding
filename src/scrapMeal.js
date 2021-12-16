@@ -12,9 +12,6 @@ const SIRTAKI_URL = "https://www.crous-bordeaux.fr/restaurant/crous-cafet-le-sir
  * @return {string[]} un tableau de string correspondant aux plats du site pour le jour actuel
  */
 async function fetchMenu(URL) {
-  // { headers: {
-  //   "Access-Control-Allow-Origin": "*",
-  // } }
   const response = await fetch(URL);
   const html = await response.text();
 
