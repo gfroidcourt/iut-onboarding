@@ -11,7 +11,8 @@
     "cheerio": "^1.0.0-rc.10",
     "core-js": "^3.6.5",
     "node-fetch": "^2.6.6",
-    "vue": "^3.0.0"
+    "vue": "^3.2.26",
+    "vue-cli": "^2.9.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

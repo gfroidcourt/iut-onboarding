@@ -36,7 +36,7 @@ async function fetchMenu(URL) {
         if (plat.includes(":") || plat.includes("(") || plat.length === 0)
           return;
         // Sans les "Entrées diverses" et "Desserts divers"
-        if (plat.includes("Entrées") || plat.includes("Desserts"))
+        if (plat.includes("Entrées") || plat.includes("Desserts") || plat.includes("Salade"))
           return;
         tabPlats.push(plat);
       });
