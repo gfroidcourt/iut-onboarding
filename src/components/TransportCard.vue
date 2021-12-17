@@ -5,24 +5,25 @@
       <div class="progressbar">
         <radial-progress-bar
           :diameter="150"
-          :total-steps="10"
+          :total-steps="totalStep"
           :completed-steps="completed_steps"
         >
-          <p>{{ totalTime }}</p>
+          <p>{{ formated_step }}</p>
         </radial-progress-bar>
       </div>
-      <input type="button" @click="click" />
       <p class="infos">Gardignan, Beausoleil</p>
     </div>
     <div class="trip">
       <div class="progressbar"></div>
       <p class="infos">Bordeaux, Jardin Botanique</p>
     </div>
+    <div>Oui : {{ formated_step }}</div>
   </div>
 </template>
 
 <script>
 import RadialProgressBar from "../../node_modules//vue-radial-progress";
+import * as fetch from "../api";
 
 export default {
   name: "TransportCard",
@@ -40,14 +41,30 @@ export default {
   },
   data() {
     return {
-      totalTime: 1,
-      completed_steps: 1,
+      totalStep: 600000,
+      formated_steps: setInterval(this.timeRemaining, 1000),
+      completed_steps: 0,
     };
   },
   methods: {
-    click() {
-      this.completed_steps += 1;
-      this.totalTime += 1;
+    timeRemaining() {
+      fetch.fetchTBM(9055, 10).then((res) => {
+        var remain = res.destinations[1616][0].arrival_theorique;
+        var date = Date.parse(remain);
+        var now = Date.now();
+        var dif = date - now;
+        var min = Math.floor((dif / 1000 / 60) << 0);
+        var sec = Math.floor((dif / 1000) % 60);
+        if (Math.abs(sec) < 10) {
+          sec = `0${sec}`;
+        }
+        this.completed_steps = this.totalStep - dif;
+        var time = `${min}:${sec}`;
+        this.formated_step = time;
+        console.log(time);
+
+        return time;
+      });
     },
   },
   computed: {
