@@ -4,20 +4,33 @@
     <div class="trip">
       <div class="progressbar">
         <radial-progress-bar
-          :diameter="150"
+          :diameter="diamter"
           :total-steps="totalStep"
           :completed-steps="completed_steps"
+          :start-color=color_gradient
+          :stop-color=color_gradient
+          :innerStrokeColor=color_inline
         >
-          <p>{{ formated_step }}</p>
+          <p>{{ formated_step }} mins</p>
         </radial-progress-bar>
       </div>
-      <p class="infos">Gardignan, Beausoleil</p>
+      <p class="infos">{{ trip1 }}</p>
     </div>
     <div class="trip">
-      <div class="progressbar"></div>
-      <p class="infos">Bordeaux, Jardin Botanique</p>
+      <div class="progressbar">
+        <radial-progress-bar
+          :diameter="diamter"
+          :total-steps="totalStep"
+          :completed-steps="completed_steps"
+          :start-color=color_gradient
+          :stop-color=color_gradient
+          :innerStrokeColor=color_inline
+        >
+          <p>{{ formated_step }} mins</p>
+        </radial-progress-bar>
+      </div>
+      <p class="infos">{{ trip2 }}</p>
     </div>
-    <div>Oui : {{ formated_step }}</div>
   </div>
 </template>
 
@@ -34,36 +47,39 @@ export default {
     lineColor: String,
     lineName: String,
     lineType: String,
-    trip1: Object,
-    trip2: Object,
+    trip1: String,
+    trip2: String,
     width: String,
     height: String,
   },
   data() {
     return {
+      diameter: 150,
       totalStep: 600000,
-      formated_steps: setInterval(this.timeRemaining, 1000),
+      // Les paramètres de la méthodes se trouvent à partir du 3ème paramètre inclus
+      formated_step: setInterval(this.timeRemaining, 2000, 9055, 10),
       completed_steps: 0,
+      color_inline: "#c8c8c8",
+      color_gradient: "#f47499"
     };
   },
   methods: {
-    timeRemaining() {
-      fetch.fetchTBM(9055, 10).then((res) => {
-        var remain = res.destinations[1616][0].arrival_theorique;
-        var date = Date.parse(remain);
-        var now = Date.now();
-        var dif = date - now;
-        var min = Math.floor((dif / 1000 / 60) << 0);
-        var sec = Math.floor((dif / 1000) % 60);
+    timeRemaining(stopId, lineId) {
+      fetch.fetchTBM(stopId, lineId).then((res) => {
+        let remain = String(res.destinations[1616][0].waittime);
+        let remainSplit = remain.split(":");
+        let min = remainSplit[1];
+        let sec = remainSplit[2];
         if (Math.abs(sec) < 10) {
           sec = `0${sec}`;
         }
-        this.completed_steps = this.totalStep - dif;
-        var time = `${min}:${sec}`;
-        this.formated_step = time;
-        console.log(time);
-
-        return time;
+        this.completed_steps =
+          this.totalStep - Number(min * 1000 * 60 + sec * 1000);
+        this.formated_step = min;
+        console.log(this.totalStep);
+        console.log(min * 1000 * 60);
+        console.log(sec * 1000);
+        return min + 1;
       });
     },
   },
@@ -78,7 +94,7 @@ export default {
 
 <style scoped>
 #card {
-  background-color: aqua;
+  background-color: grey;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -94,10 +110,11 @@ export default {
 .infos {
   font-size: 1em;
   width: 150px;
+  margin: auto;
 }
 
 span {
-  color: red;
+  color: #f47f99;
 }
 
 .trip {

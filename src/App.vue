@@ -1,7 +1,7 @@
 <template>
   <div style="background-color: #ffff" id="container">
     <LoadingOverlay ref="loading" />
-    <TransportCard :width="400" :height="500"/>
+    <TransportCard :width="400" :height="500" trip1="Gradignan, Beausoleil" trip2="Bordeaux, Jardin Botanique"/>
     <input
       @click="$refs.loading.show()"
       value="Afficher chargement"
@@ -26,7 +26,9 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -35,7 +37,7 @@ export default {
 
 #container {
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
   height: 100vh;
