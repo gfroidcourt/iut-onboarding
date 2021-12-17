@@ -1,42 +1,29 @@
 <template>
   <div id="card" :style="style">
-    <p id="title">Tram <span>B</span></p>
+    <p id="title">
+      {{ data.lineName }} <span>{{ data.lineId }}</span>
+    </p>
     <div class="trip">
       <div class="progressbar">
         <radial-progress-bar
-          :diameter="diamter"
-          :total-steps="totalStep"
-          :completed-steps="completed_steps"
-          :start-color=color_gradient
-          :stop-color=color_gradient
-          :innerStrokeColor=color_inline
+          diameter="150"
+          :total-steps="data.waitInterval"
+          :completed-steps="completedSteps"
+          :start-color="data.lineColor"
+          :stop-color="data.lineColor"
+          innerStrokeColor="#c8c8c8"
         >
-          <p>{{ formated_step }} mins</p>
+          <p>{{ msToWaitTime(remainingTime) }}</p>
         </radial-progress-bar>
       </div>
-      <p class="infos">{{ trip1 }}</p>
-    </div>
-    <div class="trip">
-      <div class="progressbar">
-        <radial-progress-bar
-          :diameter="diamter"
-          :total-steps="totalStep"
-          :completed-steps="completed_steps"
-          :start-color=color_gradient
-          :stop-color=color_gradient
-          :innerStrokeColor=color_inline
-        >
-          <p>{{ formated_step }} mins</p>
-        </radial-progress-bar>
-      </div>
-      <p class="infos">{{ trip2 }}</p>
+      <p class="infos">{{ Object.values(data.stops)[0] }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import RadialProgressBar from "../../node_modules//vue-radial-progress";
-import * as fetch from "../api";
+import RadialProgressBar from "vue-radial-progress";
+import * as api from "../api";
 
 export default {
   name: "TransportCard",
@@ -44,44 +31,51 @@ export default {
     RadialProgressBar,
   },
   props: {
-    lineColor: String,
-    lineName: String,
-    lineType: String,
-    trip1: String,
-    trip2: String,
+    data: Object,
     width: String,
     height: String,
   },
   data() {
     return {
-      diameter: 150,
-      totalStep: 600000,
-      // Les paramètres de la méthodes se trouvent à partir du 3ème paramètre inclus
-      formated_step: setInterval(this.timeRemaining, 2000, 9055, 10),
-      completed_steps: 0,
-      color_inline: "#c8c8c8",
-      color_gradient: "#f47499"
+      loop: undefined,
+      completedSteps: 0,
+      remainingTime: 0,
     };
   },
   methods: {
-    timeRemaining(stopId, lineId) {
-      fetch.fetchTBM(stopId, lineId).then((res) => {
-        let remain = String(res.destinations[1616][0].waittime);
-        let remainSplit = remain.split(":");
-        let min = remainSplit[1];
-        let sec = remainSplit[2];
-        if (Math.abs(sec) < 10) {
-          sec = `0${sec}`;
-        }
-        this.completed_steps =
-          this.totalStep - Number(min * 1000 * 60 + sec * 1000);
-        this.formated_step = min;
-        console.log(this.totalStep);
-        console.log(min * 1000 * 60);
-        console.log(sec * 1000);
-        return min + 1;
-      });
+    waitTimeStringToMs(src) {
+      console.log(src);
+      const remainSplit = src.split(":");
+      return (parseInt(remainSplit[2]) + parseInt(remainSplit[1]) * 60) * 1000;
     },
+    msToWaitTime(ms) {
+      const minutes = Math.floor(ms / 60000);
+      const seconds = ((ms % 60000) / 1000).toFixed(0);
+      return `${Math.round(minutes)}:${Math.round(seconds)}`;
+    },
+    async setTimeRemaining() {
+      const res = await api.fetchTBM(
+        Object.keys(this.data.stops)[1],
+        this.data.lineId
+      );
+      console.log(Object.values(res.destinations)[0][0]);
+      const waitStr = Object.values(res.destinations)[0][0].waittime;
+      this.remainingTime = this.waitTimeStringToMs(waitStr);
+    },
+    refreshProgressBar() {
+      this.remainingTime -= 1000;
+      this.completedSteps = this.data.waitInterval - this.remainingTime;
+      console.log(this.completedSteps);
+    },
+  },
+  // Fonction appelé au moment du chargement du component
+  mounted() {
+    this.setTimeRemaining();
+    this.loop = setInterval(this.refreshProgressBar, 1000);
+  },
+  // Quand le component est enlevé de la page
+  unmounted() {
+    clearInterval(this.loop);
   },
   computed: {
     style() {
@@ -94,7 +88,7 @@ export default {
 
 <style scoped>
 #card {
-  background-color: grey;
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

@@ -1,7 +1,11 @@
 <template>
-  <div style="background-color: #ffff" id="container">
+  <div style="background-color: #000000" id="container">
     <LoadingOverlay ref="loading" />
-    <TransportCard :width="400" :height="500" trip1="Gradignan, Beausoleil" trip2="Bordeaux, Jardin Botanique"/>
+    <TransportCard
+      :width="400"
+      :height="500"
+      :data="bus1"
+    />
     <input
       @click="$refs.loading.show()"
       value="Afficher chargement"
@@ -17,6 +21,20 @@ import "./stylesheets/reset.css";
 
 export default {
   name: "App",
+  data() {
+    return {
+      bus1: {
+        stops: {
+          3323: "Bordeaux, Jardin Botanique",
+          9055: "Gradignan, Beausoleil",
+        },
+        lineColor: "#f47499",
+        lineId: 10,
+        lineName: "Liane",
+        waitInterval: 600000, // 10m
+      },
+    };
+  },
   components: {
     LoadingOverlay,
     TransportCard,
@@ -26,7 +44,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-size: 1.5em;
   -webkit-font-smoothing: antialiased;
