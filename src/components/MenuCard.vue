@@ -2,14 +2,13 @@
   <div id="menuCard">
     <div id="restName">{{ restName }}</div>
     <div id="mealList">
-      <div style="font-weight: bold"> Entrées diverses </div>
-      <br>
-      <div style="font-weight: bold"> Plats : </div>
-      <br>
+      <div style="font-weight: bold">Entrées diverses</div>
+      <br />
+      <div style="font-weight: bold">Plats :</div>
+      <br />
       <div id="meal" v-for="meal in mealList" :key="meal">- {{ meal }}</div>
-      <br>
-      <div style="font-weight: bold"> Desserts divers </div>
-
+      <br />
+      <div style="font-weight: bold">Desserts divers</div>
     </div>
   </div>
 </template>
@@ -31,7 +30,7 @@ export default {
   flex-direction: column;
   width: 35%;
   background-color: white;
-  color: #4F4C4D;
+  color: #4f4c4d;
   border-radius: 15px;
 }
 

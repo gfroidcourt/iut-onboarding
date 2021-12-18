@@ -31,8 +31,8 @@ export default {
   name: "App",
   data() {
     return {
-      sirtakiMenu: "Aucune donnée",
-      spaceMenu: "Aucune donnée",
+      sirtakiMenu: "",
+      spaceMenu: "",
     };
   },
   components: {
@@ -42,7 +42,6 @@ export default {
   },
   mounted() {
     scrapMeal.getAllRestaurantsMenus().then((res) => {
-      console.log(res);
       this.sirtakiMenu = res.sirtaki;
       this.spaceMenu = res.space;
     });
