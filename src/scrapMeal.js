@@ -53,5 +53,3 @@ export const getAllRestaurantsMenus = async () => ({
   space: await fetchMenu(SPACE_URL),
   sirtaki: await fetchMenu(SIRTAKI_URL),
 });
-
-
