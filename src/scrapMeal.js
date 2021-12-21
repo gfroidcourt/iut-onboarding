@@ -1,6 +1,6 @@
-/* eslint-disable */
-import fetch from "node-fetch";
+
 import cheerio from "cheerio";
+import fetch from "node-fetch";
 
 const SPACE_URL = "https://www.crous-bordeaux.fr/restaurant/space-campus-resto-u/";
 const SIRTAKI_URL = "https://www.crous-bordeaux.fr/restaurant/crous-cafet-le-sirtaki/";
@@ -53,3 +53,5 @@ export const getAllRestaurantsMenus = async () => ({
   space: await fetchMenu(SPACE_URL),
   sirtaki: await fetchMenu(SIRTAKI_URL),
 });
+
+
