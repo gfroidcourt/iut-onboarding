@@ -6,7 +6,7 @@
       <br />
       <div style="font-weight: bold">Plats :</div>
       <br />
-      <div id="meal" v-for="meal in mealList" :key="meal">- {{ meal }}</div>
+      <div id="meal" v-for="meal in mealList || []" :key="meal">- {{ meal }}</div>
       <br />
       <div style="font-weight: bold">Desserts divers</div>
     </div>

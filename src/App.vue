@@ -31,8 +31,8 @@ export default {
   name: "App",
   data() {
     return {
-      sirtakiMenu: "",
-      spaceMenu: "",
+      sirtakiMenu: undefined,
+      spaceMenu: undefined,
     };
   },
   components: {
