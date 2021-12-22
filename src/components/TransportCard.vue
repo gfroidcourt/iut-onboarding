@@ -40,6 +40,7 @@ export default {
     return {
       refreshProgressInterval: undefined,
       timeRemainingInterval: undefined,
+      updatedAt: undefined,
       remainingPercent: 0,
       remainingTime: 0,
     };
@@ -68,8 +69,11 @@ export default {
         Object.keys(this.busData.stops)[1],
         this.busData.lineId
       );
-      const waitStr = Object.values(res.destinations)[0][0].waittime;
-      this.remainingTime = this.waitTimeStringToMs(waitStr);
+      if (this.updatedAt !== Object.values(res.destinations)[0][0].updated_at) {
+        const waitStr = Object.values(res.destinations)[0][0].waittime;
+        this.remainingTime = this.waitTimeStringToMs(waitStr);
+      }
+      this.updatedAt = Object.values(res.destinations)[0][0].updated_at;
     },
     refreshProgressBar() {
       this.remainingTime -= 1000;
@@ -89,7 +93,7 @@ export default {
   // Fonction appelé au moment du chargement du component
   mounted() {
     this.setTimeRemaining();
-    this.timeRemainingInterval = setInterval(this.setTimeRemaining, 15000);
+    this.timeRemainingInterval = setInterval(this.setTimeRemaining, 5000);
     this.refreshProgressInterval = setInterval(this.refreshProgressBar, 1000);
   },
   // Quand le component est enlevé de la page
