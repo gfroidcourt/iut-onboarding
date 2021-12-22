@@ -5,16 +5,12 @@
     </p>
     <div class="trip">
       <div class="progressbar">
-        <radial-progress-bar
-          diameter="150"
-          :total-steps="data.waitInterval"
-          :completed-steps="completedSteps"
-          :start-color="data.lineColor"
-          :stop-color="data.lineColor"
-          innerStrokeColor="#c8c8c8"
+        <CircleProgress
+          :percent="50"
+          empty-color="#c8c8c8"
+          :fill-color="data.lineColor"
         >
-          <p>{{ msToWaitTime(remainingTime) }}</p>
-        </radial-progress-bar>
+        </CircleProgress>
       </div>
       <p class="infos">{{ Object.values(data.stops)[0] }}</p>
     </div>
@@ -22,18 +18,18 @@
 </template>
 
 <script>
-import RadialProgressBar from "vue-radial-progress";
 import * as api from "../api";
+import CircleProgress from "vue3-circle-progress";
 
 export default {
   name: "TransportCard",
   components: {
-    RadialProgressBar,
+    CircleProgress,
   },
   props: {
     data: Object,
-    width: String,
-    height: String,
+    width: Number,
+    height: Number,
   },
   data() {
     return {
@@ -59,8 +55,9 @@ export default {
         this.data.lineId
       );
       console.log(Object.values(res.destinations)[0][0]);
-      const waitStr = Object.values(res.destinations)[0][0].waittime;
-      this.remainingTime = this.waitTimeStringToMs(waitStr);
+      console.log(Object.values(res.destinations));
+      // const waitStr = Object.values(res.destinations)[0][0].waittime;
+      // this.remainingTime = this.waitTimeStringToMs(waitStr);
     },
     refreshProgressBar() {
       this.remainingTime -= 1000;
@@ -70,12 +67,12 @@ export default {
   },
   // Fonction appelé au moment du chargement du component
   mounted() {
-    this.setTimeRemaining();
-    this.loop = setInterval(this.refreshProgressBar, 1000);
+    // this.setTimeRemaining();
+    // this.loop = setInterval(this.refreshProgressBar, 1000);
   },
   // Quand le component est enlevé de la page
   unmounted() {
-    clearInterval(this.loop);
+    // clearInterval(this.loop);
   },
   computed: {
     style() {

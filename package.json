@@ -10,7 +10,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
-    "vue-radial-progress": "^0.3.2"
+    "vue-radial-progress": "^0.3.2",
+    "vue3-circle-progress": "^1.0.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
