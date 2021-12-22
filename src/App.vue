@@ -4,7 +4,7 @@
     <TransportCard
       :width="400"
       :height="500"
-      :data="bus1"
+      :busData="bus1"
     />
     <input
       @click="$refs.loading.show()"

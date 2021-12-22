@@ -1,18 +1,23 @@
 <template>
   <div id="card" :style="style">
     <p id="title">
-      {{ data.lineName }} <span>{{ data.lineId }}</span>
+      {{ busData.lineName }} <span>{{ busData.lineId }}</span>
     </p>
     <div class="trip">
       <div class="progressbar">
         <CircleProgress
-          :percent="50"
+          :border-width="17"
+          :border-bg-width="17"
+          :percent="remainingPercent"
+          :fill-color="busData.lineColor"
           empty-color="#c8c8c8"
-          :fill-color="data.lineColor"
-        >
-        </CircleProgress>
+        />
+        <p>
+          {{ msToWaitTime(remainingTime) }}
+          <span style="font-size: 0.7em">mins</span>
+        </p>
       </div>
-      <p class="infos">{{ Object.values(data.stops)[0] }}</p>
+      <p class="infos">{{ Object.values(busData.stops)[0] }}</p>
     </div>
   </div>
 </template>
@@ -27,14 +32,15 @@ export default {
     CircleProgress,
   },
   props: {
-    data: Object,
+    busData: Object,
     width: Number,
     height: Number,
   },
   data() {
     return {
-      loop: undefined,
-      completedSteps: 0,
+      refreshProgressInterval: undefined,
+      timeRemainingInterval: undefined,
+      remainingPercent: 0,
       remainingTime: 0,
     };
   },
@@ -45,34 +51,51 @@ export default {
       return (parseInt(remainSplit[2]) + parseInt(remainSplit[1]) * 60) * 1000;
     },
     msToWaitTime(ms) {
-      const minutes = Math.floor(ms / 60000);
-      const seconds = ((ms % 60000) / 1000).toFixed(0);
-      return `${Math.round(minutes)}:${Math.round(seconds)}`;
+      let minutes = Math.floor(ms / 60000);
+      let seconds = ((ms % 60000) / 1000).toFixed(0);
+      minutes = Math.round(minutes);
+      seconds = Math.round(seconds);
+      if (seconds < 10) {
+        seconds = `0${seconds}`;
+      }
+      if (minutes < 10) {
+        minutes = `0${minutes}`;
+      }
+      return `${minutes}:${seconds}`;
     },
     async setTimeRemaining() {
       const res = await api.fetchTBM(
-        Object.keys(this.data.stops)[1],
-        this.data.lineId
+        Object.keys(this.busData.stops)[1],
+        this.busData.lineId
       );
-      console.log(Object.values(res.destinations)[0][0]);
-      console.log(Object.values(res.destinations));
-      // const waitStr = Object.values(res.destinations)[0][0].waittime;
-      // this.remainingTime = this.waitTimeStringToMs(waitStr);
+      const waitStr = Object.values(res.destinations)[0][0].waittime;
+      this.remainingTime = this.waitTimeStringToMs(waitStr);
     },
     refreshProgressBar() {
       this.remainingTime -= 1000;
-      this.completedSteps = this.data.waitInterval - this.remainingTime;
-      console.log(this.completedSteps);
+      if (this.remainingTime < 0) {
+        this.remainingTime = 0;
+      }
+      if (this.remainingTime > this.busData.waitInterval) {
+        this.remainingPercent = 0.1;
+      } else {
+        this.remainingPercent =
+          ((this.busData.waitInterval - this.remainingTime) /
+            this.busData.waitInterval) *
+          100;
+      }
     },
   },
   // Fonction appelé au moment du chargement du component
   mounted() {
-    // this.setTimeRemaining();
-    // this.loop = setInterval(this.refreshProgressBar, 1000);
+    this.setTimeRemaining();
+    this.timeRemainingInterval = setInterval(this.setTimeRemaining, 15000);
+    this.refreshProgressInterval = setInterval(this.refreshProgressBar, 1000);
   },
   // Quand le component est enlevé de la page
   unmounted() {
-    // clearInterval(this.loop);
+    clearInterval(this.refreshProgressInterval);
+    clearInterval(this.timeRemainingInterval);
   },
   computed: {
     style() {
@@ -104,7 +127,17 @@ export default {
   margin: auto;
 }
 
-span {
+.progressbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressbar > p {
+  position: absolute;
+}
+
+#title span {
   color: #f47f99;
 }
 
