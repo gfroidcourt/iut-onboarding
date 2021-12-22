@@ -46,6 +46,11 @@ export default {
       this.spaceMenu = res.space;
     });
   },
+  mounted() {
+    scrapMeal.getAllRestaurantsMenus().then(res => {
+      console.log(res);
+    });
+  }
 };
 </script>
 
