@@ -1,11 +1,8 @@
 <template>
   <div style="background-color: #000000" id="container">
     <LoadingOverlay ref="loading" />
-    <TransportCard
-      :width="400"
-      :height="500"
-      :busData="bus1"
-    />
+    <TransportCard :width="400" :height="500" :busData="liane10" />
+    <TransportCard :width="400" :height="500" :busData="tramB" />
     <input
       @click="$refs.loading.show()"
       value="Afficher chargement"
@@ -23,14 +20,25 @@ export default {
   name: "App",
   data() {
     return {
-      bus1: {
-        stops: {
-          3323: "Bordeaux, Jardin Botanique",
-          9055: "Gradignan, Beausoleil",
-        },
-        lineColor: "#f47499",
+      liane10: {
+        stops: [3323, 9055],
+        lineColor: "#3F96D4",
         lineId: 10,
         lineName: "Liane",
+        waitInterval: 600000, // 10m
+      },
+      corol31: {
+        stops: [3323, 9055],
+        lineColor: "#F89454",
+        lineId: 31,
+        lineName: "Corol",
+        waitInterval: 600000, // 10m
+      },
+      tramB: {
+        stops: [7463, 3730],
+        lineColor: "#f47499",
+        lineId: "B",
+        lineName: "Tram",
         waitInterval: 600000, // 10m
       },
     };
