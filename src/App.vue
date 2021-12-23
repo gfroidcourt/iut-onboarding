@@ -12,27 +12,40 @@
       value="Changer background"
       type="button"
     />
+    <div id="menus">
+      <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
+      <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
+    </div>
   </div>
 </template>
 
 <script>
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
+import MenuCard from "./components/MenuCard.vue";
 
 import "./stylesheets/reset.css";
 import * as scrapMeal from "./scrapMeal.js";
 
 export default {
   name: "App",
+  data() {
+    return {
+      sirtakiMenu: undefined,
+      spaceMenu: undefined,
+    };
+  },
   components: {
     LoadingOverlay,
     Background,
+    MenuCard,
   },
   mounted() {
-    scrapMeal.getAllRestaurantsMenus().then(res => {
-      console.log(res);
+    scrapMeal.getAllRestaurantsMenus().then((res) => {
+      this.sirtakiMenu = res.sirtaki;
+      this.spaceMenu = res.space;
     });
-  }
+  },
 };
 </script>
 
@@ -42,6 +55,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  font-family: "Poppins", sans-serif;
 }
 
 input {
@@ -54,5 +68,10 @@ input {
 }
 input:hover {
   background-color: rgba(255, 255, 255, 0.15);
+}
+
+#menus {
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>
