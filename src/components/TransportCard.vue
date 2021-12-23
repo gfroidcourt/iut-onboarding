@@ -44,7 +44,7 @@ export default {
   justify-content: space-around;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.466);
+  box-shadow: 0px 0px 30px 0px rgba(30, 30, 30, 0.2);
 }
 
 #title {
