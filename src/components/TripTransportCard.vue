@@ -4,13 +4,16 @@
       <CircleProgress
         :border-width="17"
         :border-bg-width="17"
+        :size="150"
         :percent="remainingPercent"
         :fill-color="busData.lineColor"
         empty-color="#c8c8c8"
       />
       <p>
-        {{ msToWaitTime(remainingTime) }}
-        <span style="font-size: 0.7em">mins</span>
+        {{ msToWaitTime(remainingTime)[0]
+        }}<span style="font-size: 0.7em">m</span
+        >{{ msToWaitTime(remainingTime)[1]
+        }}<span style="font-size: 0.7em">s</span>
       </p>
     </div>
     <p class="infos">{{ formatDirectionString() }}</p>
@@ -39,6 +42,7 @@ export default {
       remainingPercent: 0,
       remainingTime: 0,
       lineName: "",
+      waitInterval: 60000,
     };
   },
   methods: {
@@ -48,10 +52,8 @@ export default {
         .replace(".", " ")
         .split(" ")
         .map((word) => {
-          if(word.length > 0)
-            return word[0].toUpperCase() + word.substring(1);
-          else
-            return "";
+          if (word.length > 0) return word[0].toUpperCase() + word.substring(1);
+          else return "";
         })
         .join(" ");
     },
@@ -66,7 +68,7 @@ export default {
       if (minutes < 10) {
         minutes = `0${minutes}`;
       }
-      return `${minutes}:${seconds}`;
+      return [minutes, seconds];
     },
     waitTimeStringToMs(src) {
       const remainSplit = src.split(":");
@@ -79,7 +81,12 @@ export default {
       );
       const dests = Object.values(res.destinations);
       let indexBus = 0;
-      if (dests[1] !== undefined && dests[1][0].waittime < dests[0][0].waittime) indexBus = 1;
+      if (
+        dests[1] !== undefined &&
+        dests[1][0].waittime < dests[0][0].waittime
+      ) {
+        indexBus = 1;
+      }
 
       if (this.updatedAt !== dests[indexBus][0].updated_at) {
         const waitStr = dests[indexBus][0].waittime;
@@ -93,13 +100,11 @@ export default {
       if (this.remainingTime < 0) {
         this.remainingTime = 0;
       }
-      if (this.remainingTime > this.busData.waitInterval) {
+      if (this.remainingTime > this.waitInterval) {
         this.remainingPercent = 0.1;
       } else {
         this.remainingPercent =
-          ((this.busData.waitInterval - this.remainingTime) /
-            this.busData.waitInterval) *
-          100;
+          ((this.waitInterval - this.remainingTime) / this.waitInterval) * 100;
       }
     },
   },
@@ -107,6 +112,16 @@ export default {
     this.setTimeRemaining();
     this.timeRemainingInterval = setInterval(this.setTimeRemaining, 5000);
     this.refreshProgressInterval = setInterval(this.refreshProgressBar, 1000);
+    api
+      .getTBMLineWaitInterval(
+        this.busData.stops[this.index],
+        this.busData.lineId
+      ).then((time) => {
+        this.waitInterval = time;
+      }).catch((err) => {
+        console.error(err);
+        this.waitInterval = 600000;
+      });
   },
   unmounted() {
     clearInterval(this.refreshProgressInterval);
@@ -119,13 +134,16 @@ export default {
 .trip-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }
 
 .infos {
   font-size: 1em;
   width: 150px;
-  margin: auto;
+  line-height: 35px;
+  text-align: left;
 }
 
 .progress-bar {

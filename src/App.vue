@@ -1,19 +1,23 @@
 <template>
   <div id="container">
+    <div class="transport">
+      <TransportCard :width="400" :height="500" :busData="liane10" />
+      <TransportCard :width="400" :height="500" :busData="tramB" />
+    </div>
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
-    <TransportCard :width="400" :height="500" :busData="liane10" />
-    <TransportCard :width="400" :height="500" :busData="tramB" />
-    <input
-      @click="$refs.loading.show()"
-      value="Afficher chargement"
-      type="button"
-    />
-    <input
-      @click="$refs.background.next()"
-      value="Changer background"
-      type="button"
-    />
+    <div class="button">
+      <input
+        @click="$refs.loading.show()"
+        value="Afficher chargement"
+        type="button"
+      />
+      <input
+        @click="$refs.background.next()"
+        value="Changer background"
+        type="button"
+      />
+    </div>
     <!-- <div id="menus">
       <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
       <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
@@ -39,21 +43,12 @@ export default {
         lineColor: "#3F96D4",
         lineId: 10,
         lineName: "Liane",
-        waitInterval: 600000, // 10m
-      },
-      corol31: {
-        stops: [3323, 9055],
-        lineColor: "#F89454",
-        lineId: 31,
-        lineName: "Corol",
-        waitInterval: 600000, // 10m
       },
       tramB: {
         stops: [7463, 3730],
         lineColor: "#f47499",
         lineId: "B",
         lineName: "Tram",
-        waitInterval: 600000, // 10m
       },
       sirtakiMenu: undefined,
       spaceMenu: undefined,
@@ -106,7 +101,11 @@ input:hover {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  align-items: center;
   height: 100vh;
+}
+
+.transport {
+  display: flex;
+  justify-content: space-around;
 }
 </style>

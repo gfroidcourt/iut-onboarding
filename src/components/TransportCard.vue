@@ -1,16 +1,13 @@
 <template>
   <div id="card" :style="style">
     <p id="title">
-      {{ busData.lineName }} <span :style="`color: ${busData.lineColor}`">{{ busData.lineId }}</span>
+      {{ busData.lineName }}
+      <span :style="`color: ${busData.lineColor} ; font-size : 1.7em`">{{
+        busData.lineId
+      }}</span>
     </p>
-    <TripTransportCard
-      :busData="busData"
-      :index="0"
-    />
-    <TripTransportCard
-      :busData="busData"
-      :index="1"
-    />
+    <TripTransportCard :busData="busData" :index="0"/>
+    <TripTransportCard :busData="busData" :index="1"/>
   </div>
 </template>
 
@@ -48,6 +45,6 @@ export default {
 }
 
 #title {
-  font-size: 3em;
+  font-size: 1.2em;
 }
 </style>
