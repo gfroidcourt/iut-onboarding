@@ -12,10 +12,10 @@
       value="Changer background"
       type="button"
     />
-    <div id="menus">
+    <!-- <div id="menus">
       <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
       <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
   components: {
     LoadingOverlay,
     Background,
-    MenuCard,
+    // MenuCard,
   },
   mounted() {
     scrapMeal.getAllRestaurantsMenus().then((res) => {

@@ -25,8 +25,45 @@ export default {
     return {
       colors: ["#91E59B", "#A391E5", "#91C5E5"],
       currentColor: 0,
-      currentDecoration: "lines",
+      currentDecoration: "snow",
       decorations: {
+        circles: [
+          {
+            svg: require("../assets/circle.svg"),
+            posStyle: "left: 500px; width: 100px",
+            transition: "slide-left",
+            show: false,
+            class: "full-height",
+          },
+          {
+            svg: require("../assets/circle.svg"),
+            posStyle: "top: 10px; left: 100px; width: 300px",
+            transition: "slide-top",
+            show: false,
+            class: "full-width",
+          },
+          {
+            svg: require("../assets/circle.svg"),
+            posStyle: "right: 100px; width: 200px",
+            transition: "slide-right",
+            show: false,
+            class: "full-height",
+          },
+          {
+            svg: require("../assets/circle.svg"),
+            posStyle: "bottom: 10px; right: 100px; width: 300px",
+            transition: "slide-bottom",
+            show: false,
+            class: "full-width",
+          },
+          {
+            svg: require("../assets/circle.svg"),
+            posStyle: "bottom: 100px; left: 50px; width: 60px",
+            transition: "slide-bottom",
+            show: false,
+            class: "full-width",
+          },
+        ],
         lines: [
           {
             svg: require("../assets/path1.svg"),
