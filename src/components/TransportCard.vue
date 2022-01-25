@@ -21,13 +21,11 @@ export default {
   },
   props: {
     busData: Object,
-    width: Number,
-    height: Number,
   },
   computed: {
     style() {
-      return `height: ${this.height}px; 
-              width: ${this.width}px`;
+      return `height: 500px; 
+              width: 400px`;
     },
   },
 };

@@ -1,8 +1,8 @@
 <template>
   <div id="container">
     <div class="transport">
-      <TransportCard :width="400" :height="500" :busData="liane10" />
-      <TransportCard :width="400" :height="500" :busData="tramB" />
+      <TransportCard :busData="liane10" />
+      <TransportCard :busData="tramB" />
     </div>
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
