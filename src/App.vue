@@ -1,10 +1,23 @@
 <template>
   <div id="container">
     <div class="transport">
-    <Meteo />
+      <TransportCard :busData="liane10" />
+      <TransportCard :busData="tramB" />
     </div>
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
+    <div class="button">
+      <input
+        @click="$refs.loading.show()"
+        value="Afficher chargement"
+        type="button"
+      />
+      <input
+        @click="$refs.background.next()"
+        value="Changer background"
+        type="button"
+      />
+    </div>
     <!-- <div id="menus">
       <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
       <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
@@ -44,8 +57,9 @@ export default {
   },
   components: {
     LoadingOverlay,
+    TransportCard,
     Background,
-    Meteo,
+    //Meteo,
     //MenuCard,
     //TransportCard,
   },
@@ -95,6 +109,6 @@ input:hover {
 
 .transport {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 </style>

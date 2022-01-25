@@ -19,12 +19,11 @@ export const fetchNextWeather = async () => {
     let weathertab = [];
     for (let i = 0; i < data.length; i++) {
       if (new Date(data[i].DateTime).getHours() % 2 === 0) {
-        weathertab.push(
-          {
-            "Heure": data[i].DateTime.substring(11, 13),
-            "icone": `https://www.accuweather.com/images/weathericons/${data[i].WeatherIcon.toString()}.svg`,
-            "Temperature": Math.round((data[i].Temperature.Value - 32) * 5 / 9),
-          }
+        weathertab.push({
+          "Heure": data[i].DateTime.substring(11, 13),
+          "icone": `https://www.accuweather.com/images/weathericons/${data[i].WeatherIcon.toString()}.svg`,
+          "Temperature": Math.round((data[i].Temperature.Value - 32) * 5 / 9),
+        }
 
         );
       }
@@ -68,6 +67,3 @@ export const getTBMLineWaitInterval = async (stopId, lineId) => {
     throw `Erreur de récupération des wait interval TBM (ligne: ${lineId}, arrêt: ${stopId}) : ${e}`;
   }
 };
-
-
-

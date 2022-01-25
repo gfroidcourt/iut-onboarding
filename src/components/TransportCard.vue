@@ -1,5 +1,5 @@
 <template>
-  <div id="card" :style="style">
+  <div id="card">
     <p id="title">
       {{ busData.lineName }}
       <span :style="`color: ${busData.lineColor} ; font-size : 1.7em`">{{
@@ -21,14 +21,6 @@ export default {
   },
   props: {
     busData: Object,
-    width: Number,
-    height: Number,
-  },
-  computed: {
-    style() {
-      return `height: ${this.height}px; 
-              width: ${this.width}px`;
-    },
   },
 };
 </script>
@@ -42,6 +34,8 @@ export default {
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0px 0px 30px 0px rgba(30, 30, 30, 0.2);
+  height: 500px;
+  width: 400px;
 }
 
 #title {
