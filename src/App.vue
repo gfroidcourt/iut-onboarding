@@ -1,17 +1,23 @@
 <template>
-  <div>
+  <div id="container">
+    <div class="transport">
+      <TransportCard :busData="liane10" />
+      <TransportCard :busData="tramB" />
+    </div>
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
-    <input
-      @click="$refs.loading.show()"
-      value="Afficher chargement"
-      type="button"
-    />
-    <input
-      @click="$refs.background.next()"
-      value="Changer background"
-      type="button"
-    />
+    <div class="button">
+      <input
+        @click="$refs.loading.show()"
+        value="Afficher chargement"
+        type="button"
+      />
+      <input
+        @click="$refs.background.next()"
+        value="Changer background"
+        type="button"
+      />
+    </div>
     <!-- <div id="menus">
       <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
       <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
@@ -21,6 +27,7 @@
 
 <script>
 import LoadingOverlay from "./components/LoadingOverlay.vue";
+import TransportCard from "./components/TransportCard.vue";
 import Background from "./components/Background.vue";
 import MenuCard from "./components/MenuCard.vue";
 
@@ -31,14 +38,27 @@ export default {
   name: "App",
   data() {
     return {
+      liane10: {
+        stops: [3323, 9055],
+        lineColor: "#3F96D4",
+        lineId: 10,
+        lineName: "Liane",
+      },
+      tramB: {
+        stops: [7463, 3730],
+        lineColor: "#f47499",
+        lineId: "B",
+        lineName: "Tram",
+      },
       sirtakiMenu: undefined,
       spaceMenu: undefined,
     };
   },
   components: {
     LoadingOverlay,
+    TransportCard,
     Background,
-    // MenuCard,
+    //MenuCard,
   },
   mounted() {
     scrapMeal.getAllRestaurantsMenus().then((res) => {
@@ -51,7 +71,9 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -73,5 +95,17 @@ input:hover {
 #menus {
   display: flex;
   justify-content: space-evenly;
+}
+
+#container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.transport {
+  display: flex;
+  justify-content: space-around;
 }
 </style>
