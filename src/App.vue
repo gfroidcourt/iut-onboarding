@@ -1,70 +1,80 @@
 <template>
-  <div id="container">
-    <Meteo/>
+  <div class="view-container">
     <Background ref="background" />
+
+    <!-- <Meteo :isActive="currentView == 'weather'" />  -->
+    <Menus :isActive="currentView == 'menus'" />
+    <!-- <Planning :isActive="currentView == 'planning'" /> -->
+    <Transport :isActive="currentView == 'transport'" />
+
     <LoadingOverlay ref="loading" />
-    <div class="button">
-      <input
-        @click="$refs.loading.show()"
-        value="Afficher chargement"
-        type="button"
-      />
-      <input
-        @click="$refs.background.next()"
-        value="Changer background"
-        type="button"
-      />
-    </div>
-    <!-- <div id="menus">
-      <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
-      <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
-    </div> -->
   </div>
 </template>
 
 <script>
 import LoadingOverlay from "./components/LoadingOverlay.vue";
-import TransportCard from "./components/TransportCard.vue";
 import Background from "./components/Background.vue";
-import MenuCard from "./components/MenuCard.vue";
-import Meteo from "./components/MeteoCard.vue";
+
+//import Meteo from "./views/Weather.vue";
+import Menus from "./views/Menus.vue";
+import Transport from "./views/NextTransports.vue";
+//import Planning from "./views/NextClassRooms.vue";
 
 import "./stylesheets/reset.css";
-import * as scrapMeal from "./scrapMeal.js";
 
 export default {
   name: "App",
   data() {
     return {
-      liane10: {
-        stops: [3323, 9055],
-        lineColor: "#3F96D4",
-        lineId: 10,
-        lineName: "Liane",
+      currentView: "transport",
+      views: {
+        // weather: {
+        //   time: 5000,
+        // },
+        transport: {
+          time: 5000,
+        },
+        menus: {
+          time: 5000,
+        },
+        // planning: {
+        //   time: 5000,
+        // },
       },
-      tramB: {
-        stops: [7463, 3730],
-        lineColor: "#f47499",
-        lineId: "B",
-        lineName: "Tram",
-      },
-      sirtakiMenu: undefined,
-      spaceMenu: undefined,
     };
+  },
+  methods: {
+    getNextViewName() {
+      switch (this.currentView) {
+        // case "weather":
+        //   return "transport";
+        // case "transport":
+        //   return "planning";
+        case "transport":
+          return "menus";
+        case "menus":
+          return "transport";
+      }
+    },
+    changeView() {
+      this.currentView = this.getNextViewName();
+      setTimeout(() => {
+        this.$refs.loading.show();
+        this.$refs.background.next();
+        setTimeout(this.changeView, 200);
+      }, this.views[this.currentView].time);
+    },
+  },
+  mounted() {
+    this.changeView();
   },
   components: {
     LoadingOverlay,
-    //TransportCard,
     Background,
-    Meteo,
-    //MenuCard,
-    //TransportCard,
-  },
-  mounted() {
-    scrapMeal.getAllRestaurantsMenus().then((res) => {
-      this.sirtakiMenu = res.sirtaki;
-      this.spaceMenu = res.space;
-    });
+    //Meteo,
+    Menus,
+    Transport,
+    // Planning,
   },
 };
 </script>
@@ -73,7 +83,7 @@ export default {
 #app {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -97,16 +107,21 @@ input:hover {
   justify-content: space-evenly;
 }
 
-#container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-}
-
 .transport {
   display: flex;
   justify-content: space-around;
+}
+
+.view-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  height: 100vh;
 }
 </style>
