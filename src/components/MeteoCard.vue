@@ -26,31 +26,6 @@ export default {
       currentWeather: undefined,
       currentTemperature: undefined,
       info_meteo: [
-        {
-          heure: "8h",
-          icone: "https://www.accuweather.com/images/weathericons/36.svg",
-          temperature: "13°",
-        },
-        {
-          heure: "10h",
-          icone: "https://www.accuweather.com/images/weathericons/36.svg",
-          temperature: "15°",
-        },
-        {
-          heure: "12h",
-          icone: "https://www.accuweather.com/images/weathericons/36.svg",
-          temperature: "16°",
-        },
-        {
-          heure: "14h",
-          icone: "https://www.accuweather.com/images/weathericons/36.svg",
-          temperature: "16°",
-        },
-        {
-          heure: "16h",
-          icone: "https://www.accuweather.com/images/weathericons/36.svg",
-          temperature: "16°",
-        },
       ],
     };
   },
@@ -71,6 +46,7 @@ export default {
 .container {
   background-color: #ffffff;
   border-radius: 20px;
+  width: 800px;
   box-shadow: 30px rgba(30, 30, 30, 0.2);
   padding: 50px;
   display: flex;

@@ -1,9 +1,6 @@
 <template>
   <div id="container">
-    <div class="transport">
-      <TransportCard :busData="liane10" />
-      <TransportCard :busData="tramB" />
-    </div>
+    <Meteo/>
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
     <div class="button">
@@ -57,9 +54,9 @@ export default {
   },
   components: {
     LoadingOverlay,
-    TransportCard,
+    //TransportCard,
     Background,
-    //Meteo,
+    Meteo,
     //MenuCard,
     //TransportCard,
   },
@@ -102,7 +99,8 @@ input:hover {
 
 #container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: 100vh;
 }
