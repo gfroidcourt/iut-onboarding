@@ -6,8 +6,8 @@
         busData.lineId
       }}</span>
     </p>
-    <TripTransportCard :busData="busData" :index="0" />
-    <TripTransportCard :busData="busData" :index="1" />
+    <TripTransportCard :busData="busData" :index="0"/>
+    <TripTransportCard :busData="busData" :index="1"/>
   </div>
 </template>
 

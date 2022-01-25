@@ -1,9 +1,6 @@
 <template>
   <div id="container">
-    <div class="transport">
-      <TransportCard :busData="liane10" />
-      <TransportCard :busData="tramB" />
-    </div>
+    <Meteo/>
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
     <div class="button">
@@ -30,6 +27,7 @@ import LoadingOverlay from "./components/LoadingOverlay.vue";
 import TransportCard from "./components/TransportCard.vue";
 import Background from "./components/Background.vue";
 import MenuCard from "./components/MenuCard.vue";
+import Meteo from "./components/MeteoCard.vue";
 
 import "./stylesheets/reset.css";
 import * as scrapMeal from "./scrapMeal.js";
@@ -56,9 +54,11 @@ export default {
   },
   components: {
     LoadingOverlay,
-    TransportCard,
+    //TransportCard,
     Background,
+    Meteo,
     //MenuCard,
+    //TransportCard,
   },
   mounted() {
     scrapMeal.getAllRestaurantsMenus().then((res) => {
@@ -99,7 +99,8 @@ input:hover {
 
 #container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: 100vh;
 }
