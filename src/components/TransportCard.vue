@@ -1,13 +1,13 @@
 <template>
-  <div id="card" :style="style">
+  <div id="card">
     <p id="title">
       {{ busData.lineName }}
       <span :style="`color: ${busData.lineColor} ; font-size : 1.7em`">{{
         busData.lineId
       }}</span>
     </p>
-    <TripTransportCard :busData="busData" :index="0"/>
-    <TripTransportCard :busData="busData" :index="1"/>
+    <TripTransportCard :busData="busData" :index="0" />
+    <TripTransportCard :busData="busData" :index="1" />
   </div>
 </template>
 
@@ -22,12 +22,6 @@ export default {
   props: {
     busData: Object,
   },
-  computed: {
-    style() {
-      return `height: 500px; 
-              width: 400px`;
-    },
-  },
 };
 </script>
 
@@ -40,6 +34,8 @@ export default {
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0px 0px 30px 0px rgba(30, 30, 30, 0.2);
+  height: 500px;
+  width: 400px;
 }
 
 #title {
