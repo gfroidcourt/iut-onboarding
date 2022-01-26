@@ -1,8 +1,8 @@
 <template>
   <div id="container">
-    <Meteo/>
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
+    <Date />
     <div class="button">
       <input
         @click="$refs.loading.show()"
@@ -15,10 +15,10 @@
         type="button"
       />
     </div>
-    <!-- <div id="menus">
+    <div id="menus">
       <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
       <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ import TransportCard from "./components/TransportCard.vue";
 import Background from "./components/Background.vue";
 import MenuCard from "./components/MenuCard.vue";
 import Meteo from "./components/MeteoCard.vue";
+import Date from "./components/DateHourHeader.vue";
 
 import "./stylesheets/reset.css";
 import * as scrapMeal from "./scrapMeal.js";
@@ -56,7 +57,7 @@ export default {
     LoadingOverlay,
     //TransportCard,
     Background,
-    Meteo,
+    Date,
     //MenuCard,
     //TransportCard,
   },
