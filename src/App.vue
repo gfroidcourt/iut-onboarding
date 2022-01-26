@@ -2,36 +2,13 @@
   <div id="container">
     <Background ref="background" />
     <LoadingOverlay ref="loading" />
-    <Date />
-    <div class="button">
-      <input
-        @click="$refs.loading.show()"
-        value="Afficher chargement"
-        type="button"
-      />
-      <input
-        @click="$refs.background.next()"
-        value="Changer background"
-        type="button"
-      />
-    </div>
-    <div id="menus">
-      <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
-      <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
-    </div>
+    <PlanningView/>
   </div>
 </template>
 
 <script>
-import LoadingOverlay from "./components/LoadingOverlay.vue";
-import TransportCard from "./components/TransportCard.vue";
+import PlanningView from "./views/NextPlannings.vue";
 import Background from "./components/Background.vue";
-import MenuCard from "./components/MenuCard.vue";
-import Meteo from "./components/MeteoCard.vue";
-import Date from "./components/DateHourHeader.vue";
-
-import "./stylesheets/reset.css";
-import * as scrapMeal from "./scrapMeal.js";
 
 export default {
   name: "App",
@@ -53,19 +30,15 @@ export default {
       spaceMenu: undefined,
     };
   },
+  mounted() {
+    this.$refs.background.next();
+  },
   components: {
-    LoadingOverlay,
-    //TransportCard,
-    Background,
-    Date,
+    // Date,
+    PlanningView,
+    Background
     //MenuCard,
     //TransportCard,
-  },
-  mounted() {
-    scrapMeal.getAllRestaurantsMenus().then((res) => {
-      this.sirtakiMenu = res.sirtaki;
-      this.spaceMenu = res.space;
-    });
   },
 };
 </script>

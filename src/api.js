@@ -23,9 +23,7 @@ export const fetchNextWeather = async () => {
           "Heure": data[i].DateTime.substring(11, 13),
           "icone": `https://www.accuweather.com/images/weathericons/${data[i].WeatherIcon.toString()}.svg`,
           "Temperature": Math.round((data[i].Temperature.Value - 32) * 5 / 9),
-        }
-
-        );
+        });
       }
     }
     return weathertab;
