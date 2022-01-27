@@ -39,6 +39,13 @@ export default {
     return {
       currentView: "transport",
       views: {
+        /*
+          To active only one or some views, juste comment here what you dont want to be
+          displayed.
+          If only one view is uncommented, the slide show will be disabled (Usefull for development).
+
+          The order in the object is the display order
+        */
         // transport: {
         //   time: 5000,
         //   allowed: () => true, // TO DO
@@ -77,14 +84,21 @@ export default {
       // - Handling allowed functions
 
       this.currentView = this.getNextViewName();
-      // setTimeout(() => {
-      //   this.$refs.loading && this.$refs.loading.show();
-      //   this.$refs.background && this.$refs.background.next();
-      //   setTimeout(this.changeView, 200);
-      // }, this.views[this.currentView].time);
+
+      if (Object.keys(this.views).length <= 1)
+        //Detect we've commented all views except one
+        return; // (Disable slide show)
+
+      setTimeout(() => {
+        this.$refs.loading && this.$refs.loading.show();
+        this.$refs.background && this.$refs.background.next();
+        setTimeout(this.changeView, 200);
+      }, this.views[this.currentView].time);
     },
   },
   mounted() {
+    this.$refs.background && this.$refs.background.next();
+    this.$refs.background && this.$refs.background.next();
     this.changeView();
   },
   components: {
@@ -135,8 +149,14 @@ export default {
 }
 
 .view-title {
-  color: white;
-  font-size: 40px;
+  background-color: white;
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
+
+  color: grey;
+
+  font-size: 30px;
   font-weight: 800;
+  padding: 30px 50px;
+  border-radius: 30px;
 }
 </style>

@@ -159,7 +159,7 @@ export default {
       // return startHour > currentHour - 1 && startHour <= currentHour + 1;
       // ----- REAL CODE ABOVE
 
-      return event.dateStart.getHours() === 16; // FOR TESTING PURPOSE
+      return event.dateStart.getHours() === 14; // FOR TESTING PURPOSE
     },
     async getAllPlannings() {
       this.nextClasses = [];

@@ -1,54 +1,39 @@
 <template>
-  <div id="planningcard">
-    <h1 class="card-header">{{ data.className.toUpperCase() }}</h1>
-    <!-- Si on est en classe entière -->
-    <template v-if="data.isFullClass">
-      <div class="row">
-        <p>{{ data.type[0] }}</p>
+  <div class="planning-container">
+    <!-- eslint-disable vue/no-v-for-template-key -->
+    <div
+      class="planning-card"
+      v-for="(group, groupindex) in getGroupsComponent()"
+      :key="groupindex"
+    >
+      <div :style="`color: ${classColor}`" class="card-header">
+        <p v-for="(item, index) in getClassNameComponent(group)" :key="index">
+          {{ item }}
+        </p>
       </div>
-      <div class="row">
-        <p>{{ data.subject[0] }}</p>
+      <div v-if="group !== undefined" class="data-container">
+        <div class="subject-infos">
+          <p>{{ classType }}</p>
+          <p>{{ data.subject[groupindex] }}</p>
+        </div>
+        <div class="subject-infos">
+          <p class="teacher">
+            {{
+              data.teacher[groupindex]
+                ? data.teacher[groupindex]
+                : "Pas de prof"
+            }}
+          </p>
+        </div>
+        <div class="subject-infos">
+          <p class="room">{{ data.room[groupindex] }}</p>
+        </div>
       </div>
-      <div class="row">
-        <p class="teacher">{{ data.teacher[0] }}</p>
+      <div v-else style="opacity: 0.5" class="data-container">
+        <img :src="noClassLogo" />
+        <p>Pas cours</p>
       </div>
-      <div class="row">
-        <p>{{ data.room[0] }}</p>
-      </div>
-    </template>
-    <!-- Groupe prime a cours -->
-    <template v-else-if="!data.isFullClass && data.type[0] != undefined">
-      <div class="row">
-        <p>{{ data.type[0] }}</p>
-      </div>
-      <div class="row">
-        <p>{{ data.subject[0] }}</p>
-      </div>
-      <div class="row">
-        <p class="teacher">{{ data.teacher[0] }}</p>
-      </div>
-      <div class="row">
-        <p>{{ data.room[0] }}</p>
-      </div>
-    </template>
-    <!-- Groupe seconde a cours -->
-    <template v-else-if="!data.isFullClass && data.type[1] != undefined">
-      <div class="row">
-        <p>{{ data.type[1] }}</p>
-      </div>
-      <div class="row">
-        <p>{{ data.subject[1] }}</p>
-      </div>
-      <div class="row">
-        <p class="teacher">{{ data.teacher[1] }}</p>
-      </div>
-      <div class="row">
-        <p>{{ data.room[1] }}</p>
-      </div>
-    </template>
-    <template v-else>
-      <p class="noCours">T'as pas cours bro UwU</p>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -60,24 +45,66 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      noClassLogo: require("../assets/robot.png"),
+    };
+  },
   methods: {
-    //check if the subject second element is undefined
-    checkHalfGroupes(subject) {
-      if (subject[1] === undefined) {
-        return true;
-      }
-      return false;
+    getGroupsComponent() {
+      if (this.data.isFullClass) return [""];
+      if (
+        // No class
+        this.data.subject[0] === undefined &&
+        this.data.subject[1] === undefined
+      )
+        return [undefined];
+      if (this.data.subject[0] === undefined) return ["seconde"];
+      if (this.data.subject[1] === undefined) return ["prime"];
+      return ["prime", "seconde"];
     },
+    getClassNameComponent(group = undefined) {
+      const a = this.data.className.toUpperCase();
+      const result = [
+        a.slice(0, a.length - 1),
+        a.slice(a.length - 1, a.length),
+      ];
+      if (group) return [...result, group];
+      return result;
+    },
+  },
+  computed: {
+    classColor() {
+      // J'écris de la demer pour voir si vous le voyez en review bande de fou va
+      const className = this.data.className.toUpperCase();
+      return className.includes("S4") || className.includes("S4")
+        ? "#9f99f5"
+        : "#f0a377";
+    },
+    classType() {
+      if (this.data.type[0] === undefined) return "";
+      return this.data.type[0].split("_")[0];
+    },
+  },
+  mounted() {
+    console.log(this.data);
   },
 };
 </script>
 
 
 <style scoped>
-#planningcard {
+.planning-container {
   width: 300px;
   height: 400px;
-  margin: 2vw;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.planning-card {
+  width: 100%;
+  flex: 1;
 
   background-color: white;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
@@ -85,40 +112,82 @@ export default {
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding-bottom: 10px;
+  margin-top: 10px;
 }
 
 .card-header {
-  border-bottom: solid 2px rgb(70, 70, 70);
+  padding: 12px 0 12px 0;
+  width: 100%;
+
+  border-bottom: solid 3px rgb(230, 230, 230);
   font-size: 30px;
+
+  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-
-  color: #f47499;
-  margin: 0;
-  padding: 10px 0 10px 0;
-  width: 100%;
 }
 
-.row {
+.card-header > p {
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  width: 95%;
-  justify-content: space-around;
+  flex-direction: column-reverse;
+}
+
+.card-header > p:nth-child(2n-1) {
+  font-size: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 4px;
+}
+
+.dataContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.data-container {
+  flex: 1;
+  width: 100%;
+  padding: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+  max-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subject-infos {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.subject-infos > p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.subject-infos > p {
+  max-width: 60%;
+}
+
+.room {
+  color: rgb(53, 182, 221);
+  font-size: 25px;
+  font-weight: 900;
 }
 
 .teacher {
-  font-size: 20px;
+  color: rgb(138, 138, 138);
+  font-size: 18px;
 }
-
-#planningcard > .row:last-of-type > p {
-  font-size: 30px;
-  align-items: center;
-  text-align: center;
-  color: #3f96d4;
-}
-
 </style>
