@@ -2,10 +2,22 @@
   <div class="view-container">
     <Background ref="background" />
 
-    <!-- <Meteo :isActive="currentView == 'weather'" />  DISABLE (NEED #36 TO BE FIXED) -->
-    <Menus :isActive="currentView == 'menus'" />
-    <Planning :isActive="currentView == 'planning'" />
-    <Transport :isActive="currentView == 'transport'" />
+    <Meteo
+      v-if="Object.keys(views).includes('weather')"
+      :isActive="currentView == 'weather'"
+    />
+    <Menus
+      v-if="Object.keys(views).includes('menus')"
+      :isActive="currentView == 'menus'"
+    />
+    <Planning
+      v-if="Object.keys(views).includes('planning')"
+      :isActive="currentView == 'planning'"
+    />
+    <Transport
+      v-if="Object.keys(views).includes('transport')"
+      :isActive="currentView == 'transport'"
+    />
 
     <LoadingOverlay ref="loading" />
   </div>
@@ -39,9 +51,10 @@ export default {
           time: 5000,
           allowed: () => true, // TO DO
         },
-        // weather: { // DISABLE (NEED #36 TO BE FIXED)
+        // weather: {
+        //   // DISABLE (NEED #36 TO BE FIXED)
         //   time: 5000,
-        //   allowed: () => true // TO DO
+        //   allowed: () => true, // TO DO
         // },
       },
     };
@@ -64,11 +77,11 @@ export default {
       // - Handling allowed functions
 
       this.currentView = this.getNextViewName();
-      setTimeout(() => {
-        // this.$refs.loading && this.$refs.loading.show();
-        this.$refs.background && this.$refs.background.next();
-        // setTimeout(this.changeView, 200);
-      }, this.views[this.currentView].time);
+      // setTimeout(() => {
+      //   this.$refs.loading && this.$refs.loading.show();
+      //   this.$refs.background && this.$refs.background.next();
+      //   setTimeout(this.changeView, 200);
+      // }, this.views[this.currentView].time);
     },
   },
   mounted() {
@@ -77,7 +90,6 @@ export default {
   components: {
     LoadingOverlay,
     Background,
-    // eslint-disable-next-line vue/no-unused-components
     Meteo,
     Menus,
     Transport,
@@ -107,10 +119,24 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
 
   height: 100vh;
   overflow: hidden; /* Hide scroll-bars */
+}
+
+.view-content {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.view-title {
+  color: white;
+  font-size: 40px;
+  font-weight: 800;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div v-show="isActive" class="view-container">
-    <span> Voici vos prochains cours </span>
-    <div class="planning-container">
+    <h1 class="view-title">Prochains cours</h1>
+    <div class="view-content">
       <PlanningCard
         v-for="(data, index) in nextClasses.slice(0, 4)"
         :key="index"
         :data="data"
       />
     </div>
-    <div class="planning-container">
+    <div class="view-content">
       <PlanningCard
         v-for="(data, index) in nextClasses.slice(4, 8)"
         :key="index"
@@ -177,9 +177,7 @@ export default {
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
 
-        if (classEvent !== undefined) {
-          primeEvent = classEvent;
-        }
+        if (classEvent !== undefined) primeEvent = classEvent;
 
         this.nextClasses.push({
           className: c.className,
@@ -189,8 +187,12 @@ export default {
             secondeEvent ? secondeEvent.type : undefined,
           ],
           subject: [
-            primeEvent ? primeEvent.subject.split(" ").slice(1).join(" ") : undefined,
-            secondeEvent ? secondeEvent.subject.split(" ").slice(1).join(" ") : undefined,
+            primeEvent
+              ? primeEvent.subject.split(" ").slice(1).join(" ")
+              : undefined,
+            secondeEvent
+              ? secondeEvent.subject.split(" ").slice(1).join(" ")
+              : undefined,
           ],
           teacher: [
             primeEvent ? primeEvent.teachers.join(" - ") : undefined,
@@ -202,7 +204,6 @@ export default {
           ],
         });
       }
-      console.log(JSON.stringify(this.nextClasses, null, 3));
     },
   },
   mounted() {
@@ -213,12 +214,6 @@ export default {
 
 <style scoped>
 
-.planning-container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-evenly;
-}
 
 span {
   width: 100%;
