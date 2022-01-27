@@ -1,14 +1,10 @@
 <template>
   <div id="menuCard">
-    <div id="restName">{{ restName }}</div>
+    <span id="restName">{{ restName }}</span>
     <div id="mealList">
-      <div style="font-weight: bold">Entrées diverses</div>
-      <br />
-      <div style="font-weight: bold">Plats :</div>
-      <br />
-      <div id="meal" v-for="meal in mealList || []" :key="meal">- {{ meal }}</div>
-      <br />
-      <div style="font-weight: bold">Desserts divers</div>
+      <div id="meal" v-for="meal in mealList || []" :key="meal">
+        - {{meal}}
+      </div>
     </div>
   </div>
 </template>
@@ -16,13 +12,14 @@
 <script>
 export default {
   name: "MenuCard",
-  props: ["restName", "mealList"],
+  props: {
+    restName: String,
+    mealList: Object
+  },
 };
 </script>
+<style scoped>
 
-
-
-<style>
 #menuCard {
   height: 75vh;
   font-size: 2em;
@@ -34,6 +31,14 @@ export default {
   border-radius: 15px;
 }
 
+#mealList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 #restName {
   font-weight: bold;
   font-size: 1.4em;
@@ -41,15 +46,7 @@ export default {
   border-bottom: 1px lightgray solid;
 }
 
-#mealList {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 30px;
-}
-
 #meal {
-  padding: 10px;
+  padding: 30px;
 }
 </style>

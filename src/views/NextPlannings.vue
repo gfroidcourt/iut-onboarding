@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div v-show="isActive" class="view-container">
     <span> Voici vos prochains cours </span>
     <div class="planning-container">
       <PlanningCard
@@ -24,6 +24,9 @@ import { HyperplanningScheduler } from "scheduler";
 
 export default {
   name: "NextPlannings",
+  props: {
+    isActive: Boolean,
+  },
   data() {
     return {
       nextClasses: [],
@@ -150,9 +153,13 @@ export default {
   },
   methods: {
     nextEventFilter(event) {
-      const currentHour = new Date().getHours();
-      const startHour = event.dateStart.getHours();
-      return startHour > currentHour - 3 && startHour <= currentHour - 1; // TO DO CHANGER OFFSET
+      // ----- REAL CODE BELOW
+      // const currentHour = new Date().getHours();
+      // const startHour = event.dateStart.getHours();
+      // return startHour > currentHour - 1 && startHour <= currentHour + 1;
+      // ----- REAL CODE ABOVE
+
+      return event.dateStart.getHours() === 16; // FOR TESTING PURPOSE
     },
     async getAllPlannings() {
       this.nextClasses = [];
@@ -205,10 +212,6 @@ export default {
 </script>
 
 <style scoped>
-#container {
-  width: 100%;
-  height: 100%;
-}
 
 .planning-container {
   display: flex;

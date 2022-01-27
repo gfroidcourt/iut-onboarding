@@ -1,44 +1,87 @@
 <template>
-  <div id="container">
+  <div class="view-container">
     <Background ref="background" />
+
+    <!-- <Meteo :isActive="currentView == 'weather'" />  DISABLE (NEED #36 TO BE FIXED) -->
+    <Menus :isActive="currentView == 'menus'" />
+    <Planning :isActive="currentView == 'planning'" />
+    <Transport :isActive="currentView == 'transport'" />
+
     <LoadingOverlay ref="loading" />
-    <PlanningView/>
   </div>
 </template>
 
 <script>
-import PlanningView from "./views/NextPlannings.vue";
+import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
+import Menus from "./views/Menus.vue";
+import Transport from "./views/NextTransports.vue";
+import Meteo from "./views/Weather.vue";
+import Planning from "./views/NextPlannings.vue";
+
+import "./stylesheets/reset.css";
 
 export default {
   name: "App",
   data() {
     return {
-      liane10: {
-        stops: [3323, 9055],
-        lineColor: "#3F96D4",
-        lineId: 10,
-        lineName: "Liane",
+      currentView: "transport",
+      views: {
+        // transport: {
+        //   time: 5000,
+        //   allowed: () => true, // TO DO
+        // },
+        // menus: {
+        //   time: 5000,
+        //   allowed: () => true, // TO DO
+        // },
+        planning: {
+          time: 5000,
+          allowed: () => true, // TO DO
+        },
+        // weather: { // DISABLE (NEED #36 TO BE FIXED)
+        //   time: 5000,
+        //   allowed: () => true // TO DO
+        // },
       },
-      tramB: {
-        stops: [7463, 3730],
-        lineColor: "#f47499",
-        lineId: "B",
-        lineName: "Tram",
-      },
-      sirtakiMenu: undefined,
-      spaceMenu: undefined,
     };
   },
+  methods: {
+    /**
+     * @return the name of the next view that will be displayed
+     */
+    getNextViewName() {
+      const viewTypes = Object.keys(this.views);
+      let nextView = viewTypes[viewTypes.indexOf(this.currentView) + 1];
+      if (nextView === undefined) nextView = viewTypes[0];
+      return nextView;
+    },
+    changeView() {
+      // WIP - View manager logic as to be made here
+
+      // TO DO
+      // - Better timings
+      // - Handling allowed functions
+
+      this.currentView = this.getNextViewName();
+      setTimeout(() => {
+        // this.$refs.loading && this.$refs.loading.show();
+        this.$refs.background && this.$refs.background.next();
+        // setTimeout(this.changeView, 200);
+      }, this.views[this.currentView].time);
+    },
+  },
   mounted() {
-    this.$refs.background.next();
+    this.changeView();
   },
   components: {
-    // Date,
-    PlanningView,
-    Background
-    //MenuCard,
-    //TransportCard,
+    LoadingOverlay,
+    Background,
+    // eslint-disable-next-line vue/no-unused-components
+    Meteo,
+    Menus,
+    Transport,
+    Planning,
   },
 };
 </script>
@@ -47,40 +90,27 @@ export default {
 #app {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  font-family: "Poppins", sans-serif;
 }
 
-input {
-  background-color: rgba(97, 97, 97, 0.2);
-  border: none;
-  padding: 10px;
-  margin: 10px;
-  color: rgb(255, 255, 255);
-  transition: background-color 0.2s;
-}
-input:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
+.view-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 
-#menus {
   display: flex;
   justify-content: space-evenly;
-}
-
-#container {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 100vh;
-}
+  flex-direction: row;
+  flex-wrap: wrap;
 
-.transport {
-  display: flex;
-  justify-content: space-around;
+  height: 100vh;
+  overflow: hidden; /* Hide scroll-bars */
 }
 </style>
