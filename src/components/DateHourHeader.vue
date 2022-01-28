@@ -1,7 +1,7 @@
 <template>
   <div id="header">
-    <span>{{ currentDate }}</span>
-    <span>{{ currentTime }}</span>
+    <p>{{ currentDate }}</p>
+    <p>{{ currentTime }}</p>
     <img :src="logoIut" />
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     updateCurrentTime() {
-      this.currentTime = new Date().toLocaleTimeString();
+      this.currentTime = new Date().toLocaleTimeString().split(" ")[0];
     },
     updateCurrentDate() {
       this.currentDate = new Date().toLocaleDateString("fr-FR", {
@@ -30,8 +30,10 @@ export default {
     },
   },
   mounted() {
-    this.currentTimeInterval = setInterval(this.updateCurrentTime, 1000);
-    this.currentDateInterval = setInterval(this.updateCurrentDate, 1000);
+    this.updateCurrentTime();
+    this.updateCurrentDate();
+    this.currentTimeInterval = setInterval(this.updateCurrentTime, 1000); // Refresh every seconds
+    this.currentDateInterval = setInterval(this.updateCurrentDate, 3600000); // Refresh evry hours
   },
   unmounted() {
     clearInterval(this.currentTimeInterval);
@@ -41,7 +43,6 @@ export default {
 </script>
 
 <style scoped>
-
 #header {
   display: flex;
   justify-content: space-between;
@@ -55,12 +56,15 @@ export default {
 
 #header > img {
   filter: invert(0.7);
+  width: 300px;
 }
 
-#header > span:last-of-type {
-  width: 20%;
-  text-align: left;
+#header > p {
+  width: 300px;
+  text-align: center;
+}
+
+#header > p:last-of-type {
   font-size: 1.75em;
 }
-
 </style>
