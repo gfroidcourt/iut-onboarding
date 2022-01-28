@@ -1,6 +1,7 @@
 <template>
   <div class="view-container">
     <Background ref="background" />
+    <DateAndHourHeader />
 
     <Meteo
       v-if="Object.keys(views).includes('weather')"
@@ -24,6 +25,7 @@
 </template>
 
 <script>
+import DateAndHourHeader from "./components/DateHourHeader.vue";
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
@@ -108,6 +110,7 @@ export default {
     Menus,
     Transport,
     Planning,
+    DateAndHourHeader
   },
 };
 </script>
