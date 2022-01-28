@@ -46,23 +46,32 @@ export default {
 
           The order in the object is the display order
         */
-        // transport: {
-        //   time: 5000,
-        //   allowed: () => true, // TO DO
-        // },
-        // menus: {
-        //   time: 5000,
-        //   allowed: () => true, // TO DO
-        // },
-        planning: {
-          time: 5000,
-          allowed: () => true, // TO DO
+        transport: {
+          time: 10000,
+          allowed: () => {
+            let currentHour = new Date().getHours();
+            return currentHour >= 10 && currentHour < 21;
+          },
         },
-        // weather: {
-        //   // DISABLE (NEED #36 TO BE FIXED)
-        //   time: 5000,
-        //   allowed: () => true, // TO DO
-        // },
+        menus: {
+          time: 10000,
+          allowed: () => {
+            let currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour < 14;
+          },
+        },
+        planning: {
+          time: 10000,
+          allowed: () => {
+            // Afficher de 6H à 18h
+            const currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour < 17;
+          },
+        },
+        weather: {
+          time: 10000,
+          allowed: () => true,
+        },
       },
     };
   },
