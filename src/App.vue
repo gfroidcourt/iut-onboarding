@@ -48,23 +48,23 @@ export default {
 
           The order in the object is the display order
         */
-        // transport: {
-        //   time: 5000,
-        //   allowed: () => true, // TO DO
-        // },
-        menus: {
-          time: 5000,
+        transport: {
+          time: 1000 * 10,
           allowed: () => true, // TO DO
         },
-        // planning: {
-        //   time: 5000,
-        //   allowed: () => true, // TO DO
-        // },
-        // weather: {
-        //   // DISABLE (NEED #36 TO BE FIXED)
-        //   time: 5000,
-        //   allowed: () => true, // TO DO
-        // },
+        menus: {
+          time: 1000 * 10,
+          allowed: () => true, // TO DO
+        },
+        planning: {
+          time: 1000 * 10,
+          allowed: () => true, // TO DO
+        },
+        weather: {
+          // DISABLE (NEED #36 TO BE FIXED)
+          time: 1000 * 10,
+          allowed: () => true, // TO DO
+        },
       },
     };
   },
