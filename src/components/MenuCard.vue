@@ -1,5 +1,5 @@
 <template>
-  <div id="menuCard">
+  <div id="menu-card">
     <div class="card-header">
       <p>{{ restName }}</p>
     </div>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "MenuCard",
+  name: "menu-card",
   props: {
     restName: String,
     mealList: Object
