@@ -1,8 +1,10 @@
 <template>
-  <div id="menuCard">
-    <span id="restName">{{ restName }}</span>
-    <div id="mealList">
-      <div id="meal" v-for="meal in mealList || []" :key="meal">
+  <div id="menu-card">
+    <div class="card-header">
+      <p>{{ restName }}</p>
+    </div>
+    <div class="meal-list">
+      <div class="meal" v-for="meal in mealList || []" :key="meal">
         - {{meal}}
       </div>
     </div>
@@ -11,7 +13,7 @@
 
 <script>
 export default {
-  name: "MenuCard",
+  name: "menu-card",
   props: {
     restName: String,
     mealList: Object
@@ -21,32 +23,52 @@ export default {
 <style scoped>
 
 #menuCard {
-  height: 75vh;
-  font-size: 2em;
+  width: 700px;
+  height: 900px;
+
   display: flex;
   flex-direction: column;
-  width: 35%;
   background-color: white;
-  color: #4f4c4d;
+
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 }
 
-#mealList {
+.card-header {
+  padding: 20px 0 20px 0;
+  width: 100%;
+
+  border-bottom: solid 3px rgb(230, 230, 230);
+  font-size: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-header > p {
+  color: rgb(230, 141, 57);
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.meal-list {
+  color: #4f4c4d;
+  height: 100%;
+  width: 100%;
+
+  font-size: 35px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+
 }
 
-#restName {
-  font-weight: bold;
-  font-size: 1.4em;
-  padding: 20px;
-  border-bottom: 1px lightgray solid;
-}
-
-#meal {
+.meal {
   padding: 30px;
 }
 </style>
