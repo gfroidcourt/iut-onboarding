@@ -75,7 +75,6 @@ export default {
   },
   computed: {
     classColor() {
-      // J'écris de la demer pour voir si vous le voyez en review bande de fou va
       const className = this.data.className.toUpperCase();
       return className.includes("S4") || className.includes("S4")
         ? "#9f99f5"
