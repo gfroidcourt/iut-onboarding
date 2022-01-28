@@ -85,9 +85,6 @@ export default {
       return this.data.type[0].split("_")[0];
     },
   },
-  mounted() {
-    console.log(this.data);
-  },
 };
 </script>
 
