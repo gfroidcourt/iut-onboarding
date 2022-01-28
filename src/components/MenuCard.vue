@@ -22,9 +22,9 @@ export default {
 </script>
 <style scoped>
 
-#menuCard {
-  width: 700px;
-  height: 900px;
+#menu-card {
+  width: 600px;
+  height: 700px;
 
   display: flex;
   flex-direction: column;
@@ -69,6 +69,6 @@ export default {
 }
 
 .meal {
-  padding: 30px;
+  padding: 20px;
 }
 </style>

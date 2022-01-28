@@ -1,6 +1,9 @@
 <template>
   <div v-show="isActive" class="view-container">
-    <h1 class="view-title">Prochains cours</h1>
+    <h1 class="view-title">
+      Prochains cours <br />
+      {{ currentHourRange }}
+    </h1>
     <div class="view-content">
       <PlanningCard
         v-for="(data, index) in nextClasses.slice(0, 4)"
@@ -26,6 +29,18 @@ export default {
   name: "NextPlannings",
   props: {
     isActive: Boolean,
+  },
+  computed: {
+    currentHourRange() {
+      const currentHour = new Date().getHours();
+      if(currentHour < 9)
+        return "8h15 - 10h00";
+      if(currentHour < 11)
+        return "10h25 - 12h15";
+      if(currentHour < 13)
+        return "14h00 - 10h25";
+      return "16h10 - 18h00";
+    },
   },
   data() {
     return {
@@ -213,8 +228,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 span {
   width: 100%;
   font-weight: bold;
