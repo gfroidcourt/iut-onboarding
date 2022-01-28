@@ -1,10 +1,24 @@
 <template>
   <div class="view-container">
     <Background ref="background" />
-    <!-- <Meteo :isActive="currentView == 'weather'" />  DISABLE (NEED #36 TO BE FIXED) -->
-    <Menus :isActive="currentView == 'menus'" />
-    <Planning :isActive="currentView == 'planning'" />
-    <Transport :isActive="currentView == 'transport'" />
+
+    <Meteo
+      v-if="Object.keys(views).includes('weather')"
+      :isActive="currentView == 'weather'"
+    />
+    <Menus
+      v-if="Object.keys(views).includes('menus')"
+      :isActive="currentView == 'menus'"
+    />
+    <Planning
+      v-if="Object.keys(views).includes('planning')"
+      :isActive="currentView == 'planning'"
+    />
+    <Transport
+      v-if="Object.keys(views).includes('transport')"
+      :isActive="currentView == 'transport'"
+    />
+
     <LoadingOverlay ref="loading" />
   </div>
 </template>
@@ -15,7 +29,7 @@ import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 import Transport from "./views/NextTransports.vue";
 import Meteo from "./views/Weather.vue";
-import Planning from "./views/NextClassRooms.vue";
+import Planning from "./views/NextPlannings.vue";
 
 import "./stylesheets/reset.css";
 
@@ -25,21 +39,29 @@ export default {
     return {
       currentView: "transport",
       views: {
-        transport: {
-          time: 5000,
-          allowed: () => true, // TO DO
-        },
-        menus: {
-          time: 5000,
-          allowed: () => true, // TO DO
-        },
+        /*
+          To active only one or some views, juste comment here what you dont want to be
+          displayed.
+          If only one view is uncommented, the slide show will be disabled (Usefull for development).
+
+          The order in the object is the display order
+        */
+        // transport: {
+        //   time: 5000,
+        //   allowed: () => true, // TO DO
+        // },
+        // menus: {
+        //   time: 5000,
+        //   allowed: () => true, // TO DO
+        // },
         planning: {
           time: 5000,
           allowed: () => true, // TO DO
         },
-        // weather: { // DISABLE (NEED #36 TO BE FIXED)
+        // weather: {
+        //   // DISABLE (NEED #36 TO BE FIXED)
         //   time: 5000,
-        //   allowed: () => true // TO DO
+        //   allowed: () => true, // TO DO
         // },
       },
     };
@@ -62,6 +84,11 @@ export default {
       // - Handling allowed functions
 
       this.currentView = this.getNextViewName();
+
+      if (Object.keys(this.views).length <= 1)
+        //Detect we've commented all views except one
+        return; // (Disable slide show)
+
       setTimeout(() => {
         this.$refs.loading && this.$refs.loading.show();
         this.$refs.background && this.$refs.background.next();
@@ -70,12 +97,13 @@ export default {
     },
   },
   mounted() {
+    this.$refs.background && this.$refs.background.next();
+    this.$refs.background && this.$refs.background.next();
     this.changeView();
   },
   components: {
     LoadingOverlay,
     Background,
-    // eslint-disable-next-line vue/no-unused-components
     Meteo,
     Menus,
     Transport,
@@ -105,9 +133,30 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
 
   height: 100vh;
   overflow: hidden; /* Hide scroll-bars */
+}
+
+.view-content {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.view-title {
+  background-color: white;
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
+
+  color: grey;
+
+  font-size: 30px;
+  font-weight: 800;
+  padding: 30px 50px;
+  border-radius: 30px;
 }
 </style>

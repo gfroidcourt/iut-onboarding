@@ -1,7 +1,10 @@
 <template>
   <div class="view-container" v-show="isActive">
-    <TransportCard :busData="liane10" />
-    <TransportCard :busData="tramB" />
+    <h1 class="view-title">Prochains transports</h1>
+    <div class="view-content">
+      <TransportCard :busData="liane10" />
+      <TransportCard :busData="tramB" />
+    </div>
   </div>
 </template>
 

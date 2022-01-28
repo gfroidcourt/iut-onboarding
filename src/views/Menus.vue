@@ -1,7 +1,10 @@
 <template>
   <div class="view-container" v-show="isActive">
-    <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
-    <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
+    <h1 class="view-title">Menus de ce midi</h1>
+    <div class="view-content">
+      <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
+      <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
+    </div>
   </div>
 </template>
 
