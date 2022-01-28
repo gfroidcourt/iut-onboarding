@@ -30,8 +30,7 @@
         </div>
       </div>
       <div v-else style="opacity: 0.5" class="data-container">
-        <img v-if="Math.random() > 0.5" :src="noClassLogo" />
-        <img v-else :src="noClassPoule" />
+        <img :src="noClassLogo" />
         <p>Pas cours</p>
       </div>
     </div>
@@ -49,7 +48,6 @@ export default {
   data() {
     return {
       noClassLogo: require("../assets/robot.png"),
-      noClassPoule: require("../assets/gitpoule.png"),
     };
   },
   methods: {

@@ -1,6 +1,7 @@
 <template>
   <div class="view-container">
     <Background ref="background" />
+
     <DateAndHourHeader />
 
     <Meteo
@@ -51,23 +52,25 @@ export default {
         transport: {
           time: 10000,
           allowed: () => {
+            // 10h to 20h
             let currentHour = new Date().getHours();
-            return currentHour >= 10 && currentHour < 21;
+            return currentHour >= 10 && currentHour <= 20;
           },
         },
         menus: {
           time: 10000,
           allowed: () => {
+            // 6h to 14h
             let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 14;
+            return currentHour >= 6 && currentHour <= 14;
           },
         },
         planning: {
           time: 10000,
           allowed: () => {
-            // Afficher de 6H à 18h
+            // 6h to 17h
             const currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 17;
+            return currentHour >= 6 && currentHour <= 17;
           },
         },
         weather: {
@@ -87,14 +90,17 @@ export default {
       if (nextView === undefined) nextView = viewTypes[0];
       return nextView;
     },
+    /**
+     * Change the actual view
+     *
+     * Will display only allowed views (Hour range is currently valid)
+     */
     changeView() {
-      // WIP - View manager logic as to be made here
-
-      // TO DO
-      // - Better timings
-      // - Handling allowed functions
-
       this.currentView = this.getNextViewName();
+      if (this.views[this.currentView].allowed() === false) {
+        this.changeView();
+        return;
+      }
 
       if (Object.keys(this.views).length <= 1)
         //Detect we've commented all views except one
@@ -109,7 +115,6 @@ export default {
   },
   mounted() {
     this.$refs.background && this.$refs.background.next();
-    this.$refs.background && this.$refs.background.next();
     this.changeView();
   },
   components: {
@@ -119,7 +124,7 @@ export default {
     Menus,
     Transport,
     Planning,
-    DateAndHourHeader
+    DateAndHourHeader,
   },
 };
 </script>
@@ -161,10 +166,14 @@ export default {
 }
 
 .view-title {
+  margin-top: 90px;
+
   background-color: white;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
 
   color: grey;
+
+  line-height: 43px;
 
   font-size: 30px;
   font-weight: 800;

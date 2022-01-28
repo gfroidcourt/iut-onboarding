@@ -47,7 +47,7 @@ export default {
   background-color: #ffffff;
   border-radius: 20px;
   width: 800px;
-  box-shadow: 30px rgba(30, 30, 30, 0.2);
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
   padding: 50px;
   display: flex;
   flex-direction: column;

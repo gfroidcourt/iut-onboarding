@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     updateCurrentTime() {
-      this.currentTime = new Date().toLocaleTimeString().split(" ")[0];
+      this.currentTime = new Date().toLocaleTimeString("fr-FR").split(" ")[0];
     },
     updateCurrentDate() {
       this.currentDate = new Date().toLocaleDateString("fr-FR", {
