@@ -12,6 +12,10 @@
 
 ---
 
-## Contribuer
-
-TODO
+<h5 align="center">
+  <a href="https://github.com/gfroidcourt/iut-onboarding/issues/new">Apporter une idée</a>
+  -
+  <a href="https://github.com/gfroidcourt/iut-onboarding/issues/new">Rapporter un problème</a>
+  -
+  <a href="https://github.com/gfroidcourt/iut-onboarding/blob/main/CONTRIBUTING.md">Contribuer au projet</a>
+</h5>
