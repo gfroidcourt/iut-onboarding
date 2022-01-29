@@ -2,18 +2,18 @@
   <div class="trip-container">
     <div class="progress-bar">
       <CircleProgress
-        :border-width="17"
-        :border-bg-width="17"
-        :size="150"
+        :border-width="23"
+        :border-bg-width="23"
+        :size="200"
         :percent="remainingPercent"
         :fill-color="busData.lineColor"
-        empty-color="#c8c8c8"
+        empty-color="#ddd"
       />
       <p>
         {{ msToWaitTime(remainingTime)[0]
-        }}<span style="font-size: 0.7em">m</span
+        }}<span>m</span
         >{{ msToWaitTime(remainingTime)[1]
-        }}<span style="font-size: 0.7em">s</span>
+        }}<span>s</span>
       </p>
     </div>
     <p class="infos">{{ formatDirectionString() }}</p>
@@ -140,8 +140,8 @@ export default {
 }
 
 .infos {
-  font-size: 1em;
-  width: 150px;
+  font-size: 30px;
+  width: 40%;
   line-height: 35px;
   text-align: left;
 }
@@ -154,5 +154,10 @@ export default {
 
 .progress-bar > p {
   position: absolute;
+  font-size: 30px;
+}
+
+.progress-bar > p > span {
+  font-size: 20px;
 }
 </style>

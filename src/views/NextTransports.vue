@@ -20,7 +20,7 @@ export default {
     return {
       liane10: {
         stops: [3323, 9055],
-        lineColor: "#3F96D4",
+        lineColor: "#59a9e2",
         lineId: 10,
         lineName: "Liane",
       },
@@ -39,6 +39,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

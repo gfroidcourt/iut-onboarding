@@ -13,7 +13,7 @@
       </div>
       <div v-if="group !== undefined" class="data-container">
         <div class="subject-infos">
-          <p>{{ classType }}</p>
+          <p>{{ classType }}</p> -
           <p>{{ data.subject[groupindex] }}</p>
         </div>
         <div class="subject-infos">
@@ -92,7 +92,7 @@ export default {
 <style scoped>
 .planning-container {
   width: 300px;
-  height: 400px;
+  height: 360px;
 
   display: flex;
   flex-direction: column;
@@ -138,18 +138,9 @@ export default {
   margin-bottom: 4px;
 }
 
-.dataContainer {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .data-container {
   flex: 1;
   width: 100%;
-  padding: 20px;
   margin-top: auto;
   margin-bottom: auto;
   max-height: 150px;
@@ -157,7 +148,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.data-container > img {
+  margin-top: -30px;
+  margin-bottom: 30px;
 }
 
 .subject-infos {
@@ -177,7 +173,7 @@ export default {
 }
 
 .room {
-  color: rgb(53, 182, 221);
+  color: rgb(41, 154, 189);
   font-size: 25px;
   font-weight: 900;
 }

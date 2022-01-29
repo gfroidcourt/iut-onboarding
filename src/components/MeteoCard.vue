@@ -8,8 +8,8 @@
       </div>
     </div>
     <div class="infos-meteo">
-      <div class="meteo_card" v-for="(meteo, index) in info_meteo" :key="index">
-        <p>{{ meteo.Heure }}H</p>
+      <div class="meteo-timestamp-slot" v-for="(meteo, index) in info_meteo" :key="index">
+        <p>{{ meteo.Heure }}h00</p>
         <img :src="meteo.icone" />
         <p>{{ meteo.Temperature }}°</p>
       </div>
@@ -25,8 +25,7 @@ export default {
     return {
       currentWeather: undefined,
       currentTemperature: undefined,
-      info_meteo: [
-      ],
+      info_meteo: [],
     };
   },
   methods: {},
@@ -46,7 +45,6 @@ export default {
 .container {
   background-color: #ffffff;
   border-radius: 20px;
-  width: 800px;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
   padding: 50px;
   display: flex;
@@ -60,7 +58,8 @@ export default {
 }
 
 .current_infos > p {
-  font-size: 2em;
+  font-size: 90px;
+  color: #2b343a;
 }
 
 .ville-temps {
@@ -68,9 +67,11 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: left;
+  font-size: 40px;
 }
 
 .ville-temps > p:first-of-type {
+  font-size: 30px;
   color: #5c717d;
   margin-bottom: 10px;
 }
@@ -83,17 +84,23 @@ export default {
   margin-top: 100px;
 }
 
-.meteo_card {
-  width: 130px;
-  height: 200px;
+.meteo-timestamp-slot {
+  width: 200px;
 }
 
-.meteo_card > p {
-  font-size: 1.2em;
+.meteo-timestamp-slot > p {
+  font-size: 2em;
+  margin: 20px;
+}
+
+.meteo-timestamp-slot > p:first-child {
+  font-size: 1.5em;
+  color: #5c717d;
+  margin: 20px;
 }
 
 img {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
 }
 </style>

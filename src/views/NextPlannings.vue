@@ -1,7 +1,6 @@
 <template>
   <div v-show="isActive" class="view-container">
     <h1 class="view-title">
-      Prochains cours <br />
       {{ currentHourRange }}
     </h1>
     <div class="view-content">
@@ -33,12 +32,9 @@ export default {
   computed: {
     currentHourRange() {
       const currentHour = new Date().getHours();
-      if(currentHour < 9)
-        return "8h15 - 10h00";
-      if(currentHour < 11)
-        return "10h25 - 12h15";
-      if(currentHour < 13)
-        return "14h00 - 10h25";
+      if (currentHour < 9) return "8h15 - 10h00";
+      if (currentHour < 11) return "10h25 - 12h15";
+      if (currentHour < 13) return "14h00 - 10h25";
       return "16h10 - 18h00";
     },
   },
