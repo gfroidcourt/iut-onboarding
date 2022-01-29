@@ -1,21 +1,17 @@
-# IUT Onboarding
+<p align="center">
+  <img width="500px" src="https://user-images.githubusercontent.com/38594012/151673895-d02fa44e-f553-4c6e-8833-1e0c76a370d1.png"/>
+</p>
 
-## ID Terminus
+<p align="center">
+  Logiciel destiné à l'écran d'accueil situé dans le hall de l'IUT informatique de Bordeaux.
+</p>
 
-ID Terminus Gradignan Beausoleil : 1616
+<h5 align="center">
+  Plannings - Météo - Menus Crous - Transports
+</h5>
 
-ID Terminus BX Jardin Bontanique : 4124
+---
 
-_Pas trouvé l'id du terminus de Bassens Quai Français_
+## Contribuer
 
-## ID Arrêts
-
-ID Arrêt 10 Vers Gradignan Beausoleil : 9055
-
-ID Arrêt 10 Vers BX Jardin Botanique : 3323
-
-ID Arrêt 31 Vers Bassens Quai Français : 3323
-
-_L'arrêt dans l'autre sens pour le 31 est inutile car c'est le terminus_
-
-### TO DO
+TODO
