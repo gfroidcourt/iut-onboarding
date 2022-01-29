@@ -1,6 +1,13 @@
-## EDUROAM Wifi connection :
+## Création d'une image bootable
 
-`/etc/network/interfaces` :
+- Utiliser [Balena etcher](https://www.balena.io/etcher/) pour flasher la carte SD
+- Prendre [Raspberry pi OS Lite](https://www.raspberrypi.com/software/operating-systems/)
+
+> Login / pass par défaut : `pi` / `raspberry`
+
+## Connexion à EDUROAM
+
+modifier le fichier : `/etc/network/interfaces` :
 
 ```
 source-directory /etc/network/interfaces.d
@@ -16,7 +23,7 @@ iface wlan0 inet manual
 wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 ```
 
-`/etc/wap_supplicant/wpa_supplicant.conf` :
+modifier le fichier : `/etc/wap_supplicant/wpa_supplicant.conf` :
 
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -32,3 +39,19 @@ network={
   password="******"
 }
 ```
+
+## Setup raspbery
+
+Une fois las raspberry lancée et connectée à internet :
+
+1. Mettre à jour la raspberry : `sudo apt update` et `sudo apt upgrade`
+2. Installer les librairie graphiques : `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox``
+3. Installer chromium : `sudo apt-get install --no-install-recommends chromium-browser`
+
+## Setup projet
+
+TO DO
+
+## Optimisations
+
+TO DO
