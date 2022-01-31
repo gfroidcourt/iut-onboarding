@@ -51,7 +51,7 @@ export default {
   font-size: 1.25em;
   position: absolute;
   top: 0.5em;
-  color: rgb(68, 71, 71);
+  color: rgb(38, 48, 48);
 }
 
 #header > img {
@@ -60,11 +60,12 @@ export default {
 }
 
 #header > p {
-  width: 300px;
+  width: 320px;
   text-align: center;
+  font-size: 32px;
 }
 
 #header > p:last-of-type {
-  font-size: 1.75em;
+  font-size: 44px;
 }
 </style>

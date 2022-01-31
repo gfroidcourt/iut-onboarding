@@ -1,7 +1,6 @@
 <template>
   <div v-show="isActive" class="view-container">
     <h1 class="view-title">
-      Prochains cours <br />
       {{ currentHourRange }}
     </h1>
     <div class="view-content">
@@ -33,12 +32,9 @@ export default {
   computed: {
     currentHourRange() {
       const currentHour = new Date().getHours();
-      if(currentHour < 9)
-        return "8h15 - 10h00";
-      if(currentHour < 11)
-        return "10h25 - 12h15";
-      if(currentHour < 13)
-        return "14h00 - 10h25";
+      if (currentHour < 9) return "8h15 - 10h00";
+      if (currentHour < 11) return "10h25 - 12h15";
+      if (currentHour < 15) return "14h00 - 15h50";
       return "16h10 - 18h00";
     },
   },
@@ -169,26 +165,23 @@ export default {
   methods: {
     nextEventFilter(event) {
       // ----- REAL CODE BELOW
-      // const currentHour = new Date().getHours();
-      // const startHour = event.dateStart.getHours();
-      // return startHour > currentHour - 1 && startHour <= currentHour + 1;
+      const currentHour = new Date().getHours();
+      const startHour = event.dateStart.getHours();
+      return startHour > currentHour - 1 && startHour <= currentHour + 1;
       // ----- REAL CODE ABOVE
 
-      return event.dateStart.getHours() === 14; // FOR TESTING PURPOSE
+      // return event.dateStart.getHours() === 14; // FOR TESTING PURPOSE
     },
     async getAllPlannings() {
       this.nextClasses = [];
       for (const c of this.classes) {
         const classEvent = await c.classIcal
-          .setDate("2022-03-16")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         let primeEvent = await c.groups.prime
-          .setDate("2022-03-16")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         const secondeEvent = await c.groups.seconde
-          .setDate("2022-03-16")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
 

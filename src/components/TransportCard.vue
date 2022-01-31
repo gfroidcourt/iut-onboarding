@@ -34,11 +34,11 @@ export default {
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0px 0px 30px 0px rgba(30, 30, 30, 0.2);
-  height: 500px;
-  width: 400px;
+  height: 640px;
+  width: 540px;
 }
 
 #title {
-  font-size: 1.2em;
+  font-size: 40px;
 }
 </style>

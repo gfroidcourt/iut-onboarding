@@ -36,6 +36,8 @@ import Planning from "./views/NextPlannings.vue";
 
 import "./stylesheets/reset.css";
 
+const DEVELOPEMENT_MODE = true;
+
 export default {
   name: "App",
   data() {
@@ -50,7 +52,7 @@ export default {
           The order in the object is the display order
         */
         transport: {
-          time: 10000,
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
           allowed: () => {
             // 10h to 20h
             let currentHour = new Date().getHours();
@@ -58,7 +60,7 @@ export default {
           },
         },
         menus: {
-          time: 10000,
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
@@ -66,7 +68,7 @@ export default {
           },
         },
         planning: {
-          time: 10000,
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => {
             // 6h to 17h
             const currentHour = new Date().getHours();
@@ -74,7 +76,7 @@ export default {
           },
         },
         weather: {
-          time: 10000,
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => true,
         },
       },
@@ -97,7 +99,10 @@ export default {
      */
     changeView() {
       this.currentView = this.getNextViewName();
-      if (this.views[this.currentView].allowed() === false) {
+      if (
+        this.views[this.currentView].allowed() === false &&
+        !DEVELOPEMENT_MODE
+      ) {
         this.changeView();
         return;
       }
@@ -167,15 +172,16 @@ export default {
 
 .view-title {
   margin-top: 90px;
+  min-width: 400px;
 
   background-color: white;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
 
-  color: grey;
+  color: rgb(73, 72, 72);
 
   line-height: 43px;
 
-  font-size: 30px;
+  font-size: 37px;
   font-weight: 800;
   padding: 30px 50px;
   border-radius: 30px;
