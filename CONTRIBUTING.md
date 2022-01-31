@@ -46,7 +46,7 @@ Tout le code logique de l'application vue se trouve dans le dossier `src`.
 - Le dossier `views` contient toutes les vues (Pages qui vont être affichées)
 - Le dossier `components` contient les composants qui sont utilisés par les vues
 - Le dossier `assets`contient toutes les images et ressources du projet.
-- La récupération des données externes se fait via les fihier `.js` :
+- La récupération des données externes se fait via les fichiers `.js` :
     - `api.js` Récupération API TBM et API météo.
     - `scrapMeal.js` Récupération menus CROUS (Sirtaki / Space).
 
