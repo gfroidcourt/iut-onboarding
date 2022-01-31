@@ -42,7 +42,7 @@
 
 Tout le code logique de l'application vue se trouve dans le dossier `src`.
 
-- `App.js` contrôle qu'elle vue est actuellement affichée à l'écran.
+- `App.js` contrôle quelle vue est actuellement affichée à l'écran.
 - Le dossier `views` contient toutes les vues (Pages qui vont être affichées)
 - Le dossier `components` contient les composants qui sont utilisés par les vues
 - Le dossier `assets`contient toutes les images et ressources du projet.
