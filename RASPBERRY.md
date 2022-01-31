@@ -42,7 +42,7 @@ network={
 
 ## Setup raspbery
 
-Une fois las raspberry lancée et connectée à internet :
+Une fois la raspberry lancée et connectée à internet :
 
 1. Mettre à jour la raspberry : `sudo apt update` et `sudo apt upgrade`
 2. Installer les librairie graphiques : `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox``
