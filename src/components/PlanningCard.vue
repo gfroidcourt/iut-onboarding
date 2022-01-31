@@ -13,8 +13,7 @@
       </div>
       <div v-if="group !== undefined" class="data-container">
         <div class="subject-infos">
-          <p>{{ classType }}</p> -
-          <p>{{ data.subject[groupindex] }}</p>
+          <p>{{ classType }} - {{ data.subject[groupindex] }}</p>
         </div>
         <div class="subject-infos">
           <p class="teacher">

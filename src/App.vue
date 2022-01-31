@@ -99,7 +99,10 @@ export default {
      */
     changeView() {
       this.currentView = this.getNextViewName();
-      if (this.views[this.currentView].allowed() === false && !DEVELOPEMENT_MODE) {
+      if (
+        this.views[this.currentView].allowed() === false &&
+        !DEVELOPEMENT_MODE
+      ) {
         this.changeView();
         return;
       }
