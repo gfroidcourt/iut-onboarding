@@ -3,11 +3,6 @@
     <Background ref="background" />
 
     <DateAndHourHeader />
-
-    <Meteo
-      v-if="Object.keys(views).includes('weather')"
-      :isActive="currentView == 'weather'"
-    />
     <Menus
       v-if="Object.keys(views).includes('menus')"
       :isActive="currentView == 'menus'"
@@ -31,7 +26,6 @@ import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 import Transport from "./views/NextTransports.vue";
-import Meteo from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
 
 import "./stylesheets/reset.css";
@@ -51,22 +45,22 @@ export default {
 
           The order in the object is the display order
         */
-        transport: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
-          allowed: () => {
-            // 10h to 20h
-            let currentHour = new Date().getHours();
-            return currentHour >= 10 && currentHour <= 20;
-          },
-        },
-        menus: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
-          allowed: () => {
-            // 6h to 14h
-            let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 14;
-          },
-        },
+        // transport: {
+        //   time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
+        //   allowed: () => {
+        //     // 10h to 20h
+        //     let currentHour = new Date().getHours();
+        //     return currentHour >= 10 && currentHour <= 20;
+        //   },
+        // },
+        // menus: {
+        //   time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
+        //   allowed: () => {
+        //     // 6h to 14h
+        //     let currentHour = new Date().getHours();
+        //     return currentHour >= 6 && currentHour <= 14;
+        //   },
+        // },
         planning: {
           time: DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => {
@@ -74,10 +68,6 @@ export default {
             const currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour <= 17;
           },
-        },
-        weather: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true,
         },
       },
     };
@@ -125,7 +115,6 @@ export default {
   components: {
     LoadingOverlay,
     Background,
-    Meteo,
     Menus,
     Transport,
     Planning,

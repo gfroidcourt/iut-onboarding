@@ -165,6 +165,7 @@ export default {
 .subject-infos > p {
   margin-right: 10px;
   margin-left: 10px;
+  line-height: 25px;
 }
 
 .subject-infos > p {

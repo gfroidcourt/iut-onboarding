@@ -1,15 +1,20 @@
 <template>
   <div class="view-container" v-show="isActive">
-    <h1 class="view-title">Prochains transports</h1>
+    <h1 class="view-title">Prochains transport</h1>
     <div class="view-content">
-      <TransportCard :busData="liane10" />
-      <TransportCard :busData="tramB" />
+        <TransportCard :busData="liane10" />
+        <TransportCard :busData="tramB" />
+    </div>
+      <h1 class="view-title">Météo</h1>
+    <div class="view-content">
+        <WeatherCard />
     </div>
   </div>
 </template>
 
 <script>
 import TransportCard from "../components/TransportCard.vue";
+import WeatherCard from "../components/MeteoCard.vue";
 
 export default {
   name: "NextTransports",
@@ -36,6 +41,8 @@ export default {
   },
   components: {
     TransportCard,
+    WeatherCard,
   },
 };
 </script>
+

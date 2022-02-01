@@ -164,24 +164,36 @@ export default {
   },
   methods: {
     nextEventFilter(event) {
-      // ----- REAL CODE BELOW
       const currentHour = new Date().getHours();
+      //const currentHour = 10;
+      // const currentMinute = 0;
+      const currentMinute = new Date().getMinutes();
+      const currenttHourMinute = currentHour * 60 + currentMinute;
       const startHour = event.dateStart.getHours();
-      return startHour > currentHour - 1 && startHour <= currentHour + 1;
-      // ----- REAL CODE ABOVE
+      const startMinute = event.dateStart.getMinutes();
+      const startHourMinute = startHour * 60 + startMinute;
+      const endHour = event.dateEnd.getHours();
+      const endMinute = event.dateEnd.getMinutes();
+      const endHourMinute = endHour * 60 + endMinute;
 
-      // return event.dateStart.getHours() === 14; // FOR TESTING PURPOSE
+      return (
+        currenttHourMinute > startHourMinute - 30 &&
+        currenttHourMinute < endHourMinute - 30
+      );
     },
     async getAllPlannings() {
       this.nextClasses = [];
       for (const c of this.classes) {
         const classEvent = await c.classIcal
+          .setDate("2022-02-02")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         let primeEvent = await c.groups.prime
+          .setDate("2022-02-02")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         const secondeEvent = await c.groups.seconde
+          .setDate("2022-02-02")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
 
