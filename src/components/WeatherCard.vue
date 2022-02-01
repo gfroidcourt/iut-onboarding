@@ -20,7 +20,6 @@
 <script>
 import * as api from "../api";
 export default {
-  name: "Meteo",
   data() {
     return {
       currentWeather: undefined,

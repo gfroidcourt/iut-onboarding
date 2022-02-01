@@ -1,7 +1,6 @@
 const TBM_URL = "https://ws.infotbm.com/ws/1.0/get-realtime-pass";
 const WEATHER_URL_NEXT_12_HOURS = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/131928?apikey=SI5CGkV2GkHfHZARLw9La9DIYQchBu2F";
 const CURRENT_WEATHER_URL = "http://dataservice.accuweather.com/currentconditions/v1/131928?apikey=SI5CGkV2GkHfHZARLw9La9DIYQchBu2F&language=fr-fr";
-const HYPPERPLANNING_URL = "";
 
 export const fetchTBM = async (stopId, lineId) => {
   try {

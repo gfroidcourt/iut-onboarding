@@ -3,11 +3,6 @@
     <Background ref="background" />
 
     <DateAndHourHeader />
-
-    <Meteo
-      v-if="Object.keys(views).includes('weather')"
-      :isActive="currentView == 'weather'"
-    />
     <Menus
       v-if="Object.keys(views).includes('menus')"
       :isActive="currentView == 'menus'"
@@ -16,9 +11,9 @@
       v-if="Object.keys(views).includes('planning')"
       :isActive="currentView == 'planning'"
     />
-    <Transport
-      v-if="Object.keys(views).includes('transport')"
-      :isActive="currentView == 'transport'"
+    <TransportWeather
+      v-if="Object.keys(views).includes('transportWeather')"
+      :isActive="currentView == 'transportWeather'"
     />
 
     <LoadingOverlay ref="loading" />
@@ -30,8 +25,7 @@ import DateAndHourHeader from "./components/DateHourHeader.vue";
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
-import Transport from "./views/NextTransports.vue";
-import Meteo from "./views/Weather.vue";
+import TransportWeather from "./views/TransportWeather.vue";
 import Planning from "./views/NextPlannings.vue";
 
 import "./stylesheets/reset.css";
@@ -39,7 +33,6 @@ import "./stylesheets/reset.css";
 const DEVELOPEMENT_MODE = true;
 
 export default {
-  name: "App",
   data() {
     return {
       currentView: "transport",
@@ -51,8 +44,16 @@ export default {
 
           The order in the object is the display order
         */
-        transport: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
+        planning: {
+          time: 1000 * 30,
+          allowed: () => {
+            // 6h to 17h
+            const currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour <= 17;
+          },
+        },
+        transportWeather: {
+          time: 1000 * 20,
           allowed: () => {
             // 10h to 20h
             let currentHour = new Date().getHours();
@@ -60,24 +61,12 @@ export default {
           },
         },
         menus: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
+          time: 1000 * 20,
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour <= 14;
           },
-        },
-        planning: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
-          allowed: () => {
-            // 6h to 17h
-            const currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 17;
-          },
-        },
-        weather: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true,
         },
       },
     };
@@ -111,11 +100,14 @@ export default {
         //Detect we've commented all views except one
         return; // (Disable slide show)
 
-      setTimeout(() => {
-        this.$refs.loading && this.$refs.loading.show();
-        this.$refs.background && this.$refs.background.next();
-        setTimeout(this.changeView, 200);
-      }, this.views[this.currentView].time);
+      setTimeout(
+        () => {
+          this.$refs.loading && this.$refs.loading.show();
+          this.$refs.background && this.$refs.background.next();
+          setTimeout(this.changeView, 200);
+        },
+        DEVELOPEMENT_MODE ? 10000 : this.views[this.currentView].time
+      );
     },
   },
   mounted() {
@@ -125,9 +117,8 @@ export default {
   components: {
     LoadingOverlay,
     Background,
-    Meteo,
     Menus,
-    Transport,
+    TransportWeather,
     Planning,
     DateAndHourHeader,
   },

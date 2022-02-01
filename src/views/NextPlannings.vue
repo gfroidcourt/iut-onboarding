@@ -25,7 +25,6 @@ import PlanningCard from "../components/PlanningCard.vue";
 import { HyperplanningScheduler } from "scheduler";
 
 export default {
-  name: "NextPlannings",
   props: {
     isActive: Boolean,
   },
@@ -164,13 +163,17 @@ export default {
   },
   methods: {
     nextEventFilter(event) {
-      // ----- REAL CODE BELOW
-      const currentHour = new Date().getHours();
-      const startHour = event.dateStart.getHours();
-      return startHour > currentHour - 1 && startHour <= currentHour + 1;
-      // ----- REAL CODE ABOVE
+      // Actual time in minutes relatives to 00:00 of the current day (Ex: 420 for 07:00am)
+      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      const eventStartTime =
+        event.dateStart.getHours() * 60 + event.dateStart.getMinutes();
+      const eventEndTime =
+        event.dateEnd.getHours() * 60 + event.dateEnd.getMinutes();
 
-      // return event.dateStart.getHours() === 14; // FOR TESTING PURPOSE
+      // Display this event 30min before it starts and stop displaying it 30 mins before it ends.
+      return (
+        currentTime > eventStartTime - 30 && currentTime < eventEndTime - 30
+      );
     },
     async getAllPlannings() {
       this.nextClasses = [];
