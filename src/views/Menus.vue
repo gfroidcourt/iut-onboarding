@@ -13,7 +13,6 @@ import MenuCard from "../components/MenuCard.vue";
 import * as scrapMeal from "../scrapMeal.js";
 
 export default {
-  name: "AvailableClassRooms",
   props: {
     isActive: Boolean,
   },

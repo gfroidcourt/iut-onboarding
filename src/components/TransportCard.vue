@@ -15,7 +15,6 @@
 import TripTransportCard from "./TripTransportCard.vue";
 
 export default {
-  name: "TransportCard",
   components: {
     TripTransportCard,
   },

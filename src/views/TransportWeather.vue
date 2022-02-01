@@ -14,10 +14,9 @@
 
 <script>
 import TransportCard from "../components/TransportCard.vue";
-import WeatherCard from "../components/MeteoCard.vue";
+import WeatherCard from "../components/WeatherCard.vue";
 
 export default {
-  name: "NextTransports",
   props: {
     isActive: Boolean,
   },

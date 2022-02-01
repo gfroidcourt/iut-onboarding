@@ -13,7 +13,6 @@
 
 <script>
 export default {
-  name: "menu-card",
   props: {
     restName: String,
     mealList: Object

@@ -25,7 +25,6 @@ import PlanningCard from "../components/PlanningCard.vue";
 import { HyperplanningScheduler } from "scheduler";
 
 export default {
-  name: "NextPlannings",
   props: {
     isActive: Boolean,
   },
@@ -164,36 +163,28 @@ export default {
   },
   methods: {
     nextEventFilter(event) {
-      const currentHour = new Date().getHours();
-      //const currentHour = 10;
-      // const currentMinute = 0;
-      const currentMinute = new Date().getMinutes();
-      const currenttHourMinute = currentHour * 60 + currentMinute;
-      const startHour = event.dateStart.getHours();
-      const startMinute = event.dateStart.getMinutes();
-      const startHourMinute = startHour * 60 + startMinute;
-      const endHour = event.dateEnd.getHours();
-      const endMinute = event.dateEnd.getMinutes();
-      const endHourMinute = endHour * 60 + endMinute;
+      // Actual time in minutes relatives to 00:00 of the current day (Ex: 420 for 07:00am)
+      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      const eventStartTime =
+        event.dateStart.getHours() * 60 + event.dateStart.getMinutes();
+      const eventEndTime =
+        event.dateEnd.getHours() * 60 + event.dateEnd.getMinutes();
 
+      // Display this event 30min before it starts and stop displaying it 30 mins before it ends.
       return (
-        currenttHourMinute > startHourMinute - 30 &&
-        currenttHourMinute < endHourMinute - 30
+        currentTime > eventStartTime - 30 && currentTime < eventEndTime - 30
       );
     },
     async getAllPlannings() {
       this.nextClasses = [];
       for (const c of this.classes) {
         const classEvent = await c.classIcal
-          .setDate("2022-02-02")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         let primeEvent = await c.groups.prime
-          .setDate("2022-02-02")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         const secondeEvent = await c.groups.seconde
-          .setDate("2022-02-02")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
 

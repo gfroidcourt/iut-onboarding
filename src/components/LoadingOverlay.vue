@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: "LoadingOverlay",
   data() {
     return {
       active: false,
