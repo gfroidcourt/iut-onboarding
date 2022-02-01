@@ -11,7 +11,7 @@
       v-if="Object.keys(views).includes('planning')"
       :isActive="currentView == 'planning'"
     />
-    <Transport
+    <TransportWeather
       v-if="Object.keys(views).includes('transportWeather')"
       :isActive="currentView == 'transportWeather'"
     />
@@ -25,7 +25,7 @@ import DateAndHourHeader from "./components/DateHourHeader.vue";
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
-import Transport from "./views/TransportWeather.vue";
+import TransportWeather from "./views/TransportWeather.vue";
 import Planning from "./views/NextPlannings.vue";
 
 import "./stylesheets/reset.css";
@@ -44,6 +44,14 @@ export default {
 
           The order in the object is the display order
         */
+        planning: {
+          time: 1000 * 30,
+          allowed: () => {
+            // 6h to 17h
+            const currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour <= 17;
+          },
+        },
         transportWeather: {
           time: 1000 * 20,
           allowed: () => {
@@ -58,14 +66,6 @@ export default {
             // 6h to 14h
             let currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour <= 14;
-          },
-        },
-        planning: {
-          time: 1000 * 30,
-          allowed: () => {
-            // 6h to 17h
-            const currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 17;
           },
         },
       },
@@ -118,7 +118,7 @@ export default {
     LoadingOverlay,
     Background,
     Menus,
-    Transport,
+    TransportWeather,
     Planning,
     DateAndHourHeader,
   },
