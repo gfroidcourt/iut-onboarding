@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     currentHourRange() {
-      const currentHour = new Date().getHours();
+      const currentHour = 8;
       if (currentHour < 9) return "8h15 - 10h00";
       if (currentHour < 11) return "10h25 - 12h15";
       if (currentHour < 15) return "14h00 - 15h50";
@@ -164,7 +164,7 @@ export default {
   methods: {
     nextEventFilter(event) {
       // Actual time in minutes relatives to 00:00 of the current day (Ex: 420 for 07:00am)
-      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      const currentTime = 8 * 60;
       const eventStartTime =
         event.dateStart.getHours() * 60 + event.dateStart.getMinutes();
       const eventEndTime =
@@ -179,12 +179,15 @@ export default {
       this.nextClasses = [];
       for (const c of this.classes) {
         const classEvent = await c.classIcal
+          .setDate("2022-03-07")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         let primeEvent = await c.groups.prime
+          .setDate("2022-03-07")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
         const secondeEvent = await c.groups.seconde
+          .setDate("2022-03-07")
           .getEvents()
           .then((events) => events.find(this.nextEventFilter));
 
