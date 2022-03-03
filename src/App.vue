@@ -48,7 +48,7 @@ export default {
           time: 1000 * 30,
           allowed: () => {
             // 6h to 17h
-            const currentHour = 12;
+            const currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour <= 17;
           },
         },
@@ -56,7 +56,7 @@ export default {
           time: 1000 * 10,
           // allowed: () => {
           //   // 10h to 20h
-          //   let currentHour = 12;
+          //   let currentHour = new Date().getHours();
           //   return currentHour >= 10 && currentHour <= 20;
           // },
           allowed: () => true,
@@ -65,7 +65,7 @@ export default {
           time: 1000 * 15,
           allowed: () => {
             // 6h to 14h
-            let currentHour = 12;
+            let currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour <= 14;
           },
         },
