@@ -11,6 +11,7 @@
 <script>
 import MenuCard from "../components/MenuCard.vue";
 import * as scrapMeal from "../scrapMeal.js";
+import menu_JPO from "./menus_JPO.json";
 
 export default {
   props: {
@@ -26,10 +27,12 @@ export default {
     MenuCard,
   },
   mounted() {
-    scrapMeal.getAllRestaurantsMenus().then((res) => {
-      this.sirtakiMenu = res.sirtaki;
-      this.spaceMenu = res.space;
-    });
+    // scrapMeal.getAllRestaurantsMenus().then((res) => {
+    //   this.sirtakiMenu = res.sirtaki;
+    //   this.spaceMenu = res.space;
+    // });
+    this.sirtakiMenu = menu_JPO.sirtaki;
+    this.spaceMenu = menu_JPO.space;
   },
 };
 </script>
