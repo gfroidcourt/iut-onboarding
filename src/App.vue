@@ -30,7 +30,7 @@ import Planning from "./views/NextPlannings.vue";
 
 import "./stylesheets/reset.css";
 
-const DEVELOPEMENT_MODE = true;
+const DEVELOPEMENT_MODE = false;
 
 export default {
   data() {
@@ -48,23 +48,24 @@ export default {
           time: 1000 * 30,
           allowed: () => {
             // 6h to 17h
-            const currentHour = new Date().getHours();
+            const currentHour = 12;
             return currentHour >= 6 && currentHour <= 17;
           },
         },
         transportWeather: {
-          time: 1000 * 20,
-          allowed: () => {
-            // 10h to 20h
-            let currentHour = new Date().getHours();
-            return currentHour >= 10 && currentHour <= 20;
-          },
+          time: 1000 * 10,
+          // allowed: () => {
+          //   // 10h to 20h
+          //   let currentHour = 12;
+          //   return currentHour >= 10 && currentHour <= 20;
+          // },
+          allowed: () => true,
         },
         menus: {
-          time: 1000 * 20,
+          time: 1000 * 15,
           allowed: () => {
             // 6h to 14h
-            let currentHour = new Date().getHours();
+            let currentHour = 12;
             return currentHour >= 6 && currentHour <= 14;
           },
         },
