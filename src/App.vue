@@ -15,7 +15,9 @@
       v-if="Object.keys(views).includes('transportWeather')"
       :isActive="currentView == 'transportWeather'"
     />
-    <LoadingBar :time="views[currentView] == undefined ? 0 : views[currentView].time"/>
+    <LoadingBar
+      :view="views[currentView]"
+    />
     <LoadingOverlay ref="loading" />
   </div>
 </template>
@@ -26,7 +28,7 @@ import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 import TransportWeather from "./views/TransportWeather.vue";
-import Planning from "./views/NextPlannings.vue";
+//import Planning from "./views/NextPlannings.vue";
 import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
@@ -45,16 +47,16 @@ export default {
 
           The order in the object is the display order
         */
-        planning: {
-          time: 1000 * 30,
-          allowed: () => {
-            // 6h to 17h
-            const currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 17;
-          },
-        },
+        // planning: {
+        //   time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
+        //   allowed: () => {
+        //     // 6h to 17h
+        //     const currentHour = new Date().getHours();
+        //     return currentHour >= 6 && currentHour <= 17;
+        //   },
+        // },
         transportWeather: {
-          time: 1000 * 20,
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
           allowed: () => {
             // 10h to 20h
             let currentHour = new Date().getHours();
@@ -62,7 +64,7 @@ export default {
           },
         },
         menus: {
-          time: 1000 * 20,
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
@@ -107,7 +109,7 @@ export default {
           this.$refs.background && this.$refs.background.next();
           setTimeout(this.changeView, 200);
         },
-        DEVELOPEMENT_MODE ? 10000 : this.views[this.currentView].time
+        this.views[this.currentView].time
       );
     },
   },
@@ -120,7 +122,7 @@ export default {
     Background,
     Menus,
     TransportWeather,
-    Planning,
+    //Planning,
     DateAndHourHeader,
     LoadingBar,
   },

@@ -1,21 +1,40 @@
 <template>
   <div id="loading-container">
-    <div :style="progress" id="progress-bar"></div>
+    <div :style="progress" id="progress-bar" class="run-animation"></div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    time: Number,
+    view: Object,
+  },
+  data() {
+    return {
+      width: undefined,
+      transition: undefined
+    };
   },
   computed: {
     progress() {
-      return `animation: progress linear ${this.time} infinite;`;
+      return `width: ${this.width}; transition: ${this.transition}; animation-duration: ${this.view ? this.view.time : 0}ms;`;
     },
   },
   watch: {
-    time(oldVal, newVal) {
+    view: {
+      handler(oldVal, newVal) {
+        if(newVal === undefined)
+          return;
+        console.log("ça a changé");
+        this.width = 0;
+        this.transition = "width 0s";
+        const delay = 1300;
+        setTimeout(() => {
+          this.transition = `width ${newVal.time - delay}ms linear`;
+          this.width = "100%";
+        }, delay);
+      },
+      deep: true
     },
   },
 };
@@ -23,19 +42,24 @@ export default {
 
 <style scoped>
 #loading-container {
-  height: 40px;
+  height: 20px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.3);
 
   position: fixed;
   bottom: 0;
+  display: flex;
+  justify-content: flex-start;
 }
+
 #progress-bar {
   height: 100%;
   background-color: rgb(255, 255, 255);
+  /*animation: progressing-vue linear infinite; */
 }
+/*
 
-@keyframes progress {
+@keyframes progressing-vue {
   0% {
     width: 0;
   }
@@ -43,4 +67,5 @@ export default {
     width: 100%;
   }
 }
+*/
 </style>
