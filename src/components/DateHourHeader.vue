@@ -56,7 +56,7 @@ export default {
 
 #header > img {
   filter: invert(0.7);
-  width: 300px;
+  width: 150px;
 }
 
 #header > p {

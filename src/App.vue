@@ -49,16 +49,11 @@ export default {
           allowed: () => {
             // 6h to 17h
             const currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 17;
+            return currentHour >= 6 && currentHour < 17;
           },
         },
         transportWeather: {
           time: 1000 * 10,
-          // allowed: () => {
-          //   // 10h to 20h
-          //   let currentHour = new Date().getHours();
-          //   return currentHour >= 10 && currentHour <= 20;
-          // },
           allowed: () => true,
         },
         menus: {
@@ -66,7 +61,7 @@ export default {
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 14;
+            return currentHour >= 6 && currentHour < 14;
           },
         },
       },
