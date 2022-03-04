@@ -33,7 +33,7 @@ import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
 
-const DEVELOPEMENT_MODE = true;
+const DEVELOPEMENT_MODE = false;
 
 export default {
   data() {
@@ -47,14 +47,14 @@ export default {
 
           The order in the object is the display order
         */
-        // planning: {
-        //   time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
-        //   allowed: () => {
-        //     // 6h to 17h
-        //     const currentHour = new Date().getHours();
-        //     return currentHour >= 6 && currentHour <= 17;
-        //   },
-        // },
+        planning: {
+           time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
+           allowed: () => {
+             // 6h to 17h
+             const currentHour = new Date().getHours();
+             return currentHour >= 6 && currentHour <= 17;
+           },
+         },
         transportWeather: {
           time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
           allowed: () => {
@@ -68,7 +68,7 @@ export default {
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 14;
+            return currentHour >= 6 && currentHour < 14;
           },
         },
       },
