@@ -2,14 +2,18 @@ import puppeteer from "puppeteer";
 import ora from "ora";
 
 import Prompt from "prompt-password";
-var prompt = new Prompt({
-  type: "password",
-  message: "Enter your password please",
-  name: "password"
-});
 
 (async () => {
-  const password = await prompt.run();
+  const idnum = await new Prompt({
+    message: "Enter your IDNUM please",
+    name: "idnum",
+    type: "text"
+  }).run();
+  const password = await new Prompt({
+    type: "password",
+    message: "Enter your password please",
+    name: "password"
+  }).run();
 
   const spinner = ora("Opening browser").start();
 
@@ -30,7 +34,7 @@ var prompt = new Prompt({
 
   // Fill CAS form
   spinner.text = "Fill credentials";
-  await page.$eval("#username", el => el.value = "criboulet");
+  await page.$eval("#username", (el, id) => el.value = id, idnum);
   await page.$eval("#password", (el, pass) => el.value = pass, password);
 
   spinner.text = "Subit authentication";
@@ -97,7 +101,7 @@ var prompt = new Prompt({
         const element = await page.$("td.PetitEspaceHaut > input[type=text]");
         const url = await page.evaluate(element => element.value, element);
         spinner.text = url;
-        result.push({ group, url });
+        result.push({ group, ical: url.split("idICal=")[1].split("&param")[0] });
         spinner.text = `url found ${group} !`;
 
         await page.click("td.Fenetre_boutonfermeture > i");
@@ -107,8 +111,8 @@ var prompt = new Prompt({
 
 
   await page.waitForTimeout(4000);
-  spinner.succeed("Done");
+  spinner.succeed("Scrapping done");
+  await browser.close();
 
   console.log(result);
-  await browser.close();
 })();

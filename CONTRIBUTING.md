@@ -28,6 +28,11 @@
 - Si non installé : ```npm i -g @vue```
 - Si non installé : ```npm i -g @vue/cli```
 
+## Mettre à jour les classes / Id Ical hyperplannings
+> Nécéssaire à chaque semestre
+
+- ```node src/scrapHyperplanning.js```
+
 ***
 ## Lancer le serveur de développement
 
