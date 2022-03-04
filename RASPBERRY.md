@@ -5,6 +5,13 @@
 
 > Login / pass par défaut : `pi` / `raspberry`
 
+
+## Changer le clavier 
+
+` sudo raspi-config`
+` Localisation Options`
+` Set tous les paramètres dans là dedans`
+
 ## Connexion à EDUROAM
 
 modifier le fichier : `/etc/network/interfaces` :
@@ -34,7 +41,7 @@ network={
   eap=TTLS
   key_mgmt=WPA-EAP
   phase2="auth=PAP"
-  identity="[IDNUM]@u-bordeaux.fr
+  identity="[IDNUM]@u-bordeaux.fr"
   anonymous_identity="anonymous@u-bordeaux.fr
   password="******"
 }

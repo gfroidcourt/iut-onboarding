@@ -15,6 +15,10 @@
       v-if="Object.keys(views).includes('transportWeather')"
       :isActive="currentView == 'transportWeather'"
     />
+    <Welcome
+      v-if="Object.keys(views).includes('welcomeView')"
+      :isActive="currentView == 'welcomeView'"
+    />
 
     <LoadingOverlay ref="loading" />
   </div>
@@ -27,6 +31,7 @@ import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 import TransportWeather from "./views/TransportWeather.vue";
 import Planning from "./views/NextPlannings.vue";
+import Welcome from "./views/Welcome.vue";
 
 import "./stylesheets/reset.css";
 
@@ -44,23 +49,31 @@ export default {
 
           The order in the object is the display order
         */
-        planning: {
-          time: 1000 * 30,
-          allowed: () => {
-            // 6h to 17h
-            const currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 17;
-          },
-        },
-        transportWeather: {
-          time: 1000 * 20,
-          allowed: () => {
-            // 10h to 20h
-            let currentHour = new Date().getHours();
-            return currentHour >= 10 && currentHour <= 20;
-          },
-        },
-        menus: {
+        // planning: {
+        //   time: 1000 * 30,
+        //   allowed: () => {
+        //     // 6h to 17h
+        //     const currentHour = new Date().getHours();
+        //     return currentHour >= 6 && currentHour <= 17;
+        //   },
+        // },
+        // transportWeather: {
+        //   time: 1000 * 20,
+        //   allowed: () => {
+        //     // 10h to 20h
+        //     let currentHour = new Date().getHours();
+        //     return currentHour >= 10 && currentHour <= 20;
+        //   },
+        // },
+        // menus: {
+        //   time: 1000 * 20,
+        //   allowed: () => {
+        //     // 6h to 14h
+        //     let currentHour = new Date().getHours();
+        //     return currentHour >= 6 && currentHour <= 14;
+        //   },
+        // },
+        welcomeView: {
           time: 1000 * 20,
           allowed: () => {
             // 6h to 14h
@@ -116,6 +129,7 @@ export default {
   },
   components: {
     LoadingOverlay,
+    Welcome,
     Background,
     Menus,
     TransportWeather,
