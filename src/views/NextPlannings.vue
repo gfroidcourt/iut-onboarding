@@ -30,10 +30,13 @@ export default {
   },
   computed: {
     currentHourRange() {
-      const currentHour = new Date().getHours();
-      if (currentHour < 9) return "8h15 - 10h00";
-      if (currentHour < 11) return "10h25 - 12h15";
-      if (currentHour < 15) return "14h00 - 15h50";
+      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      // 09h30
+      if (currentTime < 9 * 60 + 30) return "8h15 - 10h00";
+      // 11h30
+      if (currentTime < 11 * 60 + 30) return "10h25 - 12h15";
+      // 15h30
+      if (currentTime < 15 * 60 + 30) return "14h00 - 15h50";
       return "16h10 - 18h00";
     },
   },

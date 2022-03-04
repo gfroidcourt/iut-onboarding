@@ -1,6 +1,6 @@
 <template>
   <div id="loading-container">
-    <div :style="progress" id="progress-bar" class="run-animation"></div>
+    <div :style="progress" id="progress-bar"></div>
   </div>
 </template>
 
@@ -55,17 +55,5 @@ export default {
 #progress-bar {
   height: 100%;
   background-color: rgb(255, 255, 255);
-  /*animation: progressing-vue linear infinite; */
 }
-/*
-
-@keyframes progressing-vue {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
-}
-*/
 </style>

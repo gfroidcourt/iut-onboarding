@@ -13,23 +13,23 @@
       </div>
       <div v-if="group !== undefined" class="data-container">
         <div class="subject-infos">
-          <p>{{ classType }} - {{ data.subject[groupindex] }}</p>
+          <p>{{ classType(group === "seconde" ? 1 : 0) }} - {{ data.subject[group === "seconde" ? 1 : 0] }}</p>
         </div>
         <div class="subject-infos">
           <p class="teacher">
             {{
-              data.teacher[groupindex]
-                ? data.teacher[groupindex]
+              data.teacher[group === "seconde" ? 1 : 0]
+                ? data.teacher[group === "seconde" ? 1 : 0]
                 : "Pas de prof"
             }}
           </p>
         </div>
         <div class="subject-infos">
-          <p class="room">{{ data.room[groupindex] }}</p>
+          <p class="room">{{ data.room[group === "seconde" ? 1 : 0] }}</p>
         </div>
       </div>
       <div v-else style="opacity: 0.5" class="data-container">
-        <img :src="noClassLogo" />
+        <img style="width: 35%;" :src="noClassLogo" />
         <p>Pas cours</p>
       </div>
     </div>
@@ -60,7 +60,7 @@ export default {
         return [undefined];
       if (this.data.subject[0] === undefined) return ["seconde"];
       if (this.data.subject[1] === undefined) return ["prime"];
-      return ["prime", "seconde"];
+      return ["prime", "seconde"]; // Prime et seconde ont cours en même temps
     },
     getClassNameComponent(group = undefined) {
       const a = this.data.className.toUpperCase();
@@ -71,6 +71,10 @@ export default {
       if (group) return [...result, group];
       return result;
     },
+    classType(index = 0) {
+      if (this.data.type[index] === undefined) return "";
+      return this.data.type[index].split("_")[0];
+    },
   },
   computed: {
     classColor() {
@@ -78,10 +82,6 @@ export default {
       return className.includes("S4") || className.includes("S4")
         ? "#9f99f5"
         : "#f0a377";
-    },
-    classType() {
-      if (this.data.type[0] === undefined) return "";
-      return this.data.type[0].split("_")[0];
     },
   },
 };

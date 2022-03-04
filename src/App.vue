@@ -15,9 +15,7 @@
       v-if="Object.keys(views).includes('transportWeather')"
       :isActive="currentView == 'transportWeather'"
     />
-    <LoadingBar
-      :view="views[currentView]"
-    />
+    <LoadingBar :view="views[currentView]" />
     <LoadingOverlay ref="loading" />
   </div>
 </template>
@@ -28,12 +26,12 @@ import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 import TransportWeather from "./views/TransportWeather.vue";
-//import Planning from "./views/NextPlannings.vue";
+import Planning from "./views/NextPlannings.vue";
 import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
 
-const DEVELOPEMENT_MODE = true;
+const DEVELOPEMENT_MODE = false;
 
 export default {
   data() {
@@ -47,14 +45,14 @@ export default {
 
           The order in the object is the display order
         */
-        // planning: {
-        //   time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
-        //   allowed: () => {
-        //     // 6h to 17h
-        //     const currentHour = new Date().getHours();
-        //     return currentHour >= 6 && currentHour <= 17;
-        //   },
-        // },
+        planning: {
+          time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
+          allowed: () => {
+            // 6h to 17h
+            const currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour <= 17;
+          },
+        },
         transportWeather: {
           time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
           allowed: () => {
@@ -68,7 +66,7 @@ export default {
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 14;
+            return currentHour >= 6 && currentHour < 14;
           },
         },
       },
@@ -103,14 +101,11 @@ export default {
         //Detect we've commented all views except one
         return; // (Disable slide show)
 
-      setTimeout(
-        () => {
-          this.$refs.loading && this.$refs.loading.show();
-          this.$refs.background && this.$refs.background.next();
-          setTimeout(this.changeView, 200);
-        },
-        this.views[this.currentView].time
-      );
+      setTimeout(() => {
+        this.$refs.loading && this.$refs.loading.show();
+        this.$refs.background && this.$refs.background.next();
+        setTimeout(this.changeView, 200);
+      }, this.views[this.currentView].time);
     },
   },
   mounted() {
@@ -122,7 +117,7 @@ export default {
     Background,
     Menus,
     TransportWeather,
-    //Planning,
+    Planning,
     DateAndHourHeader,
     LoadingBar,
   },
