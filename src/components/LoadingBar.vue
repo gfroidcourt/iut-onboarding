@@ -23,14 +23,14 @@ export default {
   watch: {
     view: {
       handler(oldVal, newVal) {
-        if(newVal === undefined)
+        if(oldVal === undefined)
           return;
         console.log("ça a changé");
         this.width = 0;
         this.transition = "width 0s";
         const delay = 1300;
         setTimeout(() => {
-          this.transition = `width ${newVal.time - delay}ms linear`;
+          this.transition = `width ${oldVal.time - delay}ms linear`;
           this.width = "100%";
         }, delay);
       },
