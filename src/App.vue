@@ -122,7 +122,7 @@ export default {
     Background,
     Menus,
     TransportWeather,
-    //Planning,
+    Planning,
     DateAndHourHeader,
     LoadingBar,
   },
