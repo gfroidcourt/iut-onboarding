@@ -35,7 +35,7 @@ import Welcome from "./views/Welcome.vue";
 
 import "./stylesheets/reset.css";
 
-const DEVELOPEMENT_MODE = true;
+const DEVELOPEMENT_MODE = false;
 
 export default {
   data() {
@@ -49,37 +49,21 @@ export default {
 
           The order in the object is the display order
         */
-        // planning: {
-        //   time: 1000 * 30,
-        //   allowed: () => {
-        //     // 6h to 17h
-        //     const currentHour = new Date().getHours();
-        //     return currentHour >= 6 && currentHour <= 17;
-        //   },
-        // },
-        // transportWeather: {
-        //   time: 1000 * 20,
-        //   allowed: () => {
-        //     // 10h to 20h
-        //     let currentHour = new Date().getHours();
-        //     return currentHour >= 10 && currentHour <= 20;
-        //   },
-        // },
-        // menus: {
-        //   time: 1000 * 20,
-        //   allowed: () => {
-        //     // 6h to 14h
-        //     let currentHour = new Date().getHours();
-        //     return currentHour >= 6 && currentHour <= 14;
-        //   },
-        // },
         welcomeView: {
           time: 1000 * 20,
-          allowed: () => {
-            // 6h to 14h
-            let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 14;
-          },
+          allowed: () => true
+        },
+        planning: {
+          time: 1000 * 15,
+          allowed: () => true,
+        },
+        transportWeather: {
+          time: 1000 * 10,
+          allowed: () => true,
+        },
+        menus: {
+          time: 1000 * 10,
+          allowed: () => true,
         },
       },
     };
