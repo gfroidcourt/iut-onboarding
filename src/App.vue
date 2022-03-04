@@ -45,7 +45,7 @@ export default {
           The order in the object is the display order
         */
         planning: {
-          time: 1000 * 30,
+          time: 1000 * 20,
           allowed: () => {
             // 6h to 17h
             const currentHour = new Date().getHours();

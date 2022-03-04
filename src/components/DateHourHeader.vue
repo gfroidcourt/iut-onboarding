@@ -2,7 +2,7 @@
   <div id="header">
     <p>{{ currentDate }}</p>
     <p>{{ currentTime }}</p>
-    <img :src="logoIut" />
+    <img style="width: 150px; margin-left: 150px;" :src="logoIut" />
   </div>
 </template>
 
