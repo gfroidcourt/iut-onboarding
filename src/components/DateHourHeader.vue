@@ -2,7 +2,7 @@
   <div id="header">
     <p>{{ currentDate }}</p>
     <p>{{ currentTime }}</p>
-    <img :src="logoIut" />
+    <img style="width: 150px; margin-left: 150px;" :src="logoIut" />
   </div>
 </template>
 
@@ -56,7 +56,7 @@ export default {
 
 #header > img {
   filter: invert(0.7);
-  width: 300px;
+  width: 150px;
 }
 
 #header > p {
