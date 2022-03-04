@@ -28,7 +28,7 @@ import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 import TransportWeather from "./views/TransportWeather.vue";
-//import Planning from "./views/NextPlannings.vue";
+import Planning from "./views/NextPlannings.vue";
 import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
