@@ -15,7 +15,7 @@
       v-if="Object.keys(views).includes('transportWeather')"
       :isActive="currentView == 'transportWeather'"
     />
-
+    <LoadingBar>
     <LoadingOverlay ref="loading" />
   </div>
 </template>
@@ -27,6 +27,7 @@ import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 import TransportWeather from "./views/TransportWeather.vue";
 import Planning from "./views/NextPlannings.vue";
+import LoadingBar from "./components/LoadingBar.vue"
 
 import "./stylesheets/reset.css";
 
@@ -35,6 +36,9 @@ const DEVELOPEMENT_MODE = true;
 export default {
   data() {
     return {
+      planningTime: 30,
+      transportWeatherTime: 20,
+      menusTime: 20,
       currentView: "transport",
       views: {
         /*
@@ -45,7 +49,7 @@ export default {
           The order in the object is the display order
         */
         planning: {
-          time: 1000 * 30,
+          time: 1000 * planningTime,
           allowed: () => {
             // 6h to 17h
             const currentHour = new Date().getHours();
@@ -53,7 +57,7 @@ export default {
           },
         },
         transportWeather: {
-          time: 1000 * 20,
+          time: 1000 * transportWeatherTime,
           allowed: () => {
             // 10h to 20h
             let currentHour = new Date().getHours();
@@ -61,7 +65,7 @@ export default {
           },
         },
         menus: {
-          time: 1000 * 20,
+          time: 1000 * menusTime,
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
@@ -121,6 +125,7 @@ export default {
     TransportWeather,
     Planning,
     DateAndHourHeader,
+    LoadingBar,
   },
 };
 </script>
