@@ -60,7 +60,7 @@ export default {
         return [undefined];
       if (this.data.subject[0] === undefined) return ["seconde"];
       if (this.data.subject[1] === undefined) return ["prime"];
-      return ["prime", "seconde"]; // Priem et seconde ont cours en même temps
+      return ["prime", "seconde"]; // Prime et seconde ont cours en même temps
     },
     getClassNameComponent(group = undefined) {
       const a = this.data.className.toUpperCase();
