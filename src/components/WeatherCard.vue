@@ -39,15 +39,15 @@ export default {
         this.currentTemperature = weatherinfos.temperature;
         this.currentWeather = weatherinfos.weatherText;
       });
-      api.fetchNextWeather().then((tab) => {
+      api.fetch12HoursWeather().then((tab) => {
         this.info_meteo = tab;
       });
-    }
+    },
   },
   mounted() {
     this.fetchWeather();
     const delay = 1000 * 60 * 60 * 2; // Refresh toutes les 2 heures
-    this.refreshInterval = setInterval(this.getAllPlannings, delay);
+    this.refreshInterval = setInterval(this.fetchWeather, delay);
   },
   unmounted() {
     clearInterval(this.refreshInterval);
