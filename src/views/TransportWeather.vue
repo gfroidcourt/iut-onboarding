@@ -5,16 +5,16 @@
         <TransportCard :busData="liane10" />
         <TransportCard :busData="tramB" />
     </div>
-    <!-- <h1 class="view-title">Météo</h1>
+     <h1 class="view-title">Météo</h1>
     <div class="view-content">
         <WeatherCard />
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 import TransportCard from "../components/TransportCard.vue";
-// import WeatherCard from "../components/WeatherCard.vue";
+import WeatherCard from "../components/WeatherCard.vue";
 
 export default {
   props: {
@@ -40,7 +40,7 @@ export default {
   },
   components: {
     TransportCard,
-    // WeatherCard,
+    WeatherCard,
   },
 };
 </script>
