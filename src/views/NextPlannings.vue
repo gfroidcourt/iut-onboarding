@@ -42,6 +42,7 @@ export default {
   },
   data() {
     return {
+      refreshInterval: undefined,
       nextClasses: [],
       classes: [
         // ---------- S2
@@ -179,6 +180,7 @@ export default {
       );
     },
     async getAllPlannings() {
+      console.log("Refreshing plannings");
       this.nextClasses = [];
       for (const c of this.classes) {
         const classEvent = await c.classIcal
@@ -222,7 +224,12 @@ export default {
   },
   mounted() {
     this.getAllPlannings();
+    const delay = 1000 * 60 * 15; // Refresh toutes les 15 minutes
+    this.refreshInterval = setInterval(this.getAllPlannings, delay);
   },
+  unmounted() {
+    clearInterval(this.refreshInterval);
+  }
 };
 </script>
 
