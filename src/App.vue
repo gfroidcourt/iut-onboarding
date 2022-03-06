@@ -11,9 +11,13 @@
       v-if="Object.keys(views).includes('planning')"
       :isActive="currentView == 'planning'"
     />
-    <TransportWeather
-      v-if="Object.keys(views).includes('transportWeather')"
-      :isActive="currentView == 'transportWeather'"
+    <Transport
+      v-if="Object.keys(views).includes('transport')"
+      :isActive="currentView == 'transport'"
+    />
+    <Weather
+      v-if="Object.keys(views).includes('weather')"
+      :isActive="currentView == 'weather'"
     />
 
     <LoadingOverlay ref="loading" />
@@ -25,7 +29,9 @@ import DateAndHourHeader from "./components/DateHourHeader.vue";
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
-import TransportWeather from "./views/TransportWeather.vue";
+
+import Transport from "./views/Transport.vue";
+import Weather from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
 
 import "./stylesheets/reset.css";
@@ -52,7 +58,11 @@ export default {
             return currentHour >= 6 && currentHour < 17;
           },
         },
-        transportWeather: {
+        transport: {
+          time: 1000 * 10,
+          allowed: () => true,
+        },
+        weather: {
           time: 1000 * 10,
           allowed: () => true,
         },
@@ -114,7 +124,8 @@ export default {
     LoadingOverlay,
     Background,
     Menus,
-    TransportWeather,
+    Transport,
+    Weather,
     Planning,
     DateAndHourHeader,
   },

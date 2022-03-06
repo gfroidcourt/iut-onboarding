@@ -33,7 +33,7 @@ export default {
       this.currentTemperature = weatherinfos.temperature;
       this.currentWeather = weatherinfos.weatherText;
     });
-    api.fetchNextWeather().then((tab) => {
+    api.fetch12HoursWeather().then((tab) => {
       this.info_meteo = tab;
     });
   },
