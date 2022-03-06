@@ -2,19 +2,14 @@
   <div class="view-container" v-show="isActive">
     <h1 class="view-title">Prochains transports</h1>
     <div class="view-content">
-        <TransportCard :busData="liane10" />
-        <TransportCard :busData="tramB" />
-    </div>
-     <h1 class="view-title">Météo</h1>
-    <div class="view-content">
-        <WeatherCard />
+      <TransportCard :busData="liane10" />
+      <TransportCard :busData="tramB" />
     </div>
   </div>
 </template>
 
 <script>
 import TransportCard from "../components/TransportCard.vue";
-import WeatherCard from "../components/WeatherCard.vue";
 
 export default {
   props: {
@@ -34,13 +29,10 @@ export default {
         lineId: "B",
         lineName: "Tram",
       },
-      sirtakiMenu: undefined,
-      spaceMenu: undefined,
     };
   },
   components: {
     TransportCard,
-    WeatherCard,
   },
 };
 </script>
