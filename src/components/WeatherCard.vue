@@ -8,7 +8,11 @@
       </div>
     </div>
     <div class="infos-meteo">
-      <div class="meteo-timestamp-slot" v-for="(meteo, index) in info_meteo" :key="index">
+      <div
+        class="meteo-timestamp-slot"
+        v-for="(meteo, index) in info_meteo"
+        :key="index"
+      >
         <p>{{ meteo.Heure }}h00</p>
         <img :src="meteo.icone" />
         <p>{{ meteo.Temperature }}°</p>
@@ -22,20 +26,31 @@ import * as api from "../api";
 export default {
   data() {
     return {
+      refreshInterval: undefined,
       currentWeather: undefined,
       currentTemperature: undefined,
       info_meteo: [],
     };
   },
-  methods: {},
+  methods: {
+    fetchWeather() {
+      console.log("Refreshing weather");
+      api.fetchCurrentWeather().then((weatherinfos) => {
+        this.currentTemperature = weatherinfos.temperature;
+        this.currentWeather = weatherinfos.weatherText;
+      });
+      api.fetch12HoursWeather().then((tab) => {
+        this.info_meteo = tab;
+      });
+    },
+  },
   mounted() {
-    api.fetchCurrentWeather().then((weatherinfos) => {
-      this.currentTemperature = weatherinfos.temperature;
-      this.currentWeather = weatherinfos.weatherText;
-    });
-    api.fetchNextWeather().then((tab) => {
-      this.info_meteo = tab;
-    });
+    this.fetchWeather();
+    const delay = 1000 * 60 * 60 * 2; // Refresh toutes les 2 heures
+    this.refreshInterval = setInterval(this.fetchWeather, delay);
+  },
+  unmounted() {
+    clearInterval(this.refreshInterval);
   },
 };
 </script>

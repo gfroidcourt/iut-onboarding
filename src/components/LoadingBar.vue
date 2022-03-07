@@ -12,20 +12,21 @@ export default {
   data() {
     return {
       width: undefined,
-      transition: undefined
+      transition: undefined,
     };
   },
   computed: {
     progress() {
-      return `width: ${this.width}; transition: ${this.transition}; animation-duration: ${this.view ? this.view.time : 0}ms;`;
+      return `width: ${this.width}; transition: ${
+        this.transition
+      }; animation-duration: ${this.view ? this.view.time : 0}ms;`;
     },
   },
   watch: {
     view: {
+      // eslint-disable-next-line no-unused-vars
       handler(oldVal, newVal) {
-        if(oldVal === undefined)
-          return;
-        console.log("ça a changé");
+        if (oldVal === undefined) return;
         this.width = 0;
         this.transition = "width 0s";
         const delay = 1300;
@@ -34,7 +35,7 @@ export default {
           this.width = "100%";
         }, delay);
       },
-      deep: true
+      deep: true,
     },
   },
 };
@@ -55,5 +56,6 @@ export default {
 #progress-bar {
   height: 100%;
   background-color: rgb(255, 255, 255);
+  border-radius: 0 5px 5px 0;
 }
 </style>

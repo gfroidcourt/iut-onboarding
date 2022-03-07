@@ -11,9 +11,13 @@
       v-if="Object.keys(views).includes('planning')"
       :isActive="currentView == 'planning'"
     />
-    <TransportWeather
-      v-if="Object.keys(views).includes('transportWeather')"
-      :isActive="currentView == 'transportWeather'"
+    <Transport
+      v-if="Object.keys(views).includes('transport')"
+      :isActive="currentView == 'transport'"
+    />
+    <Weather
+      v-if="Object.keys(views).includes('weather')"
+      :isActive="currentView == 'weather'"
     />
     <LoadingBar :view="views[currentView]" />
     <LoadingOverlay ref="loading" />
@@ -25,7 +29,9 @@ import DateAndHourHeader from "./components/DateHourHeader.vue";
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
-import TransportWeather from "./views/TransportWeather.vue";
+
+import Transport from "./views/Transport.vue";
+import Weather from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
 import LoadingBar from "./components/LoadingBar.vue";
 
@@ -53,13 +59,13 @@ export default {
             return currentHour >= 6 && currentHour <= 17;
           },
         },
-        transportWeather: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
-          allowed: () => {
-            // 10h to 20h
-            let currentHour = new Date().getHours();
-            return currentHour >= 10 && currentHour <= 20;
-          },
+        transport: {
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
+          allowed: () => true,
+        },
+        weather: {
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
+          allowed: () => true,
         },
         menus: {
           time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
@@ -116,7 +122,8 @@ export default {
     LoadingOverlay,
     Background,
     Menus,
-    TransportWeather,
+    Transport,
+    Weather,
     Planning,
     DateAndHourHeader,
     LoadingBar,
