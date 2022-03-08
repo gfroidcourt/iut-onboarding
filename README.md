@@ -20,6 +20,12 @@
   <a href="https://github.com/gfroidcourt/iut-onboarding/blob/main/CONTRIBUTING.md">Contribuer au projet</a>
 </h5>
 
+
+
+https://user-images.githubusercontent.com/38594012/157298318-04690aba-c6f1-4f3b-8be6-354ae2b2d53c.mp4
+
+
+
 > Affichage des prochains cours
 ![image](https://user-images.githubusercontent.com/38594012/157295971-ff3be5bd-fc91-4971-8b98-1391110f316b.png)
 
