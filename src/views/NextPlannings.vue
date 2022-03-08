@@ -267,7 +267,7 @@ export default {
   },
   mounted() {
     this.getAllPlannings();
-    const delay = 1000 * 60 * 15; // Refresh toutes les 15 minutes
+    const delay = 1000 * 60 * 5; // Refresh toutes les 5 minutes
     this.refreshInterval = setInterval(this.getAllPlannings, delay);
   },
   unmounted() {
