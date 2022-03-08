@@ -1,0 +1,19 @@
+[build]
+  command = "vue-cli-service build"
+  functions = "functions"
+  publish = "dist"
+
+[[redirects]]
+  from = "/api/scheduler/hyperplanning/:schedulerId/:dateParameter"
+  to = "https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/Edt.ics?version=2021.0.1.3&idICal=:schedulerId&param=:dateParameter"
+  status = 200
+
+[[redirects]]
+  from = "/api/crous/sirtaki"
+  to = "https://www.crous-bordeaux.fr/restaurant/crous-cafet-le-sirtaki/"
+  status = 200
+
+[[redirects]]
+  from = "/api/crous/space"
+  to = "https://www.crous-bordeaux.fr/restaurant/space-campus-resto-u/"
+  status = 200

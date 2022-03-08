@@ -11,15 +11,20 @@
       v-if="Object.keys(views).includes('planning')"
       :isActive="currentView == 'planning'"
     />
-    <TransportWeather
-      v-if="Object.keys(views).includes('transportWeather')"
-      :isActive="currentView == 'transportWeather'"
+    <Transport
+      v-if="Object.keys(views).includes('transport')"
+      :isActive="currentView == 'transport'"
     />
     <Welcome
       v-if="Object.keys(views).includes('welcomeView')"
       :isActive="currentView == 'welcomeView'"
     />
 
+    <Weather
+      v-if="Object.keys(views).includes('weather')"
+      :isActive="currentView == 'weather'"
+    />
+    <LoadingBar :view="views[currentView]" />
     <LoadingOverlay ref="loading" />
   </div>
 </template>
@@ -29,9 +34,12 @@ import DateAndHourHeader from "./components/DateHourHeader.vue";
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
-import TransportWeather from "./views/TransportWeather.vue";
+
+import Transport from "./views/Transport.vue";
+import Weather from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
 import Welcome from "./views/Welcome.vue";
+import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
 
@@ -49,20 +57,24 @@ export default {
 
           The order in the object is the display order
         */
-        welcomeView: {
-          time: 1000 * 20,
-          allowed: () => true
-        },
+        // welcomeView: {
+        //   time: 1000 * 20,
+        //   allowed: () => true
+        // },
         planning: {
-          time: 1000 * 15,
+          time: DEVELOPEMENT_MODE ? 5000 : 1000 * 15,
           allowed: () => true,
         },
-        transportWeather: {
-          time: 1000 * 10,
+        transport: {
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 5,
+          allowed: () => true,
+        },
+        weather: {
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 5,
           allowed: () => true,
         },
         menus: {
-          time: 1000 * 10,
+          time: 1000 * 5,
           allowed: () => true,
         },
       },
@@ -97,14 +109,11 @@ export default {
         //Detect we've commented all views except one
         return; // (Disable slide show)
 
-      setTimeout(
-        () => {
-          this.$refs.loading && this.$refs.loading.show();
-          this.$refs.background && this.$refs.background.next();
-          setTimeout(this.changeView, 200);
-        },
-        DEVELOPEMENT_MODE ? 10000 : this.views[this.currentView].time
-      );
+      setTimeout(() => {
+        this.$refs.loading && this.$refs.loading.show();
+        this.$refs.background && this.$refs.background.next();
+        setTimeout(this.changeView, 200);
+      }, this.views[this.currentView].time);
     },
   },
   mounted() {
@@ -116,9 +125,11 @@ export default {
     Welcome,
     Background,
     Menus,
-    TransportWeather,
+    Transport,
+    Weather,
     Planning,
     DateAndHourHeader,
+    LoadingBar,
   },
 };
 </script>

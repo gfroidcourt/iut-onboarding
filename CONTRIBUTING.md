@@ -4,6 +4,7 @@
 
 > Nécéssite d'avoir node.js installé
 
+0. Installer netlify cli : ```npm install netlify-cli -g``` (-g ne marchera pas à l'IUT)
 1. Clone le projet : ```git clone git@github.com:gfroidcourt/iut-onboarding.git```
 2. Installer les dépendences : ```npm install```
     - Si vue.js n'est pas installé : ```npm i -g @vue``` puis ```npm i -g @vue/cli```
@@ -16,7 +17,7 @@
 
 ## Lancer le serveur de développement
 
-- ```npm run serve```
+- ```netlify dev```
     - ouvrir l'url indiquée dans le terminal  
 
 ## Franglais :
