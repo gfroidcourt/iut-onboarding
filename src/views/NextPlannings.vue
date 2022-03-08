@@ -258,7 +258,7 @@ export default {
         console.error("Failed to fetch plannings", e);
         this.nextClasses = [];
         this.currentHourRangeStr =
-          "Les plannings ne fonctionnent pas mais tu es surrement en retard";
+          "Si si tu as cours, c'est juste un bug :)";
       }
     },
   },
