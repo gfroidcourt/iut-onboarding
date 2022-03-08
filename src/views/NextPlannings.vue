@@ -200,11 +200,15 @@ export default {
     },
     nextEventFilter(event) {
       // Actual time in minutes relatives to 00:00 of the current day (Ex: 420 for 07:00am)
-      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      let currentTime = new Date().getHours() * 60 + new Date().getMinutes();
       const eventStartTime =
         event.dateStart.getHours() * 60 + event.dateStart.getMinutes();
       const eventEndTime =
         event.dateEnd.getHours() * 60 + event.dateEnd.getMinutes();
+
+      // Cas spécial -> afficher les cours de 14h entre 11h30 et 13h30
+      if (currentTime > 11 * 60 + 30 && currentTime < 13 * 60 + 30)
+        currentTime += 2 * 60; // On fais croire qu'il est h+2, soit entre 13h30 et 15h30
 
       // Display this event 30min before it starts and stop displaying it 30 mins before it ends.
       return (
@@ -257,8 +261,7 @@ export default {
       } catch (e) {
         console.error("Failed to fetch plannings", e);
         this.nextClasses = [];
-        this.currentHourRangeStr =
-          "Si si tu as cours, c'est juste un bug :)";
+        this.currentHourRangeStr = "Si si tu as cours, c'est juste un bug :)";
       }
     },
   },
