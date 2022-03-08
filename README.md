@@ -24,4 +24,7 @@
  :construction: Le projet est encore en cours de développement :construction:
 </h2>
 
-![image](https://user-images.githubusercontent.com/38594012/151676454-616d86a1-d987-4e66-b9c7-8589c6e414a7.png)
+![image](https://user-images.githubusercontent.com/38594012/157295971-ff3be5bd-fc91-4971-8b98-1391110f316b.png)
+![image](https://user-images.githubusercontent.com/38594012/157295666-55af2fd6-18b3-42b4-ab67-50e446b9625b.png)
+![image](https://user-images.githubusercontent.com/38594012/157296134-c2385d5a-d794-40ec-915b-cbbfab1ef550.png)
+![image](https://user-images.githubusercontent.com/38594012/157295841-4f41fa8f-9d19-45c3-9fbb-30dcb6b87f97.png)
