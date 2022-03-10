@@ -3,11 +3,6 @@
     <Background ref="background" />
 
     <DateAndHourHeader />
-
-    <Meteo
-      v-if="Object.keys(views).includes('weather')"
-      :isActive="currentView == 'weather'"
-    />
     <Menus
       v-if="Object.keys(views).includes('menus')"
       :isActive="currentView == 'menus'"
@@ -20,7 +15,11 @@
       v-if="Object.keys(views).includes('transport')"
       :isActive="currentView == 'transport'"
     />
-
+    <Weather
+      v-if="Object.keys(views).includes('weather')"
+      :isActive="currentView == 'weather'"
+    />
+    <LoadingBar :view="views[currentView]" />
     <LoadingOverlay ref="loading" />
   </div>
 </template>
@@ -30,14 +29,17 @@ import DateAndHourHeader from "./components/DateHourHeader.vue";
 import LoadingOverlay from "./components/LoadingOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
-import Transport from "./views/NextTransports.vue";
-import Meteo from "./views/Weather.vue";
+
+import Transport from "./views/Transport.vue";
+import Weather from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
+import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
 
+const DEVELOPEMENT_MODE = false;
+
 export default {
-  name: "App",
   data() {
     return {
       currentView: "transport",
@@ -49,33 +51,29 @@ export default {
 
           The order in the object is the display order
         */
-        transport: {
-          time: 10000,
-          allowed: () => {
-            // 10h to 20h
-            let currentHour = new Date().getHours();
-            return currentHour >= 10 && currentHour <= 20;
-          },
-        },
-        menus: {
-          time: 10000,
-          allowed: () => {
-            // 6h to 14h
-            let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 14;
-          },
-        },
         planning: {
-          time: 10000,
+          time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
           allowed: () => {
             // 6h to 17h
             const currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour <= 17;
           },
         },
-        weather: {
-          time: 10000,
+        transport: {
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
           allowed: () => true,
+        },
+        weather: {
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
+          allowed: () => true,
+        },
+        menus: {
+          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
+          allowed: () => {
+            // 6h to 14h
+            let currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour < 14;
+          },
         },
       },
     };
@@ -97,7 +95,10 @@ export default {
      */
     changeView() {
       this.currentView = this.getNextViewName();
-      if (this.views[this.currentView].allowed() === false) {
+      if (
+        this.views[this.currentView].allowed() === false &&
+        !DEVELOPEMENT_MODE
+      ) {
         this.changeView();
         return;
       }
@@ -120,11 +121,12 @@ export default {
   components: {
     LoadingOverlay,
     Background,
-    Meteo,
     Menus,
     Transport,
+    Weather,
     Planning,
     DateAndHourHeader,
+    LoadingBar,
   },
 };
 </script>
@@ -167,15 +169,16 @@ export default {
 
 .view-title {
   margin-top: 90px;
+  min-width: 400px;
 
   background-color: white;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
 
-  color: grey;
+  color: rgb(73, 72, 72);
 
   line-height: 43px;
 
-  font-size: 30px;
+  font-size: 37px;
   font-weight: 800;
   padding: 30px 50px;
   border-radius: 30px;

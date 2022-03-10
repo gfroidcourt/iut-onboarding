@@ -13,7 +13,6 @@
 
 <script>
 export default {
-  name: "menu-card",
   props: {
     restName: String,
     mealList: Object
@@ -59,16 +58,15 @@ export default {
   height: 100%;
   width: 100%;
 
-  font-size: 35px;
+  font-size: 33px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-
 }
 
 .meal {
-  padding: 20px;
+  padding: 5px 10px;
 }
 </style>

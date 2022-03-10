@@ -13,24 +13,23 @@
       </div>
       <div v-if="group !== undefined" class="data-container">
         <div class="subject-infos">
-          <p>{{ classType }}</p>
-          <p>{{ data.subject[groupindex] }}</p>
+          <p>{{ classType(group === "seconde" ? 1 : 0) }} - {{ data.subject[group === "seconde" ? 1 : 0] }}</p>
         </div>
         <div class="subject-infos">
           <p class="teacher">
             {{
-              data.teacher[groupindex]
-                ? data.teacher[groupindex]
+              data.teacher[group === "seconde" ? 1 : 0]
+                ? data.teacher[group === "seconde" ? 1 : 0]
                 : "Pas de prof"
             }}
           </p>
         </div>
         <div class="subject-infos">
-          <p class="room">{{ data.room[groupindex] }}</p>
+          <p class="room">{{ data.room[group === "seconde" ? 1 : 0] }}</p>
         </div>
       </div>
       <div v-else style="opacity: 0.5" class="data-container">
-        <img :src="noClassLogo" />
+        <img style="width: 35%;" :src="noClassLogo" />
         <p>Pas cours</p>
       </div>
     </div>
@@ -61,7 +60,7 @@ export default {
         return [undefined];
       if (this.data.subject[0] === undefined) return ["seconde"];
       if (this.data.subject[1] === undefined) return ["prime"];
-      return ["prime", "seconde"];
+      return ["prime", "seconde"]; // Prime et seconde ont cours en même temps
     },
     getClassNameComponent(group = undefined) {
       const a = this.data.className.toUpperCase();
@@ -72,6 +71,10 @@ export default {
       if (group) return [...result, group];
       return result;
     },
+    classType(index = 0) {
+      if (this.data.type[index] === undefined) return "";
+      return this.data.type[index].split("_")[0];
+    },
   },
   computed: {
     classColor() {
@@ -79,10 +82,6 @@ export default {
       return className.includes("S4") || className.includes("S4")
         ? "#9f99f5"
         : "#f0a377";
-    },
-    classType() {
-      if (this.data.type[0] === undefined) return "";
-      return this.data.type[0].split("_")[0];
     },
   },
 };
@@ -92,7 +91,7 @@ export default {
 <style scoped>
 .planning-container {
   width: 300px;
-  height: 400px;
+  height: 360px;
 
   display: flex;
   flex-direction: column;
@@ -138,18 +137,9 @@ export default {
   margin-bottom: 4px;
 }
 
-.dataContainer {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .data-container {
   flex: 1;
   width: 100%;
-  padding: 20px;
   margin-top: auto;
   margin-bottom: auto;
   max-height: 150px;
@@ -157,7 +147,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.data-container > img {
+  margin-top: -30px;
+  margin-bottom: 30px;
 }
 
 .subject-infos {
@@ -170,6 +165,7 @@ export default {
 .subject-infos > p {
   margin-right: 10px;
   margin-left: 10px;
+  line-height: 25px;
 }
 
 .subject-infos > p {
@@ -177,7 +173,7 @@ export default {
 }
 
 .room {
-  color: rgb(53, 182, 221);
+  color: rgb(41, 154, 189);
   font-size: 25px;
   font-weight: 900;
 }

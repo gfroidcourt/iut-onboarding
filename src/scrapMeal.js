@@ -1,9 +1,6 @@
 import cheerio from "cheerio";
 import fetch from "node-fetch";
 
-const SPACE_URL = "https://www.crous-bordeaux.fr/restaurant/space-campus-resto-u/";
-const SIRTAKI_URL = "https://www.crous-bordeaux.fr/restaurant/crous-cafet-le-sirtaki/";
-
 /**
  * Sélectionne tous les plats du menu du jour actuel, sans les entrées ni les desserts
  * @param {string} URL
@@ -49,6 +46,6 @@ async function fetchMenu(URL) {
  * @return Un objet contennant les plats des restaurants crous
  */
 export const getAllRestaurantsMenus = async () => ({
-  space: await fetchMenu(SPACE_URL),
-  sirtaki: await fetchMenu(SIRTAKI_URL),
+  space: await fetchMenu("/api/crous/space"),
+  sirtaki: await fetchMenu("/api/crous/sirtaki"),
 });

@@ -8,8 +8,12 @@
       </div>
     </div>
     <div class="infos-meteo">
-      <div class="meteo_card" v-for="(meteo, index) in info_meteo" :key="index">
-        <p>{{ meteo.Heure }}H</p>
+      <div
+        class="meteo-timestamp-slot"
+        v-for="(meteo, index) in info_meteo"
+        :key="index"
+      >
+        <p>{{ meteo.Heure }}h00</p>
         <img :src="meteo.icone" />
         <p>{{ meteo.Temperature }}°</p>
       </div>
@@ -20,33 +24,41 @@
 <script>
 import * as api from "../api";
 export default {
-  name: "Meteo",
   data() {
     return {
+      refreshInterval: undefined,
       currentWeather: undefined,
       currentTemperature: undefined,
-      info_meteo: [
-      ],
+      info_meteo: [],
     };
   },
-  methods: {},
+  methods: {
+    fetchWeather() {
+      console.log("Refreshing weather");
+      api.fetchCurrentWeather().then((weatherinfos) => {
+        this.currentTemperature = weatherinfos.temperature;
+        this.currentWeather = weatherinfos.weatherText;
+      });
+      api.fetch12HoursWeather().then((tab) => {
+        this.info_meteo = tab;
+      });
+    },
+  },
   mounted() {
-    api.fetchCurrentWeather().then((weatherinfos) => {
-      this.currentTemperature = weatherinfos.temperature;
-      this.currentWeather = weatherinfos.weatherText;
-    });
-    api.fetchNextWeather().then((tab) => {
-      this.info_meteo = tab;
-    });
+    this.fetchWeather();
+    const delay = 1000 * 60 * 60 * 2; // Refresh toutes les 2 heures
+    this.refreshInterval = setInterval(this.fetchWeather, delay);
+  },
+  unmounted() {
+    clearInterval(this.refreshInterval);
   },
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   background-color: #ffffff;
   border-radius: 20px;
-  width: 800px;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.25);
   padding: 50px;
   display: flex;
@@ -60,7 +72,8 @@ export default {
 }
 
 .current_infos > p {
-  font-size: 2em;
+  font-size: 90px;
+  color: #2b343a;
 }
 
 .ville-temps {
@@ -68,9 +81,11 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: left;
+  font-size: 40px;
 }
 
 .ville-temps > p:first-of-type {
+  font-size: 30px;
   color: #5c717d;
   margin-bottom: 10px;
 }
@@ -83,17 +98,23 @@ export default {
   margin-top: 100px;
 }
 
-.meteo_card {
-  width: 130px;
-  height: 200px;
+.meteo-timestamp-slot {
+  width: 200px;
 }
 
-.meteo_card > p {
-  font-size: 1.2em;
+.meteo-timestamp-slot > p {
+  font-size: 2em;
+  margin: 20px;
+}
+
+.meteo-timestamp-slot > p:first-child {
+  font-size: 1.5em;
+  color: #5c717d;
+  margin: 20px;
 }
 
 img {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
 }
 </style>
