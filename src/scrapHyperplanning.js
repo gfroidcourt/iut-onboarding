@@ -1,9 +1,18 @@
 import puppeteer from "puppeteer";
 import ora from "ora";
-
+import fs from "fs";
 import Prompt from "prompt-password";
 
+// Si le navigateur doit être visible ou non (Headless = tourne en fond)
+const HEADLESS = true;
+
+// Identifiant de promo  à récupérer  sur hyperplanning pour ce semestre
+const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
+
 (async () => {
+  const result = [];
+
+  //////////////// DEMANDE IDENTIFIANTS CAS ////////////////
   const idnum = await new Prompt({
     message: "Enter your IDNUM please",
     name: "idnum",
@@ -14,11 +23,14 @@ import Prompt from "prompt-password";
     message: "Enter your password please",
     name: "password"
   }).run();
+  /////////////////////////////////////////////////////////
 
-  const spinner = ora("Opening browser").start();
+
+  //////////////// OUVERTURE CHROMIUM //// ////////////////
+  let spinner = ora("Opening browser").start();
 
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: HEADLESS,
     ignoreHTTPSErrors: true,
     args: ["--window-size=1920,1080"],
     defaultViewport: {
@@ -27,92 +39,110 @@ import Prompt from "prompt-password";
     }
   });
   const page = await browser.newPage();
+  /////////////////////////////////////////////////////////
 
+
+  //////////////////// CONNEXION CAS //////////////////////
   await page.goto("https://hyperplanning.iut.u-bordeaux.fr/etudiant?identifiant=HDxVSaszjxkCS5RX");
 
   await page.waitForTimeout(1000);
 
   // Fill CAS form
-  spinner.text = "Fill credentials";
+  spinner.succeed();
+  spinner = ora("Fill credentials").start();
   await page.$eval("#username", (el, id) => el.value = id, idnum);
   await page.$eval("#password", (el, pass) => el.value = pass, password);
 
-  spinner.text = "Subit authentication";
+  spinner.succeed();
+  spinner = ora("Submit authentication").start();
   await page.click("input.btn-submit");
 
-  spinner.text = "Wait for redirect on HP";
+  spinner.succeed();
+  spinner = ora("Wait for redirect on HP").start();
   // Wait for CAS to redirect to HP
   await page.waitForTimeout(3000);
+  /////////////////////////////////////////////////////////
 
-  spinner.text = "Open promotions page";
+
+  //////////// OUVERTURE PAGE PLANNINGS ///////////////////
+  spinner.succeed();
+  spinner = ora("Open promotions page").start();
   // Go to Promotions page
   await page.evaluate(() => {
     [...document.querySelectorAll("li > div")].find(element => element.textContent === "Promotions").click();
   });
 
-  spinner.text = "Select all promotions";
-  // Select promotion
-  await page.$eval("input[role=combobox]", el => el.value = "INFO DUT S4");
-  await page.click("input[role=combobox]");
-  await page.keyboard.press("Enter");
+  // Select all promotions
+  for (const promotion of PROMOTIONS) {
+    spinner.succeed();
+    spinner = ora(`Select promotion : ${promotion}`).start();
+    await page.$eval("input[role=combobox]", (el, prom) => el.value = prom, promotion);
+    await page.click("input[role=combobox]");
+    await page.keyboard.press("Enter");
 
-  spinner.text = "Select all groups";
-  // Open dropdown with all classes
-  await page.waitForTimeout(1000);
-  await page.click("div.input-wrapper:last-of-type > div.ocb_cont > div[role=combobox]");
+    // Open dropdown with all classes
+    await page.waitForTimeout(1000);
+    await page.click("div.input-wrapper:last-of-type > div.ocb_cont > div[role=combobox]");
 
-  // Get all groups name in an array
-  await page.waitForTimeout(500);
-
-  spinner.text = "Processing all groups ...";
-  let groups = await page.$$eval("div.as-li > div", elements => elements.map(item => item.textContent));
-  groups = groups.filter(g => g.includes("S") && !g.includes("UT"));
-
-  spinner.text = "Closing groups dropdown and starting ical processing";
-  // Close drop down
-  await page.click("div.input-wrapper:last-of-type > div.ocb_cont > div[role=combobox]");
-  await page.waitForTimeout(500);
-
-  const result = [];
-  for (let group of groups) {
+    // Get all groups name in an array
     await page.waitForTimeout(500);
-    spinner.text = `Focusing group ${group} ...`;
+    /////////////////////////////////////////////////////////
 
+    //////////// RECUP ICAL GROUPE PAR GROUPE ///////////////
+    spinner.succeed();
+    spinner = ora("Processing promotions groups").start();
+    let groups = await page.$$eval("div.as-li > div", elements => elements.map(item => item.textContent));
+    groups = groups.filter(g => g.includes("S") && !g.includes("UT"));
+
+    spinner.succeed();
+    spinner = ora("Closing groups dropdown and starting ical processing").start();
+    // Close drop down
     await page.click("div.input-wrapper:last-of-type > div.ocb_cont > div[role=combobox]");
     await page.waitForTimeout(500);
 
-    const groupsElements = await page.$$("div.as-li > div");
+    for (let group of groups) {
+      await page.waitForTimeout(500);
+      spinner.text = `Focusing group ${group} ...`;
 
-    for (let ge of groupsElements) {
-      const currentName = await page.evaluate(element => element.textContent, ge);
-      if (currentName === group) {
-        spinner.text = `Found group data ${group} ...`;
-        ge.click();
-        await page.waitForTimeout(500);
+      await page.click("div.input-wrapper:last-of-type > div.ocb_cont > div[role=combobox]");
+      await page.waitForTimeout(500);
 
-        spinner.text = `Opening Ical prompt ${group} ...`;
-        // Open ical popup
-        await page.click("tbody > tr > td:nth-of-type(2)");
-        await page.waitForTimeout(500);
+      const groupsElements = await page.$$("div.as-li > div");
 
-        spinner.text = `Retreiving url ${group} ...`;
+      for (let ge of groupsElements) {
+        const currentName = await page.evaluate(element => element.textContent, ge);
+        if (currentName === group) {
+          spinner.text = `Fetching group ${group}`;
+          ge.click();
+          await page.waitForTimeout(500);
 
-        // Get URL
-        const element = await page.$("td.PetitEspaceHaut > input[type=text]");
-        const url = await page.evaluate(element => element.value, element);
-        spinner.text = url;
-        result.push({ group, ical: url.split("idICal=")[1].split("&param")[0] });
-        spinner.text = `url found ${group} !`;
+          // Open ical popup
+          await page.click("tbody > tr > td:nth-of-type(2)");
+          await page.waitForTimeout(500);
 
-        await page.click("td.Fenetre_boutonfermeture > i");
+          // Get URL
+          const element = await page.$("td.PetitEspaceHaut > input[type=text]");
+          let url = await page.evaluate(element => element.value, element);
+          url = url.split("idICal=")[1].split("&param")[0];
+          result.push({ group, ical: url });
+
+          spinner.text = `${group} ical Id is : ${url}`;
+          spinner.succeed();
+          spinner = new ora("Done").start();
+          await page.click("td.Fenetre_boutonfermeture > i");
+        }
       }
     }
   }
+  /////////////////////////////////////////////////////////
 
+  spinner.text = "Scrapping done (closing)";
+  spinner.succeed();
 
   await page.waitForTimeout(4000);
-  spinner.succeed("Scrapping done");
   await browser.close();
 
   console.log(result);
+  console.log("File : src/icals.json");
+  fs.writeFileSync("src/icals.json", JSON.stringify(result, null, 4));
 })();
