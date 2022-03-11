@@ -1,5 +1,9 @@
 [
     {
+        "group": "INFO DUT S4",
+        "ical": "EEEC4CEEA6226601A7BA8DC5B9817DA4"
+    },
+    {
         "group": "S4p1A",
         "ical": "00C1354F35A00111FCB402037094EAD6"
     },
@@ -46,6 +50,10 @@
     {
         "group": "S4p2D\"",
         "ical": "1D982B81521687C43A8E36075F08B71B"
+    },
+    {
+        "group": "INFO_BUT_S2",
+        "ical": "F2EF3EE6AE186AF0D4615C7A1CB6C359"
     },
     {
         "group": "S2A",

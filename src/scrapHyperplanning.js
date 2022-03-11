@@ -4,7 +4,7 @@ import fs from "fs";
 import Prompt from "prompt-password";
 
 // Si le navigateur doit être visible ou non (Headless = tourne en fond)
-const HEADLESS = true;
+const HEADLESS = false;
 
 // Identifiant de promo  à récupérer  sur hyperplanning pour ce semestre
 const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
@@ -92,7 +92,7 @@ const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
     spinner.succeed();
     spinner = ora("Processing promotions groups").start();
     let groups = await page.$$eval("div.as-li > div", elements => elements.map(item => item.textContent));
-    groups = groups.filter(g => g.includes("S") && !g.includes("UT"));
+    groups = groups.filter(g => g.includes("S") || g.includes("UT"));
 
     spinner.succeed();
     spinner = ora("Closing groups dropdown and starting ical processing").start();
