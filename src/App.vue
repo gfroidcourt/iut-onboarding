@@ -55,24 +55,29 @@ export default {
           time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
           allowed: () => {
             // 6h to 17h30
-            const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+            const currentTime =
+              new Date().getHours() * 60 + new Date().getMinutes();
             return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
           },
         },
         transport: {
           time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
-          allowed: () => true,
+          allowed: () => {
+            return !this.onlyPlanning();
+          },
         },
         weather: {
           time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
-          allowed: () => true,
+          allowed: () => {
+            return !this.onlyPlanning();
+          },
         },
         menus: {
           time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 14;
+            return currentHour >= 6 && currentHour < 14 && !this.onlyPlanning();
           },
         },
       },
@@ -112,6 +117,28 @@ export default {
         this.$refs.background && this.$refs.background.next();
         setTimeout(this.changeView, 200);
       }, this.views[this.currentView].time);
+    },
+    /**
+     * Return true if the view allowed to be displayed is the Planning only
+     * This method is used to ensure that 5 minutes before the end of the each break only the Planning is displayed,
+     * and not the other views.
+     * @return {boolean}
+     */
+    onlyPlanning() {
+      const currentHour = new Date().getHours();
+      const currentMinutes = new Date().getMinutes();
+      switch (currentHour) {
+        case 8:
+          return currentMinutes >= 10 && currentMinutes <= 15;
+        case 10:
+          return currentMinutes >= 20 && currentMinutes <= 25;
+        case 13:
+          return currentMinutes >= 55 && currentMinutes <= 59;
+        case 16:
+          return currentMinutes >= 5 && currentMinutes <= 10;
+        default:
+          return false;
+      }
     },
   },
   mounted() {
