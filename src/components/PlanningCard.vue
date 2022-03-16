@@ -33,8 +33,10 @@
         </div>
       </div>
       <div v-else style="opacity: 0.5" class="data-container">
-        <img style="width: 35%;" :src="noClassLogo" />
-        <p>Pas cours</p>
+        <div class="subject-info">
+          <img style="width: 35%;" :src="noClassLogo" />
+          <p>Pas cours</p>
+        </div>
       </div>
     </div>
   </div>
@@ -157,8 +159,7 @@ export default {
   justify-content: space-evenly;
 }
 
-.data-container > img {
-  margin-top: -30px;
+.data-container .subject-info > img {
   margin-bottom: 30px;
 }
 
