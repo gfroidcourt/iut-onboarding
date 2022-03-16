@@ -54,9 +54,9 @@ export default {
         planning: {
           time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
           allowed: () => {
-            // 6h to 17h
-            const currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour <= 17;
+            // 6h to 17h30
+            const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
           },
         },
         transport: {

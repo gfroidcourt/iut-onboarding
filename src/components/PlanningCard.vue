@@ -13,10 +13,12 @@
       </div>
       <div v-if="group !== undefined" class="data-container">
         <div class="subject-infos">
-          <p>{{ classType(group === "seconde" ? 1 : 0) }} - {{ data.subject[group === "seconde" ? 1 : 0] }}</p>
+          <p :style="`font-size: ${isSplited ? '27px' : '20px'}`">
+            {{ classType(group === "seconde" ? 1 : 0) }} - {{ data.subject[group === "seconde" ? 1 : 0] }}
+          </p>
         </div>
         <div class="subject-infos">
-          <p class="teacher">
+          <p class="teacher" :style="`font-size: ${isSplited ? '20px' : '18px'}`">
             {{
               data.teacher[group === "seconde" ? 1 : 0]
                 ? data.teacher[group === "seconde" ? 1 : 0]
@@ -25,12 +27,16 @@
           </p>
         </div>
         <div class="subject-infos">
-          <p class="room">{{ data.room[group === "seconde" ? 1 : 0] }}</p>
+          <p class="room" :style="`font-size: ${isSplited ? '45px' : '30px'}`">
+            {{ data.room[group === "seconde" ? 1 : 0] }}
+          </p>
         </div>
       </div>
       <div v-else style="opacity: 0.5" class="data-container">
-        <img style="width: 35%;" :src="noClassLogo" />
-        <p>Pas cours</p>
+        <div class="subject-info">
+          <img style="width: 35%;" :src="noClassLogo" />
+          <p>Pas cours</p>
+        </div>
       </div>
     </div>
   </div>
@@ -83,6 +89,9 @@ export default {
         ? "#9f99f5"
         : "#f0a377";
     },
+    isSplited() {
+      return this.getGroupsComponent().length <= 1;
+    }
   },
 };
 </script>
@@ -142,16 +151,15 @@ export default {
   width: 100%;
   margin-top: auto;
   margin-bottom: auto;
-  max-height: 150px;
+  max-height: 250px;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: space-evenly;
   justify-content: space-evenly;
 }
 
-.data-container > img {
-  margin-top: -30px;
+.data-container .subject-info > img {
   margin-bottom: 30px;
 }
 
@@ -165,21 +173,20 @@ export default {
 .subject-infos > p {
   margin-right: 10px;
   margin-left: 10px;
-  line-height: 25px;
+  line-height: 40px;
 }
 
 .subject-infos > p {
-  max-width: 60%;
+  max-width: 75%;
 }
 
 .room {
   color: rgb(41, 154, 189);
-  font-size: 25px;
+  /* font-size: 35px; */
   font-weight: 900;
 }
 
 .teacher {
   color: rgb(138, 138, 138);
-  font-size: 18px;
 }
 </style>
