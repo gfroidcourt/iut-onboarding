@@ -140,6 +140,10 @@ export default {
           return false;
       }
     },
+    /**
+     * Return the time in ms before the next view is displayed (after the planning)
+     * @return {number}
+     */
     returnTimeForPlanning() {
       if(this.onlyPlanning()){
         return 1000*60*5;
