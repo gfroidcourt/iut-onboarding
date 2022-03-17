@@ -52,7 +52,7 @@ export default {
           The order in the object is the display order
         */
         planning: {
-          time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
+          time: DEVELOPEMENT_MODE ? 5000 : returnTimeForPlanning(),
           allowed: () => {
             // 6h to 17h30
             const currentTime =
@@ -140,6 +140,12 @@ export default {
           return false;
       }
     },
+    returnTimeForPlanning() {
+      if(this.onlyPlanning()){
+        return 1000*60*5;
+      }
+      return 1000 * 30;
+    }
   },
   mounted() {
     this.$refs.background && this.$refs.background.next();
