@@ -125,13 +125,13 @@ export default {
       const currentMinutes = new Date().getMinutes();
       switch (currentHour) {
         case 8:
-          return currentMinutes >= 10 && currentMinutes <= 20;
+          return currentMinutes >= 10 && currentMinutes < 20;
         case 10:
-          return currentMinutes >= 20 && currentMinutes <= 30;
+          return currentMinutes >= 20 && currentMinutes < 30;
         case 13:
           return currentMinutes >= 55 && currentMinutes <= 59;
         case 16:
-          return currentMinutes >= 29 && currentMinutes <= 33;
+          return currentMinutes >= 5 && currentMinutes < 10;
         default:
           return false;
       }
