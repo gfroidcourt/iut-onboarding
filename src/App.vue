@@ -20,13 +20,13 @@
       :isActive="currentView == 'weather'"
     />
     <LoadingBar :view="views[currentView]" />
-    <LoadingOverlay ref="loading" />
+    <TransitionOverlay ref="loading" />
   </div>
 </template>
 
 <script>
 import DateAndHourHeader from "./components/DateHourHeader.vue";
-import LoadingOverlay from "./components/LoadingOverlay.vue";
+import TransitionOverlay from "./components/TransitionOverlay.vue";
 import Background from "./components/Background.vue";
 import Menus from "./views/Menus.vue";
 
@@ -151,7 +151,7 @@ export default {
     this.changeView();
   },
   components: {
-    LoadingOverlay,
+    TransitionOverlay,
     Background,
     Menus,
     Transport,
