@@ -19,7 +19,7 @@ export default {
     progress() {
       return `width: ${this.width}; transition: ${
         this.transition
-      }; animation-duration: ${this.view ? this.view.time : 0}ms;`;
+      }; animation-duration: ${this.view ? this.view.time() : 0}ms;`;
     },
   },
   watch: {
@@ -31,7 +31,7 @@ export default {
         this.transition = "width 0s";
         const delay = 1300;
         setTimeout(() => {
-          this.transition = `width ${oldVal.time - delay}ms linear`;
+          this.transition = `width ${oldVal.time() - delay}ms linear`;
           this.width = "100%";
         }, delay);
       },
