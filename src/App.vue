@@ -61,11 +61,11 @@ export default {
           },
         },
         transport: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
         weather: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
         menus: {
@@ -84,7 +84,6 @@ export default {
      * @return the name of the next view that will be displayed
      */
     getNextViewName() {
-      if (this.onlyPlanning()) return "planning";
       const viewTypes = Object.keys(this.views);
       let nextView = viewTypes[viewTypes.indexOf(this.currentView) + 1];
       if (nextView === undefined) nextView = viewTypes[0];
@@ -132,7 +131,7 @@ export default {
         case 13:
           return currentMinutes >= 55 && currentMinutes <= 59;
         case 16:
-          return currentMinutes >= 5 && currentMinutes <= 15;
+          return currentMinutes >= 29 && currentMinutes <= 33;
         default:
           return false;
       }
@@ -144,7 +143,7 @@ export default {
     returnTimeForPlanning() {
       if (this.onlyPlanning())
         return 1000 * 60 * 10; // Forcing pour 10 minutes
-      return 1000 * 30;
+      return 1000 * 10;
     },
   },
   mounted() {
