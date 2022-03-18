@@ -52,23 +52,24 @@ export default {
           The order in the object is the display order
         */
         planning: {
-          time: DEVELOPEMENT_MODE ? 5000 : 1000 * 30,
+          time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
           allowed: () => {
             // 6h to 17h30
-            const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+            const currentTime =
+              new Date().getHours() * 60 + new Date().getMinutes();
             return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
           },
         },
         transport: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
         weather: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
         menus: {
-          time: DEVELOPEMENT_MODE ? 10000 : 1000 * 20,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
@@ -111,7 +112,38 @@ export default {
         this.$refs.loading && this.$refs.loading.show();
         this.$refs.background && this.$refs.background.next();
         setTimeout(this.changeView, 200);
-      }, this.views[this.currentView].time);
+      }, this.views[this.currentView].time());
+    },
+    /**
+     * Return true if the view allowed to be displayed is the Planning only
+     * This method is used to ensure that 5 minutes before the end of the each break only the Planning is displayed,
+     * and not the other views.
+     * @return {boolean}
+     */
+    onlyPlanning() {
+      const currentHour = new Date().getHours();
+      const currentMinutes = new Date().getMinutes();
+      switch (currentHour) {
+        case 8:
+          return currentMinutes >= 10 && currentMinutes < 20;
+        case 10:
+          return currentMinutes >= 20 && currentMinutes < 30;
+        case 13:
+          return currentMinutes >= 55 && currentMinutes <= 59;
+        case 16:
+          return currentMinutes >= 5 && currentMinutes < 10;
+        default:
+          return false;
+      }
+    },
+    /**
+     * Return the time in ms before the next view is displayed (after the planning)
+     * @return {number}
+     */
+    returnTimeForPlanning() {
+      if (this.onlyPlanning())
+        return 1000 * 60 * 10; // Forcing pour 10 minutes
+      return 1000 * 10;
     },
   },
   mounted() {
