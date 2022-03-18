@@ -73,7 +73,7 @@ export default {
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 14 && !this.onlyPlanning();
+            return currentHour >= 6 && currentHour < 14;
           },
         },
       },
