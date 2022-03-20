@@ -44,6 +44,10 @@ export default {
     PlanningCard,
   },
   methods: {
+    /**
+     * Récupère tout le fichier icals.json et construit un objet quasi hydentique
+     * mais avec des instance de Schedulers à la place des string d'icals.
+     */
     generateGroupsSchedulers() {
       Object.keys(icals).forEach((promo) => {
         icals[promo].classes.forEach((c) => {
