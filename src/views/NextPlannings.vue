@@ -45,30 +45,21 @@ export default {
   },
   methods: {
     generateGroupsSchedulers() {
-      // {
-      //     className: "s4p2d",
-      //     classIcal: new HyperplanningScheduler(
-      //       "6F7797DCA965970BD07CE67C30ADAB97",
-      //       { proxyUrl }
-      //     ),
-      //     groups: {
-      //       prime: new HyperplanningScheduler(
-      //         "D0BB69B13D6E71C2FE3DCC2A1B088CAB",
-      //         { proxyUrl }
-      //       ),
-      //       seconde: new HyperplanningScheduler(
-      //         "1D982B81521687C43A8E36075F08B71B",
-      //         { proxyUrl }
-      //       ),
-      //     },
-      //   },
-      icals.filter(i => i.type == "group").forEach((ical) => {
-        this.classes.push({
-          className: ical.group,
-          classIcal: new HyperplanningScheduler(ical.ical, { proxyUrl }),
+      Object.keys(icals).forEach((promo) => {
+        icals[promo].classes.forEach((c) => {
+          this.classes.push({
+            className: c.className,
+            classIcal: new HyperplanningScheduler(c.classIcal, { proxyUrl }),
+            groups: {
+              prime: new HyperplanningScheduler(c.groups.prime, { proxyUrl }),
+              seconde: new HyperplanningScheduler(c.groups.seconde, {
+                proxyUrl,
+              }),
+            },
+          });
         });
       });
-      console.log(icals);
+      console.log(this.classes);
     },
     setCurrentHourRange() {
       const currentTime = new Date().getHours() * 60 + new Date().getMinutes();

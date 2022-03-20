@@ -37,7 +37,7 @@ import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
 
-const DEVELOPEMENT_MODE = false;
+const DEVELOPEMENT_MODE = true;
 
 export default {
   data() {
@@ -60,22 +60,22 @@ export default {
             return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
           },
         },
-        transport: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
-        },
-        weather: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
-        },
-        menus: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => {
-            // 6h to 14h
-            let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 14;
-          },
-        },
+        // transport: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+        //   allowed: () => true,
+        // },
+        // weather: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+        //   allowed: () => true,
+        // },
+        // menus: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+        //   allowed: () => {
+        //     // 6h to 14h
+        //     let currentHour = new Date().getHours();
+        //     return currentHour >= 6 && currentHour < 14;
+        //   },
+        // },
       },
     };
   },
