@@ -56,10 +56,10 @@ Tout le code logique de l'application vue se trouve dans le dossier `src`.
 - Changer les identifiants de promo dans le fichier : `tools/updateIcals.js` :
 ```js
 // Identifiant de promo à récupérer sur hyperplanning pour ce semestre
-const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
+const PROMOTIONS = ["INFO_BUT_S2", "INFO DUT S4"];
 ```
 
-- `node src/updateIcals.js`
+- `node tools/updateIcals.js`
 
 > Ce script lance un chromium en arrière plan (headless), se login à CAS, ouvre hyperplanning et clic sur les différents menus pour aller chercher les lien Ical de toutes les classes / groupes / promos
 
