@@ -7,7 +7,8 @@ import Prompt from "prompt-password";
 const HEADLESS = true;
 
 // Identifiant de promo  à récupérer  sur hyperplanning pour ce semestre
-const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
+// L'odre est important
+const PROMOTIONS = ["INFO_BUT_S2", "INFO DUT S4"];
 
 (async () => {
   const result = [];
@@ -124,7 +125,11 @@ const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
           const element = await page.$("td.PetitEspaceHaut > input[type=text]");
           let url = await page.evaluate(element => element.value, element);
           url = url.split("idICal=")[1].split("&param")[0];
-          result.push({ group, ical: url });
+          result.push({
+            group,
+            ical: url,
+            type: group.includes("UT") ? "promo" : (group.includes("'") || group.includes('"')) ? "group" : "class"
+          });
 
           spinner.text = `${group} ical Id is : ${url}`;
           spinner.succeed();
@@ -135,14 +140,56 @@ const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
     }
   }
   /////////////////////////////////////////////////////////
-
+  
+  /////////////////  FERMETURE CHROME  ////////////////////
   spinner.text = "Scrapping done (closing)";
   spinner.succeed();
-
+  
   await page.waitForTimeout(4000);
   await browser.close();
-
+  
   console.log(result);
+  /////////////////////////////////////////////////////////
+  
+
+  /////////////// TRAITEMENT RESULTAT    //////////////////
+  const promos = result.filter(i => i.type == "promo");
+  const classes = result.filter(i => i.type == "class");
+  const groups = result.filter(i => i.type == "group");
+
+  const icals = {};
+
+  promos.forEach(promo => {
+    const promoKey = promo.group.replace(' ', '_').toLowerCase();
+
+    icals[promoKey] = {
+      ical: promo.ical,
+      classes: []
+    };
+    console.log(`Processing promo ${promo.group}`);
+
+    const promoClasses = classes.filter(c => c.group.includes(promo.group.slice(-2)));
+
+    promoClasses.forEach(_class => {
+      console.log(`Processing class ${_class.group}`);
+
+      const classGroups = groups.filter(g => g.group.includes(_class.group));
+
+      icals[promoKey].classes.push({
+        className: _class.group.toLowerCase(),
+        classIcal: _class.ical,
+        groups: {
+          prime: classGroups[0].ical,
+          seconde: classGroups[1].ical,
+        }
+      })
+    })
+  })
+  /////////////////////////////////////////////////////////
+  
+  
+  /////////////// EXPORTATION EN FICHIER //////////////////
   console.log("File updated in src/icals.json");
-  fs.writeFileSync("../src/icals.json", JSON.stringify(result, null, 4));
+  fs.writeFileSync("src/icals.json", JSON.stringify(icals, null, 4));
+  /////////////////////////////////////////////////////////
 })();

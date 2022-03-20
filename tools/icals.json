@@ -1,0 +1,132 @@
+[
+    {
+        "group": "INFO DUT S4",
+        "ical": "EEEC4CEEA6226601A7BA8DC5B9817DA4",
+        "type": "promo"
+    },
+    {
+        "group": "S4p1A",
+        "ical": "00C1354F35A00111FCB402037094EAD6",
+        "type": "class"
+    },
+    {
+        "group": "S4p2B",
+        "ical": "447BD7694D284EC94EC9118808058402",
+        "type": "class"
+    },
+    {
+        "group": "S4p2C",
+        "ical": "2151B33366B4E8315DFB481C314E3D32",
+        "type": "class"
+    },
+    {
+        "group": "S4p2D",
+        "ical": "6F7797DCA965970BD07CE67C30ADAB97",
+        "type": "class"
+    },
+    {
+        "group": "S4p1A'",
+        "ical": "1E2215B0BB4EDB1B6CE854D54835D63A",
+        "type": "group"
+    },
+    {
+        "group": "S4p1A''",
+        "ical": "9DD89A30CC73C87FDEAED896EC0346EE",
+        "type": "group"
+    },
+    {
+        "group": "S4p2B'",
+        "ical": "F15605CE20E596BBFB8B1CE48E746263",
+        "type": "group"
+    },
+    {
+        "group": "S4p2B''",
+        "ical": "90FFE04255DB88BE6382F443A2884B1A",
+        "type": "group"
+    },
+    {
+        "group": "S4p2C'",
+        "ical": "322B4F0A5FA48D15A1682EB03FE39F9E",
+        "type": "group"
+    },
+    {
+        "group": "S4p2C''",
+        "ical": "B618BE9003219E29C8853F07CFCD2985",
+        "type": "group"
+    },
+    {
+        "group": "S4p2D'",
+        "ical": "D0BB69B13D6E71C2FE3DCC2A1B088CAB",
+        "type": "group"
+    },
+    {
+        "group": "S4p2D\"",
+        "ical": "1D982B81521687C43A8E36075F08B71B",
+        "type": "group"
+    },
+    {
+        "group": "INFO_BUT_S2",
+        "ical": "F2EF3EE6AE186AF0D4615C7A1CB6C359",
+        "type": "promo"
+    },
+    {
+        "group": "S2A",
+        "ical": "CE8638F9B59C0A35C2CF4CDB41051C0E",
+        "type": "class"
+    },
+    {
+        "group": "S2B",
+        "ical": "6D7C13B82DE9CDA42C78A252BD570B2D",
+        "type": "class"
+    },
+    {
+        "group": "S2C",
+        "ical": "39C323F7C3BD91E014C4FDC40C7FCDBA",
+        "type": "class"
+    },
+    {
+        "group": "S2D",
+        "ical": "AD951FB0BE4A6840E6B8D7E15F78D6A3",
+        "type": "class"
+    },
+    {
+        "group": "S2A'",
+        "ical": "0FA68EE12FDCA4C2657C36B8B9558050",
+        "type": "group"
+    },
+    {
+        "group": "S2A''",
+        "ical": "B71C6DC006B737F0FCEDA822471A639A",
+        "type": "group"
+    },
+    {
+        "group": "S2B'",
+        "ical": "4E606F7C099919719D7DE7DA4CFE1B8F",
+        "type": "group"
+    },
+    {
+        "group": "S2B''",
+        "ical": "CDD881675EF00C31504AAAA994DD3BC2",
+        "type": "group"
+    },
+    {
+        "group": "S2C'",
+        "ical": "8F4171703614E0BAA7ACF1F914EBCABC",
+        "type": "group"
+    },
+    {
+        "group": "S2C''",
+        "ical": "5D857710462242730F70F6CB91FD4E26",
+        "type": "group"
+    },
+    {
+        "group": "S2D'",
+        "ical": "CE7C0306EF8DF4DD2FB9F0D1AB9599F2",
+        "type": "group"
+    },
+    {
+        "group": "S2D''",
+        "ical": "D825CB8CEA48FFBC6CCF39B233A5EB26",
+        "type": "group"
+    }
+]
