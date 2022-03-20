@@ -4,7 +4,7 @@ import fs from "fs";
 import Prompt from "prompt-password";
 
 // Si le navigateur doit être visible ou non (Headless = tourne en fond)
-const HEADLESS = false;
+const HEADLESS = true;
 
 // Identifiant de promo  à récupérer  sur hyperplanning pour ce semestre
 const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
@@ -143,6 +143,6 @@ const PROMOTIONS = ["INFO DUT S4", "INFO_BUT_S2"];
   await browser.close();
 
   console.log(result);
-  console.log("File : src/icals.json");
-  fs.writeFileSync("src/icals.json", JSON.stringify(result, null, 4));
+  console.log("File updated in src/icals.json");
+  fs.writeFileSync("../src/icals.json", JSON.stringify(result, null, 4));
 })();
