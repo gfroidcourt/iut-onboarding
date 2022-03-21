@@ -21,7 +21,7 @@ export default {
      * @default 2000 ms
      */
     show(duration = 2000) {
-      this.currentLogo = Math.random() < 0.01 ? this.logoGP : this.logoIut;
+      this.currentLogo = Math.random() < 0.1 ? this.logoGP : this.logoIut;
       this.active = true;
       this.duration = duration;
       setTimeout(() => (this.active = false), duration);
@@ -71,11 +71,11 @@ export default {
 
 @keyframes scale-in {
   0% {
-    transform: scale(0);
+    transform: scale(0) rotate(180deg);
   }
   50%,
   100% {
-    transform: scale(1);
+    transform: scale(1) rotate(360deg);
   }
 }
 </style>
