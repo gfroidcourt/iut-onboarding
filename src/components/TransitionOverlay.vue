@@ -1,6 +1,6 @@
 <template>
   <div v-if="active" :style="backgroundStyle" id="loading-overlay-container">
-    <img :src="logoIut" :style="imageStyle" />
+    <img :src="currentLogo" :style="imageStyle" />
   </div>
 </template>
 
@@ -11,6 +11,8 @@ export default {
       active: false,
       duration: 3000,
       logoIut: require("../assets/logo_iut.svg"),
+      logoGP: require("../assets/gitpoule.png"),
+      currentLogo: null
     };
   },
   methods: {
@@ -19,6 +21,7 @@ export default {
      * @default 2000 ms
      */
     show(duration = 2000) {
+      this.currentLogo = Math.random() < 0.01 ? this.logoGP : this.logoIut;
       this.active = true;
       this.duration = duration;
       setTimeout(() => (this.active = false), duration);
