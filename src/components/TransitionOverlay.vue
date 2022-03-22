@@ -21,7 +21,7 @@ export default {
      * @default 2000 ms
      */
     show(duration = 2000) {
-      this.currentLogo = Math.random() < 0.1 ? this.logoGP : this.logoIut;
+      this.currentLogo = Math.random() < 0.05 ? this.logoGP : this.logoIut;
       this.active = true;
       this.duration = duration;
       setTimeout(() => (this.active = false), duration);
