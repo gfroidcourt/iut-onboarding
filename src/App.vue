@@ -37,7 +37,7 @@ import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
 
-const DEVELOPEMENT_MODE = true;
+const DEVELOPEMENT_MODE = false;
 
 export default {
   data() {
