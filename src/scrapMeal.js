@@ -34,7 +34,7 @@ async function fetchMenu(URL) {
         // Sans les "Entrées diverses" et "Desserts divers"
         if (plat.includes("Entrées") || plat.includes("Desserts") || plat.includes("Salade"))
           return;
-        tabPlats.push(plat);
+        tabPlats.push(plat.charAt(0).toUpperCase() + plat.slice(1));
       });
     });
   });
