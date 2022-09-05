@@ -8,7 +8,7 @@ const HEADLESS = true;
 
 // Identifiant de promo  à récupérer  sur hyperplanning pour ce semestre
 // L'odre est important
-const PROMOTIONS = ["INFO_BUT_S2", "INFO DUT S4"];
+const PROMOTIONS = ["INFO_BUT_S1", "INFO_BUT_S3"];
 
 (async () => {
   const result = [];
@@ -33,7 +33,7 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO DUT S4"];
   const browser = await puppeteer.launch({
     headless: HEADLESS,
     ignoreHTTPSErrors: true,
-    args: ["--window-size=1920,1080"],
+    args: ["--window-size=1920,1080", "--incognito"],
     defaultViewport: {
       width: 1920,
       height: 1080
@@ -128,39 +128,39 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO DUT S4"];
           result.push({
             group,
             ical: url,
-            type: group.includes("UT") ? "promo" : (group.includes("'") || group.includes('"')) ? "group" : "class"
+            type: group.includes("UT") ? "promo" : (group.includes("'") || group.includes("\"")) ? "group" : "class"
           });
 
           spinner.text = `${group} ical Id is : ${url}`;
           spinner.succeed();
           spinner = new ora("Done").start();
-          await page.click("td.Fenetre_boutonfermeture > i");
+          await page.click("div.cta-conteneur > i");
         }
       }
     }
   }
   /////////////////////////////////////////////////////////
-  
+
   /////////////////  FERMETURE CHROME  ////////////////////
   spinner.text = "Scrapping done (closing)";
   spinner.succeed();
-  
+
   await page.waitForTimeout(4000);
   await browser.close();
-  
+
   console.log(result);
   /////////////////////////////////////////////////////////
-  
+
 
   /////////////// TRAITEMENT RESULTAT    //////////////////
-  const promos = result.filter(i => i.type == "promo");
-  const classes = result.filter(i => i.type == "class");
-  const groups = result.filter(i => i.type == "group");
+  const promos = result.filter(i => i.type === "promo");
+  const classes = result.filter(i => i.type === "class");
+  const groups = result.filter(i => i.type === "group");
 
   const icals = {};
 
   promos.forEach(promo => {
-    const promoKey = promo.group.replace(' ', '_').toLowerCase();
+    const promoKey = promo.group.replace(" ", "_").toLowerCase();
 
     icals[promoKey] = {
       ical: promo.ical,
@@ -182,14 +182,14 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO DUT S4"];
           prime: classGroups[0].ical,
           seconde: classGroups[1].ical,
         }
-      })
-    })
-  })
+      });
+    });
+  });
   /////////////////////////////////////////////////////////
-  
-  
+
+
   /////////////// EXPORTATION EN FICHIER //////////////////
   console.log("File updated in src/icals.json");
-  fs.writeFileSync("src/icals.json", JSON.stringify(icals, null, 4));
+  fs.writeFileSync("../src/icals.json", JSON.stringify(icals, null, 4));
   /////////////////////////////////////////////////////////
 })();
