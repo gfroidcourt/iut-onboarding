@@ -9,23 +9,23 @@
     },
     "dependencies": {
         "@hubday/scheduler": "^1.0.0",
-        "cheerio": "^1.0.0-rc.10",
-        "core-js": "^3.6.5",
-        "vue": "^3.0.0",
+        "cheerio": "^1.0.0-rc.12",
+        "core-js": "^3.25.0",
+        "vue": "^3.2.38",
         "vue3-circle-progress": "^1.0.7"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "~4.5.0",
-        "@vue/cli-plugin-eslint": "~4.5.0",
-        "@vue/cli-service": "~4.5.0",
-        "@vue/compiler-sfc": "^3.0.0",
+        "@vue/cli-plugin-babel": "~5.0.8",
+        "@vue/cli-plugin-eslint": "~5.0.8",
+        "@vue/cli-service": "~5.0.8",
+        "@vue/compiler-sfc": "^3.2.38",
         "babel-eslint": "^10.1.0",
-        "eslint": "^6.7.2",
-        "eslint-plugin-vue": "^7.0.0",
-        "node-fetch": "^2.6.6",
-        "ora": "^6.0.1",
+        "eslint": "^8.23.0",
+        "eslint-plugin-vue": "^9.4.0",
+        "node-fetch": "^3.2.10",
+        "ora": "^6.1.2",
         "prompt-password": "^1.2.0",
-        "puppeteer": "^13.1.2"
+        "puppeteer": "^17.1.1"
     },
     "eslintConfig": {
         "root": true,
