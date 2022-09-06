@@ -136,8 +136,8 @@ export default {
               secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
             ],
             room: [
-              primeEvent ? primeEvent.locations[0] : undefined,
-              secondeEvent ? secondeEvent.locations[0] : undefined,
+              primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
+              secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
             ],
           });
         }
