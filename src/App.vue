@@ -64,10 +64,10 @@ export default {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
-        weather: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
-        },
+        // weather: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+        //   allowed: () => true,
+        // },
         // menus: {
         //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
         //   allowed: () => {
