@@ -70,6 +70,8 @@ export default {
     },
     getClassNameComponent(group = undefined) {
       const a = this.data.className.toUpperCase();
+      if (a.includes("DAWIN")) return ["","DAWIN", group];
+      if (a.includes("DAGPI")) return ["","DAGPI"];
       const result = [
         a.slice(0, a.length - 1),
         a.slice(a.length - 1, a.length),
@@ -85,9 +87,13 @@ export default {
   computed: {
     classColor() {
       const className = this.data.className.toUpperCase();
-      return className.includes("S4") || className.includes("S4")
-        ? "#9f99f5"
-        : "#f0a377";
+      if (className.includes("S1")) return "red";
+      if (className.includes("S2")) return "blue";
+      if (className.includes("S3")) return "green";
+      if (className.includes("S4")) return "purple";
+      if (className.includes("DAGPI")) return "orange";
+      if (className.includes("DAWIN")) return "darkblue";
+      return "#000000";
     },
     isSplited() {
       return this.getGroupsComponent().length <= 1;

@@ -56,18 +56,18 @@ export default {
           allowed: () => {
             // 6h to 17h30
             const currentTime =
-              new Date().getHours() * 60 + new Date().getMinutes();
+            new Date().getHours() * 60 + new Date().getMinutes();
             return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
-          },
+          }
         },
         transport: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
-        // weather: {
-        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-        //   allowed: () => true,
-        // },
+        weather: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+          allowed: () => true,
+        },
         menus: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => {

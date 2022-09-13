@@ -12,12 +12,17 @@
     </div>
     <div class="view-content">
       <PlanningCard
-        v-for="(data, index) in nextClasses.slice(4, 8)"
+        v-for="(data, index) in nextClasses.slice(4, 7)"
         :key="index"
         :data="data"
       />
+      <PlanningCard
+        v-for="(data, index) in nextClasses.slice(7, 10)"
+        :key="index"
+        :data="data"
+      />
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -54,12 +59,12 @@ export default {
           this.classes.push({
             className: c.className,
             classIcal: new HyperplanningScheduler(c.classIcal, { proxyUrl }),
-            groups: {
+            groups: c.groups ? {
               prime: new HyperplanningScheduler(c.groups.prime, { proxyUrl }),
               seconde: new HyperplanningScheduler(c.groups.seconde, {
                 proxyUrl,
               }),
-            },
+            } : [],
           });
         });
       });
