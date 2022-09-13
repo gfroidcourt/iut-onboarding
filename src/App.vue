@@ -68,14 +68,14 @@ export default {
         //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
         //   allowed: () => true,
         // },
-        // menus: {
-        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-        //   allowed: () => {
-        //     // 6h to 14h
-        //     let currentHour = new Date().getHours();
-        //     return currentHour >= 6 && currentHour < 14;
-        //   },
-        // },
+        menus: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => {
+            // 6h to 14h
+            let currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour < 14;
+          },
+        },
       },
     };
   },
