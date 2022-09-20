@@ -19,6 +19,10 @@
       v-if="Object.keys(views).includes('weather')"
       :isActive="currentView == 'weather'"
     />
+    <Discord
+      v-if="Object.keys(views).includes('discord')"
+      :isActive="currentView == 'discord'"
+    />
     <LoadingBar :view="views[currentView]" />
     <TransitionOverlay ref="loading" />
   </div>
@@ -33,6 +37,7 @@ import Menus from "./views/Menus.vue";
 import Transport from "./views/Transport.vue";
 import Weather from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
+import Discord from "./views/Discord.vue";
 import LoadingBar from "./components/LoadingBar.vue";
 
 import "./stylesheets/reset.css";
@@ -75,6 +80,10 @@ export default {
             let currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour < 14;
           },
+        },
+        discord: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
+          allowed: () => true,
         },
       },
     };
@@ -159,6 +168,7 @@ export default {
     Planning,
     DateAndHourHeader,
     LoadingBar,
+    Discord,
   },
 };
 </script>
