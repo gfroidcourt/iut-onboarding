@@ -2,7 +2,6 @@
   <div class="view-container" v-show="isActive">
     <h1 class="view-title">Menus de ce midi</h1>
     <div class="view-content">
-      <!-- <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" /> -->
       <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
     </div>
   </div>
