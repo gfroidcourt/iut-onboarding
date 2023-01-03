@@ -1,9 +1,9 @@
 <template>
   <div class="view-container">
-    <Background ref="background" />
+    <!-- <Background ref="background" /> -->
 
-    <DateAndHourHeader />
-    <Menus
+    <!-- <DateAndHourHeader /> -->
+    <!-- <Menus
       v-if="Object.keys(views).includes('menus')"
       :isActive="currentView == 'menus'"
     />
@@ -22,6 +22,31 @@
     <Discord
       v-if="Object.keys(views).includes('discord')"
       :isActive="currentView == 'discord'"
+    /> -->
+    <Affiche
+      v-if="Object.keys(views).includes('AfficheAll')"
+      :isActive="currentView == 'AfficheAll'"
+      :url="require('./assets/afficheAll.png')"
+    />
+    <Affiche
+      v-if="Object.keys(views).includes('Affiche1')"
+      :isActive="currentView == 'Affiche1'"
+      :url="require('./assets/affiche1.png')"
+    />
+    <Affiche
+      v-if="Object.keys(views).includes('Affiche2')"
+      :isActive="currentView == 'Affiche2'"
+      :url="require('./assets/affiche2.png')"
+    />
+    <Affiche
+      v-if="Object.keys(views).includes('Affiche3')"
+      :isActive="currentView == 'Affiche3'"
+      :url="require('./assets/affiche3.png')"
+    />
+    <Affiche
+      v-if="Object.keys(views).includes('Affiche4')"
+      :isActive="currentView == 'Affiche4'"
+      :url="require('./assets/affiche4.png')"
     />
     <LoadingBar :view="views[currentView]" />
     <TransitionOverlay ref="loading" />
@@ -29,16 +54,17 @@
 </template>
 
 <script>
-import DateAndHourHeader from "./components/DateHourHeader.vue";
+// import DateAndHourHeader from "./components/DateHourHeader.vue";
 import TransitionOverlay from "./components/TransitionOverlay.vue";
-import Background from "./components/Background.vue";
-import Menus from "./views/Menus.vue";
+// import Background from "./components/Background.vue";
+// import Menus from "./views/Menus.vue";
 
-import Transport from "./views/Transport.vue";
-import Weather from "./views/Weather.vue";
-import Planning from "./views/NextPlannings.vue";
-import Discord from "./views/Discord.vue";
+// import Transport from "./views/Transport.vue";
+// import Weather from "./views/Weather.vue";
+// import Planning from "./views/NextPlannings.vue";
+// import Discord from "./views/Discord.vue";
 import LoadingBar from "./components/LoadingBar.vue";
+import Affiche from "./components/Affiche.vue";
 
 import "./stylesheets/reset.css";
 
@@ -47,7 +73,7 @@ const DEVELOPEMENT_MODE = false;
 export default {
   data() {
     return {
-      currentView: "transport",
+      currentView: "",
       views: {
         /*
           To active only one or some views, juste comment here what you dont want to be
@@ -56,36 +82,56 @@ export default {
 
           The order in the object is the display order
         */
-        planning: {
-          time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
-          allowed: () => {
-            // 6h to 17h30
-            const currentTime =
-            new Date().getHours() * 60 + new Date().getMinutes();
-            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
-          }
-        },
-        transport: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
-        },
-        weather: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
-        },
-        menus: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => {
-            // 6h to 14h
-            let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 14;
-          },
-        },
+        // planning: {
+        //   time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
+        //   allowed: () => {
+        //     // 6h to 17h30
+        //     const currentTime =
+        //     new Date().getHours() * 60 + new Date().getMinutes();
+        //     return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
+        //   }
+        // },
+        // transport: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+        //   allowed: () => true,
+        // },
+        // weather: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+        //   allowed: () => true,
+        // },
+        // menus: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+        //   allowed: () => {
+        //     // 6h to 14h
+        //     let currentHour = new Date().getHours();
+        //     return currentHour >= 6 && currentHour < 14;
+        //   },
+        // },
         /* Enable this at the start of each year (The QR code has to be updated)
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => true,
         }, */
+        AfficheAll : {
+          time: () => DEVELOPEMENT_MODE ? 1000 : 1000 * 15,
+          allowed: () => true,
+        },
+        Affiche1 : {
+          time: () => DEVELOPEMENT_MODE ? 1000 : 1000 * 15,
+          allowed: () => true,
+        },
+        Affiche2 : {
+          time: () => DEVELOPEMENT_MODE ? 1000 : 1000 * 15,
+          allowed: () => true,
+        },
+        Affiche3 : {
+          time: () => DEVELOPEMENT_MODE ? 1000 : 1000 * 15,
+          allowed: () => true,
+        },
+        Affiche4 : {
+          time: () => DEVELOPEMENT_MODE ? 1000 : 1000 * 15,
+          allowed: () => true,
+        }
       },
     };
   },
@@ -162,14 +208,15 @@ export default {
   },
   components: {
     TransitionOverlay,
-    Background,
-    Menus,
-    Transport,
-    Weather,
-    Planning,
-    DateAndHourHeader,
+    // Background,
+    // Menus,
+    // Transport,
+    // Weather,
+    // Planning,
+    // DateAndHourHeader,
     LoadingBar,
-    Discord,
+    // Discord,
+    Affiche,
   },
 };
 </script>
@@ -199,6 +246,11 @@ export default {
 
   height: 100vh;
   overflow: hidden; /* Hide scroll-bars */
+}
+
+.affiche {
+  height: 100%;
+  width: 100%;
 }
 
 .view-content {

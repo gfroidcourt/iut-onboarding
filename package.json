@@ -8,9 +8,10 @@
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
-        "core-js": "^3.6.5",
+        "@hubday/scheduler": "^1.0.1",
         "cheerio": "1.0.0-rc.10",
-        "scheduler": "git+ssh://git@github.com:hubday-org/scheduler.git#8dc02fadd520ae92bc9506939fc56fcab58a72d9",
+        "core-js": "^3.6.5",
+        "scheduler": "^0.23.0",
         "vue": "^3.0.0",
         "vue3-circle-progress": "^1.0.7"
     },
