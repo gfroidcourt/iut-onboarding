@@ -39,6 +39,7 @@ Voici ce qu'il faut faire en tant que mainteneur pour que le projet perdure dans
 
 ## Travailler sur une feature et l'ajouter au projet :
 
+0. [(Fork le proket)](https://github.com/gfroidcourt/iut-onboarding/fork)
 1. Créer une branche dédiée à la feature : `git checkout -b nom-branche`
 2. Développer la feature. `sudo code --with-talent`
 3. Créer une commit : `git add -A` puis `git commit -m "Message de commit"`
