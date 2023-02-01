@@ -64,5 +64,26 @@
                 }
             }
         ]
+    },
+    "LP": {
+        "ical": "FB81DC7342B29660B7C5EC25F8712004",
+        "classes": [
+            {
+                "className": "Dagpi",
+                "classIcal": "FB81DC7342B29660B7C5EC25F8712004",
+                "groups": {
+                    "prime": "FB81DC7342B29660B7C5EC25F8712004",
+                    "seconde": "FB81DC7342B29660B7C5EC25F8712004"
+                }
+            },
+            {
+                "className": "DAWIN",
+                "classIcal": "EE747C5C38C61799C51F714D93EE9950",
+                "groups": {
+                    "prime": "51B8B730AE700D0B10DD35D892687B21",
+                    "seconde": "B9966D6B6BD2B8C6BDAFEDCB11E76CA2"
+                }
+            }
+        ]
     }
 }
