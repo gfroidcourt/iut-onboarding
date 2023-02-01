@@ -23,6 +23,10 @@
       v-if="Object.keys(views).includes('discord')"
       :isActive="currentView == 'discord'"
     />
+    <MaintainerProposal
+      v-if="Object.keys(views).includes('maintainer')"
+      :isActive="currentView == 'maintainer'"
+    />
     <LoadingBar :view="views[currentView]" />
     <TransitionOverlay ref="loading" />
   </div>
@@ -32,13 +36,14 @@
 import DateAndHourHeader from "./components/DateHourHeader.vue";
 import TransitionOverlay from "./components/TransitionOverlay.vue";
 import Background from "./components/Background.vue";
-import Menus from "./views/Menus.vue";
+import LoadingBar from "./components/LoadingBar.vue";
 
+import Menus from "./views/Menus.vue";
 import Transport from "./views/Transport.vue";
 import Weather from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
 import Discord from "./views/Discord.vue";
-import LoadingBar from "./components/LoadingBar.vue";
+import MaintainerProposal from "./views/MaintainerProposal.vue";
 
 import "./stylesheets/reset.css";
 
@@ -56,36 +61,41 @@ export default {
 
           The order in the object is the display order
         */
-        planning: {
-          time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
-          allowed: () => {
-            // 6h to 17h30
-            const currentTime =
-            new Date().getHours() * 60 + new Date().getMinutes();
-            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
-          }
-        },
-        transport: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
-        },
-        weather: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
-        },
-        menus: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => {
-            // 6h to 14h
-            let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 14;
-          },
-        },
+        // planning: {
+        //   time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
+        //   allowed: () => {
+        //     // 6h to 17h30
+        //     const currentTime =
+        //     new Date().getHours() * 60 + new Date().getMinutes();
+        //     return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
+        //   }
+        // },
+        // transport: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+        //   allowed: () => true,
+        // },
+        // weather: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+        //   allowed: () => true,
+        // },
+        // menus: {
+        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+        //   allowed: () => {
+        //     // 6h to 14h
+        //     let currentHour = new Date().getHours();
+        //     return currentHour >= 6 && currentHour < 14;
+        //   },
+        // },
         /* Enable this at the start of each year (The QR code has to be updated)
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => true,
         }, */
+        /* Enable when looking for new maintainers */
+        maintainer: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
+          allowed: () => true,
+        },
       },
     };
   },
@@ -170,6 +180,7 @@ export default {
     DateAndHourHeader,
     LoadingBar,
     Discord,
+    MaintainerProposal,
   },
 };
 </script>
