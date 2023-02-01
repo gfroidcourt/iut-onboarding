@@ -61,31 +61,31 @@ export default {
 
           The order in the object is the display order
         */
-        // planning: {
-        //   time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
-        //   allowed: () => {
-        //     // 6h to 17h30
-        //     const currentTime =
-        //     new Date().getHours() * 60 + new Date().getMinutes();
-        //     return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
-        //   }
-        // },
-        // transport: {
-        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-        //   allowed: () => true,
-        // },
-        // weather: {
-        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-        //   allowed: () => true,
-        // },
-        // menus: {
-        //   time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-        //   allowed: () => {
-        //     // 6h to 14h
-        //     let currentHour = new Date().getHours();
-        //     return currentHour >= 6 && currentHour < 14;
-        //   },
-        // },
+        planning: {
+          time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
+          allowed: () => {
+            // 6h to 17h30
+            const currentTime =
+            new Date().getHours() * 60 + new Date().getMinutes();
+            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
+          }
+        },
+        transport: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+          allowed: () => true,
+        },
+        weather: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+          allowed: () => true,
+        },
+        menus: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => {
+            // 6h to 14h
+            let currentHour = new Date().getHours();
+            return currentHour >= 6 && currentHour < 14;
+          },
+        },
         /* Enable this at the start of each year (The QR code has to be updated)
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
@@ -93,7 +93,7 @@ export default {
         }, */
         /* Enable when looking for new maintainers */
         maintainer: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => true,
         },
       },
