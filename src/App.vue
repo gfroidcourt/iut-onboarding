@@ -23,6 +23,10 @@
       v-if="Object.keys(views).includes('discord')"
       :isActive="currentView == 'discord'"
     />
+    <MaintainerProposal
+      v-if="Object.keys(views).includes('maintainer')"
+      :isActive="currentView == 'maintainer'"
+    />
     <LoadingBar :view="views[currentView]" />
     <TransitionOverlay ref="loading" />
   </div>
@@ -32,13 +36,14 @@
 import DateAndHourHeader from "./components/DateHourHeader.vue";
 import TransitionOverlay from "./components/TransitionOverlay.vue";
 import Background from "./components/Background.vue";
-import Menus from "./views/Menus.vue";
+import LoadingBar from "./components/LoadingBar.vue";
 
+import Menus from "./views/Menus.vue";
 import Transport from "./views/Transport.vue";
 import Weather from "./views/Weather.vue";
 import Planning from "./views/NextPlannings.vue";
 import Discord from "./views/Discord.vue";
-import LoadingBar from "./components/LoadingBar.vue";
+import MaintainerProposal from "./views/MaintainerProposal.vue";
 
 import "./stylesheets/reset.css";
 
@@ -86,6 +91,11 @@ export default {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => true,
         }, */
+        /* Enable when looking for new maintainers */
+        maintainer: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true,
+        },
       },
     };
   },
@@ -170,6 +180,7 @@ export default {
     DateAndHourHeader,
     LoadingBar,
     Discord,
+    MaintainerProposal,
   },
 };
 </script>
