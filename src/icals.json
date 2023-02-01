@@ -1,87 +1,66 @@
 {
-    "info_but_s1": {
-        "ical": "4C14D0F469353720E0458649E47F4947",
+    "info_but_s2": {
+        "ical": "F2EF3EE6AE186AF0D4615C7A1CB6C359",
         "classes": [
             {
-                "className": "s1a",
-                "classIcal": "27ACD60DEEC7CC5EFC9B6E5AE1AF5BA6",
+                "className": "s2a",
+                "classIcal": "CE8638F9B59C0A35C2CF4CDB41051C0E",
                 "groups": {
-                    "prime": "AAD149EC11A8D9C82D141485F17ED180",
-                    "seconde": "8DA8A8D375F9BDCEAB8FDF715750B708"
+                    "prime": "0FA68EE12FDCA4C2657C36B8B9558050",
+                    "seconde": "B71C6DC006B737F0FCEDA822471A639A"
                 }
             },
             {
-                "className": "s1b",
-                "classIcal": "8F88DEA509B27C627CE0D63DCA84DB37",
+                "className": "s2b",
+                "classIcal": "6D7C13B82DE9CDA42C78A252BD570B2D",
                 "groups": {
-                    "prime": "3B85645FCB8D4EF340795A6FF37EA6F1",
-                    "seconde": "A08B0CB84EB1141AAC8E2C833AEF4DCF"
+                    "prime": "4E606F7C099919719D7DE7DA4CFE1B8F",
+                    "seconde": "CDD881675EF00C31504AAAA994DD3BC2"
                 }
             },
             {
-                "className": "s1c",
-                "classIcal": "BCAEDF17E085B5F2DFB3984301A223E7",
+                "className": "s2c",
+                "classIcal": "39C323F7C3BD91E014C4FDC40C7FCDBA",
                 "groups": {
-                    "prime": "547C165A4014193B0F02525F2F34B945",
-                    "seconde": "96FF5BAF65E7E5BC86DE4CDFD0678495"
+                    "prime": "8F4171703614E0BAA7ACF1F914EBCABC",
+                    "seconde": "5D857710462242730F70F6CB91FD4E26"
                 }
             },
             {
-                "className": "s1d",
-                "classIcal": "64460A3BB728F88AAEA51833E8CDADEC",
+                "className": "s2d",
+                "classIcal": "AD951FB0BE4A6840E6B8D7E15F78D6A3",
                 "groups": {
-                    "prime": "6DB8E57A476079B3939D92A26C263177",
-                    "seconde": "F2219EC54D6610F59F930196E7A32FAA"
+                    "prime": "CE7C0306EF8DF4DD2FB9F0D1AB9599F2",
+                    "seconde": "D825CB8CEA48FFBC6CCF39B233A5EB26"
                 }
             }
         ]
     },
-    "info_but_s3": {
-        "ical": "C37DE49FDF47FCE578E77B324003224F",
+    "info_but_s4": {
+        "ical": "110DBF7AEEA68536D53F4AEDA6AE4B57",
         "classes": [
             {
-                "className": "s3a",
-                "classIcal": "724569379B19C770F01CF4BAACB36D36",
+                "className": "s4a",
+                "classIcal": "0C7BF294B73507B9275D99799EC3147E",
                 "groups": {
-                    "prime": "F8D915E74A620204CA40A89DEDBDA93F",
-                    "seconde": "F0EE563C5D09CFEC2BCB01939696EA04"
+                    "prime": "1EF2C21DE2AE7C8DA79231F7036C8E9B",
+                    "seconde": "F3604D077DF665B3BC937C67245968C7"
                 }
             },
             {
-                "className": "s3b",
-                "classIcal": "1FE72977BB301E2C4DF7014F2D7D40B9",
+                "className": "s4b",
+                "classIcal": "2322123DBDB05B887BAA34A43CB08210",
                 "groups": {
-                    "prime": "26729902A1C1EA7E2C7E668E04DB2E1E",
-                    "seconde": "94811DD73A8FAAE84B4D75C173BBB544"
+                    "prime": "70EEC7495CE7060B0C9CD3D8A84382F0",
+                    "seconde": "74E65FD9DA0F61A9B3D6A5E45A33DAB7"
                 }
             },
             {
-                "className": "s3c",
-                "classIcal": "F9FDC9AD3084389C8543975DB37E8A04",
+                "className": "s4c",
+                "classIcal": "E94F99032447CF4D08C5F01C59C62841",
                 "groups": {
-                    "prime": "9057B589D5892182644CCEA3389DA62F",
-                    "seconde": "5B9E18973A5F7DD00AD57776AB0AFC91"
-                }
-            }
-        ]
-    },
-    "LP": {
-        "ical": "FB81DC7342B29660B7C5EC25F8712004",
-        "classes": [
-            {
-                "className": "Dagpi",
-                "classIcal": "FB81DC7342B29660B7C5EC25F8712004",
-                "groups": {
-                    "prime": "FB81DC7342B29660B7C5EC25F8712004",
-                    "seconde": "FB81DC7342B29660B7C5EC25F8712004"
-                }
-            },
-            {
-                "className": "DAWIN",
-                "classIcal": "EE747C5C38C61799C51F714D93EE9950",
-                "groups": {
-                    "prime": "51B8B730AE700D0B10DD35D892687B21",
-                    "seconde": "B9966D6B6BD2B8C6BDAFEDCB11E76CA2"
+                    "prime": "283F7FDDAC92876CFDE51141538E917D",
+                    "seconde": "74C70B415506F9E8566EA6D145023415"
                 }
             }
         ]
