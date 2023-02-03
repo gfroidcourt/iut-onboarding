@@ -3,50 +3,40 @@
 - Utiliser [Balena etcher](https://www.balena.io/etcher/) pour flasher la carte SD
 - Prendre [Raspberry pi OS Lite](https://www.raspberrypi.com/software/operating-systems/)
 
-> Login / pass par défaut : `pi` / `raspberry`
+## Connexion internet
 
-## Connexion à EDUROAM
+### IUT :
 
-modifier le fichier : `/etc/network/interfaces` :
+La connexion internet se fait par ethernet.
 
+Un configuration reseau a ete attribue par les administrateurs reseau et a ete hardcode dansles fichier de config.
+
+TODO : Decrire config actuelle
+
+### Reseau WIFI personnel (Pour de la configuration) :
+
+- Creer un fichier ssh dans la carte sd bootable.
+- Creer un fichier `wpa_supplicant.conf` dans la carte sd :
+  - Ajouter les information du reseau WIFI:
 ```
-source-directory /etc/network/interfaces.d
-
-auto lo
-iface lo inet loopback
-
-iface eth0 inet manual
-wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
-
-allow-hotplug wlan0
-iface wlan0 inet manual
-wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+  country=FR
+  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  network={
+      ssid="YOUR_NETWORK_NAME"
+      psk="YOUR_PASSWORD"
+  }
 ```
 
-modifier le fichier : `/etc/wap_supplicant/wpa_supplicant.conf` :
-
-```
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-
-network={
-  ssid="eduroam"
-  eap=TTLS
-  key_mgmt=WPA-EAP
-  phase2="auth=PAP"
-  identity="[IDNUM]@u-bordeaux.fr
-  anonymous_identity="anonymous@u-bordeaux.fr
-  password="******"
-}
-```
+- Lancer la raspberry et se connecter en ssh dessus.
 
 ## Setup raspbery
 
 Une fois la raspberry lancée et connectée à internet :
 
 1. Mettre à jour la raspberry : `sudo apt update` et `sudo apt upgrade`
-2. Installer les librairie graphiques : `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox``
-3. Installer chromium : `sudo apt-get install --no-install-recommends chromium-browser`
+2. Installer les librairie graphiques : `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox`
+3. Installer git :
+4. Installer chromium : `sudo apt-get install --no-install-recommends chromium-browser`
 
 ## Setup projet
 

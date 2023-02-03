@@ -88,5 +88,28 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO DUT S4"];
 
 > Le résultat final est stocké dans un fichier JSON qui est ensuite lu par l'application
 
+## Informations projet
 
+Web :
 
+- Les menus s'affichent que le matin.
+- Les plannings s'affichent de 8h à 17h30.
+- Les planning ont la priorite d'affichage durant les 10 dernieres minutes des pauses.
+- La meteo est recuperee au travers d'un API publique.
+- Les horraires de bus sont recuperes au travers de l'API publique de TBM.
+- Les menus du crous sont recuperes par le scraping du site du CROUS (Aucune API publique).
+- On utilise netlify pour deployer le projet automatiquement.
+- Netlify permet aussi d'avoir un backend (Proxy netlify.toml et dosier functions).
+- Les scraping des menu crous est fait dans le backend netlify.
+
+Raspberry :
+
+- Raspberry 4b+ (Avec le max de RAM et de CPU prcq sinon les anims lagent).
+- Connexion internet via le port ethernet a gauche de la tele.
+- Il ny a pas d'environnement Desktop, un script permet de lancer X11 puis chromium apres le branchement.
+
+Tele :
+
+- La tele est alimente via un programmateur, normalement les horaires sont 8h-20h mais ca peut se deregler en cas de coupure de courant.
+- La telecomande est dans le local de l'asso.
+ 
