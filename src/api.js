@@ -60,10 +60,6 @@ export const fetchCurrentWeather = async () => {
   }
 };
 
-export const fetchHyperplanning = async () => {
-  // TO DO
-};
-
 export const getTBMLineWaitInterval = async (stopId, lineId) => {
   try {
     const data = await fetchTBM(stopId, lineId);
@@ -76,5 +72,14 @@ export const getTBMLineWaitInterval = async (stopId, lineId) => {
     return result;
   } catch (e) {
     throw `Erreur de récupération des wait interval TBM (ligne: ${lineId}, arrêt: ${stopId}) : ${e}`;
+  }
+};
+
+export const getAllRestaurantsMenus = async () => {
+  try {
+    const result = await fetch(".netlify/functions/getCrousMenus");
+    return await result.json();
+  } catch (e) {
+    throw `Erreur de récupération des menus CROUS : ${e}`;
   }
 };

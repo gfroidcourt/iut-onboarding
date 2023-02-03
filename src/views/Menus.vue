@@ -9,7 +9,7 @@
 
 <script>
 import MenuCard from "../components/MenuCard.vue";
-import * as scrapMeal from "../scrapMeal.js";
+import * as api from "../api";
 
 export default {
   props: {
@@ -25,7 +25,7 @@ export default {
     MenuCard,
   },
   mounted() {
-    scrapMeal.getAllRestaurantsMenus().then((res) => {
+    api.getAllRestaurantsMenus().then((res) => {
       this.sirtakiMenu = res.sirtaki;
       this.spaceMenu = res.space;
     });
