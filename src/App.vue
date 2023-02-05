@@ -38,6 +38,7 @@ import TransitionOverlay from "./components/TransitionOverlay.vue";
 import Background from "./components/Background.vue";
 import LoadingBar from "./components/LoadingBar.vue";
 
+
 import Menus from "./views/Menus.vue";
 import Transport from "./views/Transport.vue";
 import Weather from "./views/Weather.vue";
