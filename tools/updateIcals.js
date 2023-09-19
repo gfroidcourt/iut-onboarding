@@ -8,7 +8,7 @@ const HEADLESS = true;
 
 // Identifiant de promo  à récupérer  sur hyperplanning pour ce semestre
 // L'odre est important
-const PROMOTIONS = ["INFO_BUT_S2", "INFO_BUT_S4"];
+const PROMOTIONS = ["INFO_BUT_S1", "INFO_BUT_S3"];
 
 (async () => {
   const result = [];
@@ -48,11 +48,13 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO_BUT_S4"];
 
   await page.waitForTimeout(1000);
 
+  //#region temp
   // Fill CAS form
   spinner.succeed();
   spinner = ora("Fill credentials").start();
   await page.$eval("#username", (el, id) => el.value = id, idnum);
   await page.$eval("#password", (el, pass) => el.value = pass, password);
+  //#endregion
 
   spinner.succeed();
   spinner = ora("Submit authentication").start();
@@ -94,7 +96,6 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO_BUT_S4"];
     spinner = ora("Processing promotions groups").start();
     let groups = await page.$$eval("div.as-li > div", elements => elements.map(item => item.textContent));
     groups = groups.filter(g => g.includes("S") || g.includes("UT"));
-
     spinner.succeed();
     spinner = ora("Closing groups dropdown and starting ical processing").start();
     // Close drop down
@@ -102,7 +103,7 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO_BUT_S4"];
     await page.waitForTimeout(500);
 
     for (let group of groups) {
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1000);
       spinner.text = `Focusing group ${group} ...`;
 
       await page.click("div.input-wrapper:last-of-type > div.ocb_cont > div[role=combobox]");
@@ -121,10 +122,10 @@ const PROMOTIONS = ["INFO_BUT_S2", "INFO_BUT_S4"];
           await page.click("tbody > tr > td:nth-of-type(2)");
           await page.waitForTimeout(500);
 
-          // Get URL
-          const element = await page.$("td.PetitEspaceHaut > input[type=text]");
+          // Get URL (Not stable)
+          const element = await page.$("div.ObjetFenetre_ICal_racine div.Fenetre_Espace section.m-top-l article.m-top > input");
           let url = await page.evaluate(element => element.value, element);
-          url = url.split("idICal=")[1].split("&param")[0];
+          url = url.split("icalsecurise=")[1].split("&param")[0];
           result.push({
             group,
             ical: url,
