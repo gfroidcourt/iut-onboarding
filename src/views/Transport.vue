@@ -20,7 +20,7 @@ export default {
       liane10: {
         stops: [3323, 9055],
         lineColor: "#59a9e2",
-        lineId: 10,
+        lineId: 31,
         lineName: "Liane",
       },
       tramB: {

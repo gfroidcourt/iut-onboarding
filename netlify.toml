@@ -8,5 +8,5 @@
 
 [[redirects]]
   from = "/api/scheduler/hyperplanning/:schedulerId/:dateParameter"
-  to = "https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/Edt.ics?version=2021.0.1.3&idICal=:schedulerId&param=:dateParameter"
+  to = "https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/Edt.ics?version=2023.0.5.0&icalsecurise=:schedulerId&param=:dateParameter"
   status = 200
