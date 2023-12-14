@@ -1,0 +1,35 @@
+{
+	"name": "iut-onboarding",
+	"module": "src/main.js",
+	"type": "module",
+	"devDependencies": {
+		"bun-types": "latest"
+	},
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"extends": [
+			"plugin:vue/vue3-essential",
+			"eslint:recommended"
+		],
+		"parserOptions": {
+			"parser": "babel-eslint"
+		},
+		"rules": {}
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	]
+}

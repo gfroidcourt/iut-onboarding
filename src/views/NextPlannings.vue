@@ -7,22 +7,19 @@
       <PlanningCard
         v-for="(data, index) in nextClasses.slice(0, 4)"
         :key="index"
-        :data="data"
-      />
+        :data="data" />
     </div>
     <div class="view-content">
       <PlanningCard
         v-for="(data, index) in nextClasses.slice(4, 7)"
         :key="index"
-        :data="data"
-      />
+        :data="data" />
       <PlanningCard
         v-for="(data, index) in nextClasses.slice(7, 10)"
         :key="index"
-        :data="data"
-      />
-      </div>
+        :data="data" />
     </div>
+  </div>
 </template>
 
 <script>
@@ -51,7 +48,7 @@ export default {
   methods: {
     /**
      * Récupère tout le fichier icals.json et construit un objet quasi hydentique
-     * mais avec des instance de Schedulers à la place des string d'icals.
+     * mais avec des instance de Schedulers à la place des string d'icals.q
      */
     generateGroupsSchedulers() {
       Object.keys(icals).forEach((promo) => {
@@ -59,12 +56,16 @@ export default {
           this.classes.push({
             className: c.className,
             classIcal: new HyperplanningScheduler(c.classIcal, { proxyUrl }),
-            groups: c.groups ? {
-              prime: new HyperplanningScheduler(c.groups.prime, { proxyUrl }),
-              seconde: new HyperplanningScheduler(c.groups.seconde, {
-                proxyUrl,
-              }),
-            } : [],
+            groups: c.groups
+              ? {
+                prime: new HyperplanningScheduler(c.groups.prime, {
+                  proxyUrl,
+                }),
+                seconde: new HyperplanningScheduler(c.groups.seconde, {
+                  proxyUrl,
+                }),
+              }
+              : [],
           });
         });
       });
@@ -142,7 +143,9 @@ export default {
             ],
             room: [
               primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
-              secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+              secondeEvent
+                ? secondeEvent.locations[0].split(" ")[0]
+                : undefined,
             ],
           });
         }
