@@ -1,5 +1,5 @@
 [build]
-  command = "vue-cli-service build"
+  command = "bun run build"
   functions = "functions"
   publish = "dist"
 
