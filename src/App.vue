@@ -162,7 +162,7 @@ export default {
      */
     returnTimeForPlanning() {
       if (this.onlyPlanning())
-        return 1000 * 60 * 10; // Forcing pour 10 minutes
+        return 1000 * 60 * 10; // Forcing for 10 minutes
       return 1000 * 10;
     },
   },
