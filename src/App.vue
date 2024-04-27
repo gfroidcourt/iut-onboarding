@@ -67,10 +67,10 @@ export default {
             // 6h to 17h30
             const currentTime =
             new Date().getHours() * 60 + new Date().getMinutes();
-            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
+            return true; //currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
           }
         },
-        transport: {
+        /*transport: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
@@ -85,17 +85,17 @@ export default {
             let currentHour = new Date().getHours();
             return currentHour >= 6 && currentHour < 14;
           },
-        },
+        },*/
         /* Enable this at the start of each year (The QR code has to be updated)
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => true,
         }, */
         /* Enable when looking for new maintainers */
-        maintainer: {
+        /*maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => true,
-        },
+        },*/
       },
     };
   },
