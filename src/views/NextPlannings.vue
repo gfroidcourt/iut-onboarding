@@ -71,7 +71,8 @@ export default {
       console.log(this.classes);
     },
     setCurrentHourRange() {
-      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      //const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      const currentTime = 9 * 60 + 10;
       if (currentTime < 9 * 60 + 30) {
         // < 09h30
         this.currentHourRangeStr = "8h15 - 10h00";
