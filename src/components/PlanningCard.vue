@@ -91,8 +91,8 @@ export default {
       if (className.includes("S2")) return "blue";
       if (className.includes("S3")) return "green";
       if (className.includes("S4")) return "purple";
-      if (className.includes("DAGPI")) return "orange";
-      if (className.includes("DAWIN")) return "darkblue";
+      if (className.includes("S5")) return "orange";
+      if (className.includes("S6")) return "darkblue";
       return "#000000";
     },
     isSplited() {
