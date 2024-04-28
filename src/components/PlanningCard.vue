@@ -87,7 +87,7 @@ export default {
       const className = this.data.className.toUpperCase();
       if (className.includes("S1")) return "#FF000077";
       if (className.includes("S2")) return "#00CCFF99";
-      if (className.includes("S3")) return "#00FF00AA";
+      if (className.includes("S3")) return "#00FF88BB";
       if (className.includes("S4")) return "#FF00FF77";
       if (className.includes("S5")) return "#0000FF88";
       if (className.includes("S6")) return "#FF880088";
