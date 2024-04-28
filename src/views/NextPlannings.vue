@@ -6,26 +6,26 @@
     <div id="columns">
       <div id="c1">
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in nextClasses[promos[0]].slice(0, 2)" :key="index" :data="data" />
+          <PlanningCard v-for="(data, index) in info_but1.slice(0, 2)" :key="index" :data="data" />
         </div>
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in nextClasses[promos[0]].slice(2, 4)" :key="index" :data="data" />
+          <PlanningCard v-for="(data, index) in info_but1.slice(2, 4)" :key="index" :data="data" />
         </div>
       </div>
       <div id="c2">
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in nextClasses[promos[1]].slice(0, 2)" :key="index" :data="data" />
+          <PlanningCard v-for="(data, index) in info_but2.slice(0, 2)" :key="index" :data="data" />
         </div>
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in nextClasses[promos[1]].slice(2, 4)" :key="index" :data="data" />
+          <PlanningCard v-for="(data, index) in info_but2.slice(2, 4)" :key="index" :data="data" />
         </div>
       </div>
       <div id="c3">
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in nextClasses[promos[2]].slice(0, 2)" :key="index" :data="data" />
+          <PlanningCard v-for="(data, index) in info_but3.slice(0, 2)" :key="index" :data="data" />
         </div>
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in nextClasses[promos[2]].slice(2, 4)" :key="index" :data="data" />
+          <PlanningCard v-for="(data, index) in info_but3.slice(2, 4)" :key="index" :data="data" />
         </div>
       </div>
     </div>
@@ -48,7 +48,9 @@ export default {
     return {
       currentHourRangeStr: "",
       refreshInterval: undefined,
-      nextClasses: [],
+      info_but1: [],
+      info_but2: [],
+      info_but3: [],
       classes: [],
     };
   },
@@ -64,12 +66,8 @@ export default {
       this.promos = [];
       let But3_done = false;
       Object.keys(icals).forEach((promo) => {
-        if((promo === "info_but3_ALT" || promo === "info_but3_FI") && !But3_done) {
+        if((promo === "info_but3_ALT" || promo === "info_but3_FI" && !But3_done)) {
           this.promos.push("info_but3");
-          But3_done = true;
-        }
-        else if (!(promo === "info_but3_ALT" || promo === "info_but3_FI")) {
-          this.promos.push(promo);
         }
         icals[promo].classes.forEach((c) => {
           this.classes.push({
@@ -123,18 +121,13 @@ export default {
     async getAllPlannings() {
       console.log("Refreshing plannings");
       this.setCurrentHourRange();
-      this.nextClasses = {};
-      for (let p of this.promos) {
-        this.nextClasses[p] = [null, null, null, null];
-      }
+      this.info_but1 = [];
+      this.info_but2 = [];
+      this.info_but3 = [];
       try {
         let classNumb;
-        let previouspromo;
+        let target;
         for (const c of this.classes) {
-          if (previouspromo !== c.promo) {
-            classNumb = 0;
-            previouspromo = c.promo;
-          }
           const classEvent = await c.classIcal
             .getEvents()
             .then((events) => events.find(this.nextEventFilter));
@@ -147,30 +140,89 @@ export default {
 
           if (classEvent !== undefined) primeEvent = classEvent;
 
-          this.nextClasses[c.promo][classNumb] = {
-            className: c.className,
-            isFullClass: classEvent !== undefined,
-            type: [
-              primeEvent ? primeEvent.type : undefined,
-              secondeEvent ? secondeEvent.type : undefined,
-            ],
-            subject: [
-              primeEvent
-                ? primeEvent.subject.split(" ").slice(1).join(" ")
-                : undefined,
-              secondeEvent
-                ? secondeEvent.subject.split(" ").slice(1).join(" ")
-                : undefined,
-            ],
-            teacher: [
-              primeEvent ? primeEvent.teachers.join(" - ") : undefined,
-              secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
-            ],
-            room: [
-              primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
-              secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
-            ],
-          };
+          switch (c.promotion) {
+            case "info_but1":
+              this.info_but1.push({
+                className: c.className,
+                isFullClass: classEvent !== undefined,
+                type: [
+                  primeEvent ? primeEvent.type : undefined,
+                  secondeEvent ? secondeEvent.type : undefined,
+                ],
+                subject: [
+                  primeEvent
+                    ? primeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                ],
+                teacher: [
+                  primeEvent ? primeEvent.teachers.join(" - ") : undefined,
+                  secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+                ],
+                room: [
+                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
+                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                ],
+              });
+              break;
+            case "info_but2":
+              this.info_but2.push({
+                className: c.className,
+                isFullClass: classEvent !== undefined,
+                type: [
+                  primeEvent ? primeEvent.type : undefined,
+                  secondeEvent ? secondeEvent.type : undefined,
+                ],
+                subject: [
+                  primeEvent
+                    ? primeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                ],
+                teacher: [
+                  primeEvent ? primeEvent.teachers.join(" - ") : undefined,
+                  secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+                ],
+                room: [
+                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
+                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                ],
+              });
+              break;
+            case "info_but3_FI":
+            case "info_but3_ALT":
+              this.info_but3.push({
+                className: c.className,
+                isFullClass: classEvent !== undefined,
+                type: [
+                  primeEvent ? primeEvent.type : undefined,
+                  secondeEvent ? secondeEvent.type : undefined,
+                ],
+                subject: [
+                  primeEvent
+                    ? primeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                ],
+                teacher: [
+                  primeEvent ? primeEvent.teachers.join(" - ") : undefined,
+                  secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+                ],
+                room: [
+                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
+                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                ],
+              });
+              break;
+            default:
+              console.log("Unknown promotion.");
+          }
         }
       } catch (e) {
         console.error("Failed to fetch plannings", e);
