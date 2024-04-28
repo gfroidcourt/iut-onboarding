@@ -69,9 +69,7 @@ export default {
       return ["prime", "seconde"]; // Prime et seconde ont cours en même temps
     },
     getClassNameComponent(group = undefined) {
-      const a = this.data.className.toUpperCase();
-      if (a.includes("DAWIN")) return ["","DAWIN", group];
-      if (a.includes("DAGPI")) return ["","DAGPI"];
+      const a = this.data.className.toUpperCase();  
       const result = [
         a.slice(0, a.length - 1),
         a.slice(a.length - 1, a.length),

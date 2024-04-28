@@ -3,26 +3,33 @@
     <h1 class="view-title">
       {{ currentHourRangeStr }}
     </h1>
-    <div class="view-content">
-      <PlanningCard
-        v-for="(data, index) in nextClasses.slice(0, 4)"
-        :key="index"
-        :data="data"
-      />
-    </div>
-    <div class="view-content">
-      <PlanningCard
-        v-for="(data, index) in nextClasses.slice(4, 7)"
-        :key="index"
-        :data="data"
-      />
-      <PlanningCard
-        v-for="(data, index) in nextClasses.slice(7, 10)"
-        :key="index"
-        :data="data"
-      />
+    <div id="columns">
+      <div id="c1">
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in nextClasses[promos[0]].slice(0, 2)" :key="index" :data="data" />
+        </div>
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in nextClasses[promos[0]].slice(2, 4)" :key="index" :data="data" />
+        </div>
+      </div>
+      <div id="c2">
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in nextClasses[promos[1]].slice(0, 2)" :key="index" :data="data" />
+        </div>
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in nextClasses[promos[1]].slice(2, 4)" :key="index" :data="data" />
+        </div>
+      </div>
+      <div id="c3">
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in nextClasses[promos[2]].slice(0, 2)" :key="index" :data="data" />
+        </div>
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in nextClasses[promos[2]].slice(2, 4)" :key="index" :data="data" />
+        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -54,9 +61,19 @@ export default {
      * mais avec des instance de Schedulers à la place des string d'icals.
      */
     generateGroupsSchedulers() {
+      this.promos = [];
+      let But3_done = false;
       Object.keys(icals).forEach((promo) => {
+        if((promo === "info_but3_ALT" || promo === "info_but3_FI") && !But3_done) {
+          this.promos.push("info_but3");
+          But3_done = true;
+        }
+        else if (!(promo === "info_but3_ALT" || promo === "info_but3_FI")) {
+          this.promos.push(promo);
+        }
         icals[promo].classes.forEach((c) => {
           this.classes.push({
+            promotion: promo,
             className: c.className,
             classIcal: new HyperplanningScheduler(c.classIcal, { proxyUrl }),
             groups: c.groups ? {
@@ -71,8 +88,7 @@ export default {
       console.log(this.classes);
     },
     setCurrentHourRange() {
-      //const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-      const currentTime = 9 * 60 + 10;
+      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
       if (currentTime < 9 * 60 + 30) {
         // < 09h30
         this.currentHourRangeStr = "8h15 - 10h00";
@@ -107,9 +123,18 @@ export default {
     async getAllPlannings() {
       console.log("Refreshing plannings");
       this.setCurrentHourRange();
-      this.nextClasses = [];
+      this.nextClasses = {};
+      for (let p of this.promos) {
+        this.nextClasses[p] = [null, null, null, null];
+      }
       try {
+        let classNumb;
+        let previouspromo;
         for (const c of this.classes) {
+          if (previouspromo !== c.promo) {
+            classNumb = 0;
+            previouspromo = c.promo;
+          }
           const classEvent = await c.classIcal
             .getEvents()
             .then((events) => events.find(this.nextEventFilter));
@@ -122,7 +147,7 @@ export default {
 
           if (classEvent !== undefined) primeEvent = classEvent;
 
-          this.nextClasses.push({
+          this.nextClasses[c.promo][classNumb] = {
             className: c.className,
             isFullClass: classEvent !== undefined,
             type: [
@@ -145,7 +170,7 @@ export default {
               primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
               secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
             ],
-          });
+          };
         }
       } catch (e) {
         console.error("Failed to fetch plannings", e);
@@ -170,5 +195,10 @@ export default {
 span {
   width: 100%;
   font-weight: bold;
+}
+
+#columns {
+  display: flex;
+  flex-direction: row;
 }
 </style>

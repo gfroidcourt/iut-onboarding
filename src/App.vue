@@ -90,7 +90,7 @@ export default {
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => true,
-        }, */
+        },*/
         /* Enable when looking for new maintainers */
         /*maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,

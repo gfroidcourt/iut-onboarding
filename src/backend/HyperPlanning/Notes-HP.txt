@@ -1,0 +1,9 @@
+DATE limits:
+const hpStart = Math.max(1, (startYear - 2022) * 52 - 33 + startWeek);
+const hpEnd = Math.min(52, (endYear - 2022) * 52 - 33 + endWeek);
+
+const parameter = `d=[${hpStart}..${hpEnd}]&fh=1&f=1`;
+const dateParameter = this.a2hex(parameter);
+
+URL:
+https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/Edt_S6C__FI.ics?version=2023.0.7.0

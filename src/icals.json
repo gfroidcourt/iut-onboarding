@@ -1,5 +1,5 @@
 {
-    "info_but_s2": {
+    "info_but1": {
         "ical": "CE6FAB5627F4696412C6E6297A64EE4A8EEC910CD961553EECE888D6F1EB77BAC648D3DA4E6891D5D1A3DD0BCE6A56A4",
         "classes": [
             {
@@ -36,7 +36,7 @@
             }
         ]
     },
-    "info_but_s4": {
+    "info_but2": {
         "ical": "CE6FAB5627F4696412C6E6297A64EE4A83290540DDC890349F6867A153E94B3635517BC0F0CCDC9E422927D479D4D482",
         "classes": [
             {
@@ -65,7 +65,7 @@
             }
         ]
     },
-    "info_but_s6_ALT": {
+    "info_but3_ALT": {
         "ical": "C4DE0241CC3133EE37FB10076F91B472A48E223BD9323166C235ADB1BF73921C83DED4FE7FC8731A880A4922C2F2E902",
         "classes": [
             {
@@ -86,7 +86,7 @@
             }
         ]
     },
-    "info_but_s6_FI": {
+    "info_but3_FI": {
         "ical": "7BB703FBD7ACEADDF8C6D24F965F73C8686C1238F430B72221CCF9EB7D92E9FCD5275013511B7A56FB902119A9330A72",
         "classes" : [
             {
