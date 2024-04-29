@@ -4,6 +4,7 @@
       {{ currentHourRangeStr }}
     </h1>
     <div id="columns">
+      <!--Column for BUT1-->
       <div id="c1">
         <div class="view-content">
           <PlanningCard v-for="(data, index) in info_but1.slice(0, 2)" :key="index" :data="data" />
@@ -12,6 +13,7 @@
           <PlanningCard v-for="(data, index) in info_but1.slice(2, 4)" :key="index" :data="data" />
         </div>
       </div>
+      <!--Column for BUT2-->
       <div id="c2">
         <div class="view-content">
           <PlanningCard v-for="(data, index) in info_but2.slice(0, 2)" :key="index" :data="data" />
@@ -20,6 +22,7 @@
           <PlanningCard v-for="(data, index) in info_but2.slice(2, 4)" :key="index" :data="data" />
         </div>
       </div>
+      <!--Column for BUT3-->
       <div id="c3">
         <div class="view-content">
           <PlanningCard v-for="(data, index) in info_but3.slice(0, 2)" :key="index" :data="data" />
@@ -134,9 +137,6 @@ export default {
           const classEvent = await c.classIcal
             .getEvents()
             .then((events) => events.find(this.nextEventFilter));
-          console.log(classEvent);
-          console.log(c.classIcal);
-          console.log(await c.classIcal.getEvents());
           let primeEvent = await c.groups.prime
             .getEvents()
             .then((events) => events.find(this.nextEventFilter));
@@ -146,6 +146,7 @@ export default {
 
           if (classEvent !== undefined) primeEvent = classEvent;
 
+          //Switching between columns depending on the promotion
           switch (c.promotion) {
             case "info_but1":
               this.info_but1.push({
