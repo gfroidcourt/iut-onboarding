@@ -113,6 +113,10 @@ export default {
       if (currentTime > 11 * 60 + 30 && currentTime < 13 * 60 + 30)
         currentTime += 2 * 60; // On fais croire qu'il est h+2, soit entre 13h30 et 15h30
 
+      if (currentTime < 8 * 60) {
+        return (eventStartTime >= 8 * 60 && eventEndTime <= 10 * 60 + 30);
+      }
+
       // Display this event 30min before it starts and stop displaying it 30 mins before it ends.
       return (
         currentTime > eventStartTime - 30 && currentTime < eventEndTime - 30
@@ -125,12 +129,13 @@ export default {
       this.info_but2 = [];
       this.info_but3 = [];
       try {
-        let classNumb;
-        let target;
         for (const c of this.classes) {
           const classEvent = await c.classIcal
             .getEvents()
             .then((events) => events.find(this.nextEventFilter));
+          console.log(classEvent);
+          console.log(c.classIcal);
+          console.log(await c.classIcal.getEvents());
           let primeEvent = await c.groups.prime
             .getEvents()
             .then((events) => events.find(this.nextEventFilter));
