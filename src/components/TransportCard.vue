@@ -4,10 +4,10 @@
       {{ busData.lineName }}
       <span :style="`color: ${busData.lineColor} ; font-size : 1.7em`">{{
         busData.lineId
-      }}</span>
+        }}</span>
     </p>
-    <TripTransportCard :busData="busData" :index="0"/>
-    <TripTransportCard :busData="busData" :index="1"/>
+    <TripTransportCard :busData="busData" :index="0" />
+    <TripTransportCard :busData="busData" :index="1" />
   </div>
 </template>
 

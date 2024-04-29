@@ -3,31 +3,41 @@
     <h1 class="view-title">
       {{ currentHourRangeStr }}
     </h1>
-    <div class="view-content">
-      <PlanningCard
-        v-for="(data, index) in nextClasses.slice(0, 4)"
-        :key="index"
-        :data="data"
-      />
-    </div>
-    <div class="view-content">
-      <PlanningCard
-        v-for="(data, index) in nextClasses.slice(4, 7)"
-        :key="index"
-        :data="data"
-      />
-      <PlanningCard
-        v-for="(data, index) in nextClasses.slice(7, 10)"
-        :key="index"
-        :data="data"
-      />
+    <div id="columns">
+      <!--Column for BUT1-->
+      <div id="c1">
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in info_but1.slice(0, 2)" :key="index" :data="data" />
+        </div>
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in info_but1.slice(2, 4)" :key="index" :data="data" />
+        </div>
+      </div>
+      <!--Column for BUT2-->
+      <div id="c2">
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in info_but2.slice(0, 2)" :key="index" :data="data" />
+        </div>
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in info_but2.slice(2, 4)" :key="index" :data="data" />
+        </div>
+      </div>
+      <!--Column for BUT3-->
+      <div id="c3">
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in info_but3.slice(0, 2)" :key="index" :data="data" />
+        </div>
+        <div class="view-content">
+          <PlanningCard v-for="(data, index) in info_but3.slice(2, 4)" :key="index" :data="data" />
+        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 import PlanningCard from "../components/PlanningCard.vue";
-import { HyperplanningScheduler } from "@hubday/scheduler";
+import { HyperplanningScheduler } from "@xabi08yt/iutgradignanhpscheduler";
 import icals from "../icals.json";
 
 const proxyUrl = "/api/scheduler/hyperplanning/:schedulerId/:dateParameter";
@@ -41,7 +51,9 @@ export default {
     return {
       currentHourRangeStr: "",
       refreshInterval: undefined,
-      nextClasses: [],
+      info_but1: [],
+      info_but2: [],
+      info_but3: [],
       classes: [],
     };
   },
@@ -54,9 +66,15 @@ export default {
      * mais avec des instance de Schedulers à la place des string d'icals.
      */
     generateGroupsSchedulers() {
+      this.promos = [];
+      let But3_done = false;
       Object.keys(icals).forEach((promo) => {
+        if((promo === "info_but3_ALT" || promo === "info_but3_FI" && !But3_done)) {
+          this.promos.push("info_but3");
+        }
         icals[promo].classes.forEach((c) => {
           this.classes.push({
+            promotion: promo,
             className: c.className,
             classIcal: new HyperplanningScheduler(c.classIcal, { proxyUrl }),
             groups: c.groups ? {
@@ -72,7 +90,7 @@ export default {
     },
     setCurrentHourRange() {
       const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-      if (currentTime < 9 * 60 + 30) {
+      if (currentTime < 9 * 60 + 45) {
         // < 09h30
         this.currentHourRangeStr = "8h15 - 10h00";
       } else if (currentTime < 11 * 60 + 30) {
@@ -106,7 +124,9 @@ export default {
     async getAllPlannings() {
       console.log("Refreshing plannings");
       this.setCurrentHourRange();
-      this.nextClasses = [];
+      this.info_but1 = [];
+      this.info_but2 = [];
+      this.info_but3 = [];
       try {
         for (const c of this.classes) {
           const classEvent = await c.classIcal
@@ -121,30 +141,90 @@ export default {
 
           if (classEvent !== undefined) primeEvent = classEvent;
 
-          this.nextClasses.push({
-            className: c.className,
-            isFullClass: classEvent !== undefined,
-            type: [
-              primeEvent ? primeEvent.type : undefined,
-              secondeEvent ? secondeEvent.type : undefined,
-            ],
-            subject: [
-              primeEvent
-                ? primeEvent.subject.split(" ").slice(1).join(" ")
-                : undefined,
-              secondeEvent
-                ? secondeEvent.subject.split(" ").slice(1).join(" ")
-                : undefined,
-            ],
-            teacher: [
-              primeEvent ? primeEvent.teachers.join(" - ") : undefined,
-              secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
-            ],
-            room: [
-              primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
-              secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
-            ],
-          });
+          //Switching between columns depending on the promotion
+          switch (c.promotion) {
+            case "info_but1":
+              this.info_but1.push({
+                className: c.className,
+                isFullClass: classEvent !== undefined,
+                type: [
+                  primeEvent ? primeEvent.type : undefined,
+                  secondeEvent ? secondeEvent.type : undefined,
+                ],
+                subject: [
+                  primeEvent
+                    ? primeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                ],
+                teacher: [
+                  primeEvent ? primeEvent.teachers.join(" - ") : undefined,
+                  secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+                ],
+                room: [
+                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
+                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                ],
+              });
+              break;
+            case "info_but2":
+              this.info_but2.push({
+                className: c.className,
+                isFullClass: classEvent !== undefined,
+                type: [
+                  primeEvent ? primeEvent.type : undefined,
+                  secondeEvent ? secondeEvent.type : undefined,
+                ],
+                subject: [
+                  primeEvent
+                    ? primeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                ],
+                teacher: [
+                  primeEvent ? primeEvent.teachers.join(" - ") : undefined,
+                  secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+                ],
+                room: [
+                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
+                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                ],
+              });
+              break;
+            case "info_but3_FI":
+            case "info_but3_ALT":
+              this.info_but3.push({
+                className: c.className,
+                isFullClass: classEvent !== undefined,
+                type: [
+                  primeEvent ? primeEvent.type : undefined,
+                  secondeEvent ? secondeEvent.type : undefined,
+                ],
+                subject: [
+                  primeEvent
+                    ? primeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                    : undefined,
+                ],
+                teacher: [
+                  primeEvent ? primeEvent.teachers.join(" - ") : undefined,
+                  secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+                ],
+                room: [
+                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
+                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                ],
+              });
+              break;
+            default:
+              console.log("Unknown promotion.");
+          }
         }
       } catch (e) {
         console.error("Failed to fetch plannings", e);
@@ -169,5 +249,10 @@ export default {
 span {
   width: 100%;
   font-weight: bold;
+}
+
+#columns {
+  display: flex;
+  flex-direction: row;
 }
 </style>

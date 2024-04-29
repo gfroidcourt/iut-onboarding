@@ -2,7 +2,7 @@
   <div class="view-container" v-show="isActive">
     <h1 class="view-title">Prochains transports</h1>
     <div class="view-content">
-      <TransportCard :busData="liane10" />
+      <TransportCard :busData="liane31" />
       <TransportCard :busData="tramB" />
     </div>
   </div>
@@ -17,14 +17,14 @@ export default {
   },
   data() {
     return {
-      liane10: {
+      liane31: {
         stops: [3323, 9055],
         lineColor: "#59a9e2",
         lineId: 31,
         lineName: "Liane",
       },
       tramB: {
-        stops: [7463, 3730],
+        stops: [5534, 3730],
         lineColor: "#f47499",
         lineId: "B",
         lineName: "Tram",
