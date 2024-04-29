@@ -35,9 +35,22 @@ async function fetchMenu(URL) {
     // Sans les lignes inutiles
     if (plat.includes(":") || plat.includes("(") || plat.length === 0)
       return;
-      // Sans les "Entrées diverses" et "Desserts divers"
+      // Sans les "Entrées diverses" et "Desserts divers" et sans les salades car on aime pas la salade
     if (plat.includes("Entrées") || plat.includes("Desserts") || plat.includes("Salade"))
       return;
+
+    //To remove **** in the sirtaki menu
+    plat = plat.replace('****','');
+    plat = plat.replace('****','');
+    //Fix - - formatting problem for sirtaki
+    if(URL == SIRTAKI_URL) {
+      plat = plat.replace('-','');
+    }
+
+    if(plat.includes("Plat")) {
+      plat = plat.toUpperCase();
+    }
+
     tabPlats.push(plat.charAt(0).toUpperCase() + plat.slice(1));
   });
 
@@ -48,10 +61,38 @@ async function fetchMenu(URL) {
  * Sélectionne les plats du jour actuel pour les deux restaurants crous
  * @return Un objet contennant les plats des restaurants crous
  */
-const getAllRestaurantsMenus = async () => ({
-  space: await fetchMenu(SPACE_URL),
-  // sirtaki: await fetchMenu(SIRTAKI_URL),
-});
+const getAllRestaurantsMenus = async () => {
+  //Definition des variables
+  let sirtaki;
+  let space;
+  let sirtakiEnabled = true;
+  let spaceEnabled = true;
+
+  //Tentative de récupération du menu
+  try {
+    sirtaki = fetchMenu(SIRTAKI_URL);
+  } catch(error) {
+    // Si échec, marquer la carte comme désactivée.
+    console.log("Unable to retreive Menu for Sirtaki. Error: "+error);
+    sirtakiEnabled = false;
+  }
+
+  //IDEM
+  try {
+    space = fetchMenu(SPACE_URL);
+  } catch(error) {
+    console.log("Unable to retreive Menu for Space. Error: " + error);
+    spaceEnabled = false;
+  }
+  
+  //Retour des informations suite à l'exécution
+  return {
+    sirtakiEnabled: sirtakiEnabled,
+    spaceEnabled: spaceEnabled,
+    sirtaki: await fetchMenu(SIRTAKI_URL),
+    space: await fetchMenu(SPACE_URL),
+  };
+}
 
 export const handler = async () => {
   try {

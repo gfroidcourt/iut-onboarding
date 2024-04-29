@@ -86,7 +86,6 @@ export default {
           });
         });
       });
-      console.log(this.classes);
     },
     setCurrentHourRange() {
       const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
