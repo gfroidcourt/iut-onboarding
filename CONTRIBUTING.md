@@ -107,6 +107,8 @@ Raspberry :
 - Raspberry 4b+ (Avec le max de RAM et de CPU prcq sinon les anims lagent).
 - Connexion internet via le port ethernet a gauche de la tele.
 - Il ny a pas d'environnement Desktop, un script permet de lancer X11 puis chromium apres le branchement.
+Ce script est appelé lors de l'execution de startx et est modifiable comme ceci:
+`nano /etc/xdg/openbox/autostart`.
 
 Tele :
 
