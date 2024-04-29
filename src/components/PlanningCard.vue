@@ -6,7 +6,7 @@
       v-for="(group, groupindex) in getGroupsComponent()"
       :key="groupindex"
     >
-      <div :style="`color: ${classColor}`" class="card-header">
+      <div :style="`background-color: ${classColor}; color: white; border-radius: 21px 21px 0px 0px`" class="card-header">
         <p v-for="(item, index) in getClassNameComponent(group)" :key="index">
           {{ item }}
         </p>
@@ -70,8 +70,6 @@ export default {
     },
     getClassNameComponent(group = undefined) {
       const a = this.data.className.toUpperCase();
-      if (a.includes("DAWIN")) return ["","DAWIN", group];
-      if (a.includes("DAGPI")) return ["","DAGPI"];
       const result = [
         a.slice(0, a.length - 1),
         a.slice(a.length - 1, a.length),
@@ -87,12 +85,12 @@ export default {
   computed: {
     classColor() {
       const className = this.data.className.toUpperCase();
-      if (className.includes("S1")) return "red";
-      if (className.includes("S2")) return "blue";
-      if (className.includes("S3")) return "green";
-      if (className.includes("S4")) return "purple";
-      if (className.includes("DAGPI")) return "orange";
-      if (className.includes("DAWIN")) return "darkblue";
+      if (className.includes("S1")) return "#FF000077";
+      if (className.includes("S2")) return "#00CCFF99";
+      if (className.includes("S3")) return "#00FF88BB";
+      if (className.includes("S4")) return "#FF00FF77";
+      if (className.includes("S5")) return "#0000FF88";
+      if (className.includes("S6")) return "#FF880088";
       return "#000000";
     },
     isSplited() {
@@ -107,7 +105,7 @@ export default {
 .planning-container {
   width: 300px;
   height: 360px;
-
+  margin: 5px;
   display: flex;
   flex-direction: column;
 }

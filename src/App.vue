@@ -90,7 +90,7 @@ export default {
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
           allowed: () => true,
-        }, */
+        },*/
         /* Enable when looking for new maintainers */
         maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -162,7 +162,7 @@ export default {
      */
     returnTimeForPlanning() {
       if (this.onlyPlanning())
-        return 1000 * 60 * 10; // Forcing pour 10 minutes
+        return 1000 * 60 * 10; // Forcing for 10 minutes
       return 1000 * 10;
     },
   },
