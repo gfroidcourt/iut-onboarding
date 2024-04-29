@@ -29,6 +29,8 @@ export default {
     api.getAllRestaurantsMenus().then((res) => {
       this.sirtakiMenu = res.sirtaki;
       this.spaceMenu = res.space;
+
+      //Désactivation des cartes à désactiver
       if(!res.sirtakiEnabled) {
         document.getElementsByClassName("view-content")[0].childNodes[1].style.display = "none";
       }
@@ -36,6 +38,7 @@ export default {
         document.getElementsByClassName("view-content")[0].childNodes[0].style.display = "none";
       }
 
+      //Si aucun menu n'est récupérer, afficher une erreur.
       if (!res.spaceEnabled && !res.sirtakiEnabled) {
         document.getElementById("MenuViewTitle").innerHTML = "Erreur lors de la récupération des menus.";
       }
