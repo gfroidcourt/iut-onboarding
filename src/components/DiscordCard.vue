@@ -36,8 +36,6 @@ export default {
 .qrCode {
    max-width: 400px;
    height: auto;
-   /*width: 400px;
-   height: 400px*/
 }
 .qrCodeContainer {
     display: flex;
