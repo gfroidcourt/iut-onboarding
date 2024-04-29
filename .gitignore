@@ -23,4 +23,4 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
-pnpm-lock.yml
+pnpm-lock.yaml
