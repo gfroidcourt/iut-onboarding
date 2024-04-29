@@ -42,6 +42,10 @@ async function fetchMenu(URL) {
     //To remove **** in the sirtaki menu
     plat = plat.replace('****','');
     plat = plat.replace('****','');
+    //Fix - - formatting problem for sirtaki
+    if(URL == SIRTAKI_URL) {
+      plat = plat.replace('-','');
+    }
 
     if(plat.includes("Plat")) {
       plat = plat.toUpperCase();
