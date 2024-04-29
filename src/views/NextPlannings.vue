@@ -116,11 +116,6 @@ export default {
       if (currentTime > 11 * 60 + 30 && currentTime < 13 * 60 + 30)
         currentTime += 2 * 60; // On fais croire qu'il est h+2, soit entre 13h30 et 15h30
 
-      /*console.log(currentTime);
-      if (currentTime < 8 * 60) {
-        return (eventStartTime >= 8 * 60 && eventEndTime <= 10 * 60 + 30);
-      }*/
-
       // Display this event 30min before it starts and stop displaying it 30 mins before it ends.
       return (
         currentTime > eventStartTime - 30 && currentTime < eventEndTime - 30
