@@ -27,7 +27,7 @@
 
 <script>
 import PlanningCard from "../components/PlanningCard.vue";
-import { HyperplanningScheduler } from "@hubday/scheduler";
+import { HyperplanningScheduler } from "@xabi08yt/iutgradignanhpscheduler";
 import icals from "../icals.json";
 
 const proxyUrl = "/api/scheduler/hyperplanning/:schedulerId/:dateParameter";
