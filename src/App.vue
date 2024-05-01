@@ -66,7 +66,7 @@ export default {
 
           The order in the object is the display order
         */
-        /*planning: {
+        planning: {
           time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
           allowed: () => {
             // 6h to 17h30
@@ -82,7 +82,7 @@ export default {
         weather: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
-        },*/
+        },
         menus: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => {
@@ -97,10 +97,10 @@ export default {
           allowed: () => true,
         },*/
         /* Enable when looking for new maintainers */
-        /*maintainer: {
+        maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => true,
-        },*/
+        },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => true,
