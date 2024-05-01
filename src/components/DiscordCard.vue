@@ -13,7 +13,7 @@
 export default {
   data() {
     return {
-      qrCode: require("../assets/qrcode.png"),
+      qrCode: require("../dataAsso/assets/qrcode.png"),
       logoDiscord: require("../assets/logo_discord.png")
     };
   }
