@@ -27,6 +27,10 @@
       v-if="Object.keys(views).includes('maintainer')"
       :isActive="currentView == 'maintainer'"
     />
+    <Announcement
+      v-if="Object.keys(views).includes('announcement')"
+      :isActive="currentView == 'announcement'"
+    />
     <LoadingBar :view="views[currentView]" />
     <TransitionOverlay ref="loading" />
   </div>
@@ -46,6 +50,7 @@ import Discord from "./views/Discord.vue";
 import MaintainerProposal from "./views/MaintainerProposal.vue";
 
 import "./stylesheets/reset.css";
+import Announcement from "./views/Announcement.vue";
 
 const DEVELOPEMENT_MODE = false;
 
@@ -61,7 +66,7 @@ export default {
 
           The order in the object is the display order
         */
-        planning: {
+        /*planning: {
           time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
           allowed: () => {
             // 6h to 17h30
@@ -77,7 +82,7 @@ export default {
         weather: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
-        },
+        },*/
         menus: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => {
@@ -92,7 +97,11 @@ export default {
           allowed: () => true,
         },*/
         /* Enable when looking for new maintainers */
-        maintainer: {
+        /*maintainer: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true,
+        },*/
+        announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => true,
         },
@@ -181,6 +190,7 @@ export default {
     LoadingBar,
     Discord,
     MaintainerProposal,
+    Announcement,
   },
 };
 </script>
