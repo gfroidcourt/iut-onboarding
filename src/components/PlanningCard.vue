@@ -17,7 +17,7 @@
             {{ classType(group === "seconde" ? 1 : 0) }} - {{ data.subject[group === "seconde" ? 1 : 0] }}
           </p>
         </div>
-        <div class="subject-infos">
+      <div class="subject-infos" v-if="isSplited">
           <p class="teacher" :style="`font-size: ${isSplited ? '20px' : '18px'}`">
             {{
               data.teacher[group === "seconde" ? 1 : 0]
@@ -192,5 +192,6 @@ export default {
 
 .teacher {
   color: rgb(138, 138, 138);
+
 }
 </style>
