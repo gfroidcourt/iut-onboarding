@@ -35,6 +35,10 @@
       v-if="Object.keys(views).includes('tannouncement')"
       :isActive="currentView == 'tannouncement'"
     />
+    <WelcomeAmericans
+      v-if="Object.keys(views).includes('welcAmericans')"
+      :isActive="currentView == 'welcAmericans'"
+    />
     <LoadingBar :view="views[currentView]" />
     <TransitionOverlay ref="loading" />
   </div>
@@ -56,6 +60,7 @@ import MaintainerProposal from "./views/MaintainerProposal.vue";
 import "./stylesheets/reset.css";
 import Announcement from "./views/Announcement.vue";
 import TeacherAnnouncement from "./views/TeacherAnnouncement.vue";
+import WelcomeAmericans from "./views/WelcomeAmericans.vue";
 
 const DEVELOPEMENT_MODE = false;
 
@@ -104,7 +109,7 @@ export default {
         /* Enable when looking for new maintainers */
         maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true,
+          allowed: () => false,
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -113,6 +118,10 @@ export default {
         tannouncement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => false,
+        },
+        welcAmericans: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true,
         }
       },
     };
@@ -201,6 +210,7 @@ export default {
     MaintainerProposal,
     Announcement,
     TeacherAnnouncement,
+    WelcomeAmericans,
   },
 };
 </script>
