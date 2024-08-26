@@ -70,9 +70,6 @@ export default {
       if (minutes < 10) {
         minutes = `0${minutes}`;
       }
-      console.log("------------------");
-      console.log(this.busData.lineId);
-      console.log([minutes,seconds]);
       return [minutes, seconds];
     },
     waitTimeStringToMs(src) {
