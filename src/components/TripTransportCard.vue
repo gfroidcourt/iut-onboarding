@@ -9,14 +9,16 @@
         :fill-color="busData.lineColor"
         empty-color="#ddd"
       />
-      <p>
+      <p v-if="this.error == 0">
         {{ msToWaitTime(remainingTime)[0]
         }}<span>m</span
         >{{ msToWaitTime(remainingTime)[1]
         }}<span>s</span>
       </p>
+      <img src="/Warning-icon.-The-attention-icon.png" height="128px" width="128px" v-if="error == 1">
     </div>
-    <p class="infos">{{ formatDirectionString() }}</p>
+    <p class="infos" v-if="error == 0">{{ formatDirectionString() }}</p>
+    <p class="infos" v-if="error == 1">Impossible de récuperer les informations pour cet arrêt.</p>
   </div>
 </template>
 
@@ -42,6 +44,7 @@ export default {
       remainingTime: 0,
       lineName: "",
       waitInterval: 60000,
+      error: 0
     };
   },
   methods: {
@@ -119,7 +122,8 @@ export default {
         this.waitInterval = time;
       }).catch((err) => {
         console.error(err);
-        this.waitInterval = 600000;
+        this.waitInterval = 6000000;
+        this.error = 1;
       });
   },
   unmounted() {
@@ -151,7 +155,7 @@ export default {
   justify-content: center;
 }
 
-.progress-bar > p {
+.progress-bar > p, .progress-bar > img {
   position: absolute;
   font-size: 30px;
 }
