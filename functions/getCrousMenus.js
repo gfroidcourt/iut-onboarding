@@ -1,9 +1,10 @@
+/* eslint-disable object-shorthand */
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
 
 const CROUS_RESTAURANT_BASE_URL = "https://www.crous-bordeaux.fr/restaurant/";
 const SIRTAKI_URL = `${CROUS_RESTAURANT_BASE_URL}crous-cafet-le-sirtaki`;
-const SPACE_URL = `${CROUS_RESTAURANT_BASE_URL}space-campus-resto-u`;
+const SPACE_URL = `${CROUS_RESTAURANT_BASE_URL}space-campus-resto-u-3`;
 
 /**
  * Sélectionne tous les plats du menu du jour actuel, sans les entrées ni les desserts
@@ -70,7 +71,7 @@ const getAllRestaurantsMenus = async () => {
 
   //Tentative de récupération du menu
   try {
-    sirtaki = fetchMenu(SIRTAKI_URL);
+    sirtaki = await fetchMenu(SIRTAKI_URL);
   } catch(error) {
     // Si échec, marquer la carte comme désactivée.
     console.log("Unable to retreive Menu for Sirtaki. Error: "+error);
@@ -79,18 +80,18 @@ const getAllRestaurantsMenus = async () => {
 
   //IDEM
   try {
-    space = fetchMenu(SPACE_URL);
+    space = await fetchMenu(SPACE_URL);
   } catch(error) {
     console.log("Unable to retreive Menu for Space. Error: " + error);
     spaceEnabled = false;
   }
-  
+
   //Retour des informations suite à l'exécution
   return {
     sirtakiEnabled: sirtakiEnabled,
     spaceEnabled: spaceEnabled,
-    sirtaki: await fetchMenu(SIRTAKI_URL),
-    space: await fetchMenu(SPACE_URL),
+    sirtaki: sirtaki,
+    space: space,
   };
 }
 

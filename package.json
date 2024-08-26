@@ -14,7 +14,7 @@
         "vue3-circle-progress": "^1.0.7"
     },
     "devDependencies": {
-	"@xabi08yt/iutgradignanhpscheduler": "~1.0.0",
+	"@xabi08yt/iutgradignanhpscheduler": "~1.0.2",
         "@vue/cli-plugin-babel": "~4.5.0",
         "@vue/cli-plugin-eslint": "~4.5.0",
         "@vue/cli-service": "~4.5.0",

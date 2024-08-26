@@ -7,28 +7,52 @@
       <!--Column for BUT1-->
       <div id="c1">
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in info_but1.slice(0, 2)" :key="index" :data="data" />
+          <PlanningCard
+            v-for="(data, index) in info_but1.slice(0, 2)"
+            :key="index"
+            :data="data"
+          />
         </div>
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in info_but1.slice(2, 4)" :key="index" :data="data" />
+          <PlanningCard
+            v-for="(data, index) in info_but1.slice(2, 4)"
+            :key="index"
+            :data="data"
+          />
         </div>
       </div>
       <!--Column for BUT2-->
       <div id="c2">
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in info_but2.slice(0, 2)" :key="index" :data="data" />
+          <PlanningCard
+            v-for="(data, index) in info_but2.slice(0, 2)"
+            :key="index"
+            :data="data"
+          />
         </div>
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in info_but2.slice(2, 4)" :key="index" :data="data" />
+          <PlanningCard
+            v-for="(data, index) in info_but2.slice(2, 4)"
+            :key="index"
+            :data="data"
+          />
         </div>
       </div>
       <!--Column for BUT3-->
       <div id="c3">
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in info_but3.slice(0, 2)" :key="index" :data="data" />
+          <PlanningCard
+            v-for="(data, index) in info_but3.slice(0, 2)"
+            :key="index"
+            :data="data"
+          />
         </div>
         <div class="view-content">
-          <PlanningCard v-for="(data, index) in info_but3.slice(2, 4)" :key="index" :data="data" />
+          <PlanningCard
+            v-for="(data, index) in info_but3.slice(2, 4)"
+            :key="index"
+            :data="data"
+          />
         </div>
       </div>
     </div>
@@ -69,7 +93,10 @@ export default {
       this.promos = [];
       let But3_done = false;
       Object.keys(icals).forEach((promo) => {
-        if((promo === "info_but3_ALT" || promo === "info_but3_FI" && !But3_done)) {
+        if (
+          promo === "info_but3_ALT" ||
+          (promo === "info_but3_FI" && !But3_done)
+        ) {
           this.promos.push("info_but3");
         }
         icals[promo].classes.forEach((c) => {
@@ -77,12 +104,16 @@ export default {
             promotion: promo,
             className: c.className,
             classIcal: new HyperplanningScheduler(c.classIcal, { proxyUrl }),
-            groups: c.groups ? {
-              prime: new HyperplanningScheduler(c.groups.prime, { proxyUrl }),
-              seconde: new HyperplanningScheduler(c.groups.seconde, {
-                proxyUrl,
-              }),
-            } : [],
+            groups: c.groups
+              ? {
+                prime: new HyperplanningScheduler(c.groups.prime, {
+                  proxyUrl,
+                }),
+                seconde: new HyperplanningScheduler(c.groups.seconde, {
+                  proxyUrl,
+                }),
+              }
+              : [],
           });
         });
       });
@@ -128,15 +159,20 @@ export default {
       this.info_but3 = [];
       try {
         for (const c of this.classes) {
+          let primeEvent;
+          let secondeEvent;
           const classEvent = await c.classIcal
             .getEvents()
             .then((events) => events.find(this.nextEventFilter));
-          let primeEvent = await c.groups.prime
-            .getEvents()
-            .then((events) => events.find(this.nextEventFilter));
-          const secondeEvent = await c.groups.seconde
-            .getEvents()
-            .then((events) => events.find(this.nextEventFilter));
+          // eslint-disable-next-line eqeqeq
+          if (!c.groups == undefined) {
+            primeEvent = await c.groups.prime
+              .getEvents()
+              .then((events) => events.find(this.nextEventFilter));
+            secondeEvent = await c.groups.seconde
+              .getEvents()
+              .then((events) => events.find(this.nextEventFilter));
+          }
 
           if (classEvent !== undefined) primeEvent = classEvent;
 
@@ -163,8 +199,12 @@ export default {
                   secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
                 ],
                 room: [
-                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
-                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                  primeEvent
+                    ? primeEvent.locations[0].split(" ")[0]
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.locations[0].split(" ")[0]
+                    : undefined,
                 ],
               });
               break;
@@ -189,15 +229,21 @@ export default {
                   secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
                 ],
                 room: [
-                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
-                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                  primeEvent
+                    ? primeEvent.locations[0].split(" ")[0]
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.locations[0].split(" ")[0]
+                    : undefined,
                 ],
               });
               break;
             case "info_but3_FI":
             case "info_but3_ALT":
+            case "info_but3":
+
               this.info_but3.push({
-                className: c.className,
+                className: `[${c.className.split(" ")[1]}] ${c.className.split(" ")[0]}`,
                 isFullClass: classEvent !== undefined,
                 type: [
                   primeEvent ? primeEvent.type : undefined,
@@ -216,8 +262,12 @@ export default {
                   secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
                 ],
                 room: [
-                  primeEvent ? primeEvent.locations[0].split(" ")[0] : undefined,
-                  secondeEvent ? secondeEvent.locations[0].split(" ")[0] : undefined,
+                  primeEvent
+                    ? primeEvent.locations[0].split(" ")[0]
+                    : undefined,
+                  secondeEvent
+                    ? secondeEvent.locations[0].split(" ")[0]
+                    : undefined,
                 ],
               });
               break;
@@ -228,6 +278,7 @@ export default {
       } catch (e) {
         console.error("Failed to fetch plannings", e);
         this.nextClasses = [];
+        // eslint-disable-next-line prefer-template
         this.currentHourRangeStr = "Si si tu as cours, c'est juste un bug :)";
       }
     },
