@@ -1,12 +1,11 @@
 <template>
   <div class="view-container" v-show="isActive">
-    <h1 class="view-title">🎉🎉 Welcome to the IUT of Gradignan ! 🎉🎉</h1>
+    <h1 class="view-title">🎉🎉 Bienvenue à l'IUT de gradignan ! 🎉🎉</h1>
     <div class="announcment" id="WelcomeMessage">
       <h2>
-        Starting from Monday, June 17th and for the two following weeks, <br /> we are welcoming American peaple here !
-        Enjoy your time with us !
+        A tous ceux qui intègrent pour la première fois l'IUT, <br /> nous sommes ravis de vous accueillir parmi nous. <br /> N'hésitez pas à poser des questions !
       </h2>
-      <img src="../assets/US_Flag.png">
+      <img src="https://framerusercontent.com/images/9GOLkRv44U9bspljOXgIWwdQk.png"/>
     </div>
   </div>
 </template>
