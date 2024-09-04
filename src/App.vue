@@ -86,11 +86,11 @@ export default {
           }
         },
         transport: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+          time: () => DEVELOPEMENT_MODE ? 10000 : this.getTimeForBusesAndWeather(),
           allowed: () => true,
         },
         weather: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
+          time: () => DEVELOPEMENT_MODE ? 10000 : this.getTimeForBusesAndWeather(),
           allowed: () => true,
         },
         menus: {
@@ -127,6 +127,17 @@ export default {
     };
   },
   methods: {
+    /**
+     * @return the time to show the weather and transport card depending on current Hour
+     */
+    getTimeForBusesAndWeather() {
+      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      if(currentTime > 17 * 60 + 30) {
+        return 60000;
+      }
+      return 7000;
+    },
+
     /**
      * @return the name of the next view that will be displayed
      */
