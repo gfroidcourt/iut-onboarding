@@ -90,7 +90,7 @@ export default {
           allowed: () => true,
         },
         weather: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : this.getTimeForBusesAndWeather(),
+          time: () => DEVELOPEMENT_MODE ? 10000 : 7 * 1000,
           allowed: () => true,
         },
         menus: {
