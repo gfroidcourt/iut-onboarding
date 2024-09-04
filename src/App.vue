@@ -60,7 +60,7 @@ import MaintainerProposal from "./views/MaintainerProposal.vue";
 import "./stylesheets/reset.css";
 import Announcement from "./views/Announcement.vue";
 import TeacherAnnouncement from "./views/TeacherAnnouncement.vue";
-import WelcomeAmericans from "./views/WelcomeAmericans.vue";
+import WelcomeAmericans from "./views/WelcomeMessage.vue";
 
 const DEVELOPEMENT_MODE = false;
 
@@ -109,24 +109,34 @@ export default {
         /* Enable when looking for new maintainers */
         maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false,
+          allowed: () => true && !this.isEndOfDay(),
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false,
+          allowed: () => false && !this.isEndOfDay(),
         },
         tannouncement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false,
+          allowed: () => false && !this.isEndOfDay(),
         },
         welcAmericans: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false,
+          allowed: () => true && !this.isEndOfDay(),
         }
       },
     };
   },
   methods: {
+
+    /**
+     * @return If the courses of the day are finished.
+     */
+
+    isEndOfDay() {
+      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+      return currentTime > 17 * 60 + 30;
+    },
+
     /**
      * @return the time to show the weather and transport card depending on current Hour
      */
