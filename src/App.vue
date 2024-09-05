@@ -134,18 +134,7 @@ export default {
 
     isEndOfDay() {
       const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-      return currentTime > 17 * 60 + 30;
-    },
-
-    /**
-     * @return the time to show the weather and transport card depending on current Hour
-     */
-    getTimeForBusesAndWeather() {
-      const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-      if(currentTime > 17 * 60 + 30) {
-        return 60000;
-      }
-      return 7000;
+      return currentTime > (17 * 60 + 30);
     },
 
     /**
