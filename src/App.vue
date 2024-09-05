@@ -134,7 +134,7 @@ export default {
 
     isEndOfDay() {
       const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-      return currentTime > 17 * 60 + 30;
+      return currentTime > (17 * 60 + 30);
     },
 
     /**
