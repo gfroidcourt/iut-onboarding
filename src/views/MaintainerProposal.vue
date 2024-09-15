@@ -18,6 +18,7 @@ export default {
 <style scoped>
 .view-content > img {
   height: 900px;
+  margin-top: 100px !important;
 }
 </style>
 

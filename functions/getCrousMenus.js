@@ -43,6 +43,13 @@ async function fetchMenu(URL) {
     //To remove **** in the sirtaki menu
     plat = plat.replace('****','');
     plat = plat.replace('****','');
+
+    //Fix: "<br>" in Space Campus menu
+
+    plat = plat.replace('<br>','');
+    plat = plat.replace('</br>','');
+    plat = plat.replace('<br/>','');
+
     //Fix - - formatting problem for sirtaki
     if(URL == SIRTAKI_URL) {
       plat = plat.replace('-','');
@@ -51,8 +58,8 @@ async function fetchMenu(URL) {
     if(plat.includes("Plat")) {
       plat = plat.toUpperCase();
     }
-
-    tabPlats.push(plat.charAt(0).toUpperCase() + plat.slice(1));
+    if(plat.length > 0 && plat.toLowerCase() !== "menu non communiqué")
+      tabPlats.push(plat.charAt(0).toUpperCase() + plat.slice(1));
   });
 
   return tabPlats;
@@ -74,7 +81,11 @@ const getAllRestaurantsMenus = async () => {
     sirtaki = await fetchMenu(SIRTAKI_URL);
   } catch(error) {
     // Si échec, marquer la carte comme désactivée.
-    console.log("Unable to retreive Menu for Sirtaki. Error: "+error);
+    console.log(`Unable to retreive Menu for Sirtaki. Error: ${error}`);
+    sirtakiEnabled = false;
+  }
+
+  if(sirtaki.length === 0) {
     sirtakiEnabled = false;
   }
 
@@ -82,7 +93,11 @@ const getAllRestaurantsMenus = async () => {
   try {
     space = await fetchMenu(SPACE_URL);
   } catch(error) {
-    console.log("Unable to retreive Menu for Space. Error: " + error);
+    console.log(`Unable to retreive Menu for Space. Error: ${error}`);
+    spaceEnabled = false;
+  }
+
+  if(space.length === 0) {
     spaceEnabled = false;
   }
 
