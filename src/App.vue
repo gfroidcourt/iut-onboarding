@@ -3,6 +3,10 @@
     <Background ref="background" />
 
     <DateAndHourHeader />
+    <Lundi
+      v-if="Object.keys(views).includes('lundi')"
+      :isActive="currentView == 'lundi'"
+    />
     <Menus
       v-if="Object.keys(views).includes('menus')"
       :isActive="currentView == 'menus'"
@@ -61,6 +65,7 @@ import "./stylesheets/reset.css";
 import Announcement from "./views/Announcement.vue";
 import TeacherAnnouncement from "./views/TeacherAnnouncement.vue";
 import WelcomeAmericans from "./views/WelcomeMessage.vue";
+import Lundi from "./views/Lundi.vue";
 
 const DEVELOPEMENT_MODE = false;
 
@@ -76,6 +81,10 @@ export default {
 
           The order in the object is the display order
         */
+        lundi: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 1,
+        },
         planning: {
           time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
           allowed: () => {
@@ -121,7 +130,7 @@ export default {
         },
         welcAmericans: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         }
       },
     };
@@ -221,6 +230,7 @@ export default {
   components: {
     TransitionOverlay,
     Background,
+    Lundi,
     Menus,
     Transport,
     Weather,
