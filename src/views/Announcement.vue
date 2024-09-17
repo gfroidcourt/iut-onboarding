@@ -2,7 +2,7 @@
     <div class="view-container" v-show="isActive">
         <h1 class="view-title">Annonce de l'Assopeña</h1>
         <div class="announcment">
-            <img src="../dataAsso/assets/TOURNOI_Dechec.png" id="AssoImg">
+            <img src="../dataAsso/assets/Affiche_Bar_25.png" id="AssoImg">
         </div>
     </div>
 </template>

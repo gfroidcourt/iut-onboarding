@@ -7,6 +7,22 @@
       v-if="Object.keys(views).includes('lundi')"
       :isActive="currentView == 'lundi'"
     />
+    <Mardi
+      v-if="Object.keys(views).includes('mardi')"
+      :isActive="currentView == 'mardi'"
+    />
+    <Mercredi
+      v-if="Object.keys(views).includes('mercredi')"
+      :isActive="currentView == 'mercredi'"
+    />
+    <Jeudi
+      v-if="Object.keys(views).includes('jeudi')"
+      :isActive="currentView == 'jeudi'"
+    />
+    <Vendredi
+      v-if="Object.keys(views).includes('vendredi')"
+      :isActive="currentView == 'vendredi'"
+    />
     <Menus
       v-if="Object.keys(views).includes('menus')"
       :isActive="currentView == 'menus'"
@@ -66,6 +82,10 @@ import Announcement from "./views/Announcement.vue";
 import TeacherAnnouncement from "./views/TeacherAnnouncement.vue";
 import WelcomeAmericans from "./views/WelcomeMessage.vue";
 import Lundi from "./views/Lundi.vue";
+import Mardi from "./views/Mardi.vue";
+import Mercredi from "./views/Mercredi.vue";
+import Jeudi from "./views/Jeudi.vue";
+import Vendredi from "./views/Vendredi.vue";
 
 const DEVELOPEMENT_MODE = false;
 
@@ -84,6 +104,22 @@ export default {
         lundi: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
           allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 1,
+        },
+        mardi: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 2,
+        },
+        mercredi: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 3,
+        },
+        jeudi: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 4,
+        },
+        vendredi: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 5,
         },
         planning: {
           time: () => DEVELOPEMENT_MODE ? 5000 : this.returnTimeForPlanning(),
@@ -122,7 +158,7 @@ export default {
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false && !this.isEndOfDay(),
+          allowed: () => true && !this.isEndOfDay(),
         },
         tannouncement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -231,6 +267,10 @@ export default {
     TransitionOverlay,
     Background,
     Lundi,
+    Mardi,
+    Mercredi,
+    Jeudi,
+    Vendredi,
     Menus,
     Transport,
     Weather,
