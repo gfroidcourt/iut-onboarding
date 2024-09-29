@@ -12,7 +12,6 @@ export const fetchTBM = async (stopId) => {
     const data = await str.body.firstChild.data;
     const json = await JSON.parse(data);
     const interesting = await json.nextDepartures.slice(0,4);
-    console.log(interesting);
     return interesting;
   } catch (e) {
     throw `Erreur de récupération des données TBM (arrêt: ${stopId}) : ${e}`;
