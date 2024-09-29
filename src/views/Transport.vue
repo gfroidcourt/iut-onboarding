@@ -18,13 +18,13 @@ export default {
   data() {
     return {
       liane31: {
-        stops: [3323, 3439],
+        stops: ["BMA:SA:BVILLA6", "BMA:SA:BVILLA6"],
         lineColor: "#59a9e2",
         lineId: 31,
         lineName: "Liane",
       },
       tramB: {
-        stops: [3729, 3730],
+        stops: ["BMA:SA:TMONTA", "BMA:SA:TMONTA"],
         lineColor: "#f47499",
         lineId: "B",
         lineName: "Tram",

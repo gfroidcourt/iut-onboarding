@@ -73,29 +73,27 @@ export default {
       return [minutes, seconds];
     },
     waitTimeStringToMs(src) {
-      const remainSplit = src.split(":");
-      return (parseInt(remainSplit[2]) + parseInt(remainSplit[1]) * 60) * 1000;
+      return Math.abs(Date.now() - new Date(src));
     },
     async setTimeRemaining() {
       const res = await api.fetchTBM(
         this.busData.stops[this.index],
-        this.busData.lineId
       );
-      const dests = Object.values(res.destinations);
-      let indexBus = 0;
-      if (
-        dests[1] !== undefined &&
-        dests[1][0].waittime < dests[0][0].waittime
-      ) {
-        indexBus = 1;
+      let found = false;
+      let i = 0;
+      while (!found && i < res.length) {
+        if(this.index === 1 && res[i].route.id.toString().includes("_R")) {
+          this.lineName = res[i].route.terminus;
+          this.remainingTime = this.waitTimeStringToMs(res[i].departure);
+          found = true;
+        }
+        if (this.index === 0 && !res[i].route.id.toString().includes("_R")) {
+          this.lineName = res[i].route.terminus;
+          this.remainingTime = this.waitTimeStringToMs(res[i].departure);
+          found = true;
+        }
+        ++i;
       }
-
-      if (this.updatedAt !== dests[indexBus][0].updated_at) {
-        const waitStr = dests[indexBus][0].waittime;
-        this.remainingTime = this.waitTimeStringToMs(waitStr);
-      }
-      this.updatedAt = dests[indexBus][0].updated_at;
-      this.lineName = dests[indexBus][0].destination_name;
     },
     refreshProgressBar() {
       this.remainingTime -= 1000;
