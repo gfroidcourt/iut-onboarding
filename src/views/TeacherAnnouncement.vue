@@ -2,8 +2,8 @@
     <div class="view-container" v-show="isActive">
         <h1 class="view-title">Annonce des enseignants</h1>
         <div class="announcment" id="Profs">
-            <h2>Votez pour le nom officiel du recueil des meilleurs argumentaires <br/> concernant les applications à utiliser au quotidien !</h2>
-            <img src="../dataTeacher/assets/QRCodeSurvey.svg" id="ProfQR">
+            <h2>Pour les deuxièmes et troisièmes année: Studio photo en 108 pour vos photos de CV ! <br/> Demandez à un enseignant de vous ouvrir la salle au besoin. </h2>
+            <img src="https://cdn.icon-icons.com/icons2/1489/PNG/512/cameraoutline_102689.png" id="ProfQR">
         </div>
     </div>
 </template>
