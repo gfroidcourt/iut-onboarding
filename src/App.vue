@@ -158,11 +158,11 @@ export default {
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         },
         tannouncement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false && !this.isEndOfDay(),
+          allowed: () => true && !this.isEndOfDay(),
         },
         welcAmericans: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,

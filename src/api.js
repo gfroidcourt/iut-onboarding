@@ -1,15 +1,20 @@
-const TBM_URL = "https://ws.infotbm.com/ws/1.0/get-realtime-pass";
+const TBM_URL = "https://gateway-apim.infotbm.com/maas-web/web/v1/timetables/stops/stop_area:";
 const WEATHER_URL_NEXT_12_HOURS =
   "https://api.weatherapi.com/v1/forecast.json?key=72687f6b06f94afa9f7103056220603&q=Gradignan&aqi=no&lang=fr&hour=";
 const CURRENT_WEATHER_URL =
   "https://api.weatherapi.com/v1/current.json?key=72687f6b06f94afa9f7103056220603&q=Gradignan&aqi=no&lang=fr";
 
-export const fetchTBM = async (stopId, lineId) => {
+export const fetchTBM = async (stopId) => {
   try {
-    const result = await fetch(`${TBM_URL}/${stopId}/${lineId}`);
-    return await result.json();
+    const result = await fetch(`${TBM_URL}${stopId}`);
+    const text = await result.text();
+    const str = new window.DOMParser().parseFromString(text, "text/html");
+    const data = await str.body.firstChild.data;
+    const json = await JSON.parse(data);
+    const interesting = await json.nextDepartures.slice(0,4);
+    return interesting;
   } catch (e) {
-    throw `Erreur de récupération des données TBM (ligne: ${lineId}, arrêt: ${stopId}) : ${e}`;
+    throw `Erreur de récupération des données TBM (arrêt: ${stopId}) : ${e}`;
   }
 };
 
@@ -58,14 +63,10 @@ export const fetchCurrentWeather = async () => {
 export const getTBMLineWaitInterval = async (stopId, lineId) => {
   try {
     const data = await fetchTBM(stopId, lineId);
-    const dests = Object.values(data.destinations);
-    let timeBus1 = dests[0][0].departure;
-    let timeBus2;
-    if (dests[0][1] === undefined) {
-      timeBus2 = timeBus1;
-    } else {
-      timeBus2 = dests[0][1].arrival;
-    }
+    const dep1 = data[0];
+    const dep2 = data[2];
+    let timeBus1 = dep1.departure;
+    let timeBus2 = dep2.departure;
     const date1 = new Date(timeBus1);
     const date2 = new Date(timeBus2);
     const result = Math.abs(date1 - date2);
