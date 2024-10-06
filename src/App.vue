@@ -162,7 +162,7 @@ export default {
         },
         tannouncement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         },
         welcAmericans: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
