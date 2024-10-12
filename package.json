@@ -14,6 +14,7 @@
     "@nuxt/eslint": "^0.5.7",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@xabi08yt/iutgradignanhpscheduler": "^1.0.4",
+    "cheerio": "^1.0.0",
     "eslint": "^9.12.0",
     "nuxt": "^3.13.0",
     "vue": "latest",
