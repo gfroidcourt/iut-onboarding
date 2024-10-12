@@ -1,0 +1,20 @@
+{
+  "name": "iut-onboarding",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/google-fonts": "^3.2.0",
+    "@xabi08yt/iutgradignanhpscheduler": "^1.0.4",
+    "nuxt": "^3.13.0",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vue3-circle-progress": "^1.0.7"
+  }
+}
