@@ -52,7 +52,7 @@ export default {
   },
   data() {
     return {
-      noClassLogo: require("../assets/robot.png"),
+      noClassLogo: "/assets/robot.png",
     };
   },
   methods: {
