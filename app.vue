@@ -127,7 +127,7 @@ export default {
             // 6h to 17h30
             const currentTime =
             new Date().getHours() * 60 + new Date().getMinutes();
-            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30 || true;
+            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
           }
         },
         transport: {
@@ -143,7 +143,7 @@ export default {
           allowed: () => {
             // 6h to 14h
             let currentHour = new Date().getHours();
-            return currentHour >= 6 && currentHour < 14 || true;
+            return currentHour >= 6 && currentHour < 14;
           },
         },
         /* Enable this at the start of each year (The QR code has to be updated)*/
@@ -179,7 +179,7 @@ export default {
 
     isEndOfDay() {
       const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-      return currentTime > (17 * 60 + 30) && false;
+      return currentTime > (17 * 60 + 30);
     },
 
     /**

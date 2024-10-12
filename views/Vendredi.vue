@@ -1,7 +1,7 @@
 <template>
     <div class="view-container" v-show="isActive">
       <div class="view-content">
-          <img class="image" src="/assets/Vendredi.jpg" alt="Maintainer" />
+          <img class="image" src="@/public/assets/Vendredi.jpg" alt="Maintainer" />
       </div>
     </div>
  </template>

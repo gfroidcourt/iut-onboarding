@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       qrCode: "/assets/asso/qrcode.png",
-      logoDiscord: "../assets/logo_discord.png"
+      logoDiscord: "/assets/logo_discord.png"
     };
   }
 };
