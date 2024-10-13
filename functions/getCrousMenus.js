@@ -58,7 +58,10 @@ async function fetchMenu(URL) {
     if(plat.includes("Plat")) {
       plat = plat.toUpperCase();
     }
-    if(plat.length > 0 && plat.toLowerCase() !== "menu non communiqué")
+    
+    let tmp = plat
+    tmp = tmp.replaceAll(' ','');
+    if(tmp.length > 0 && !plat.toLowerCase().includes("menu non communiqué"))
       tabPlats.push(plat.charAt(0).toUpperCase() + plat.slice(1));
   });
 

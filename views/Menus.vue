@@ -2,8 +2,8 @@
   <div class="view-container" v-show="isActive">
     <h1 class="view-title" id="MenuViewTitle">Menus de ce midi</h1>
     <div class="view-content">
-      <MenuCard restName="SpaceCampus" :mealList="spaceMenu" />
-      <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" />
+      <MenuCard restName="SpaceCampus" :mealList="spaceMenu" v-if="spaceEnabled" />
+      <MenuCard restName="Sirtaki" :mealList="sirtakiMenu" v-if="sirtakiEnabled" />
     </div>
   </div>
 </template>
@@ -20,6 +20,8 @@ export default {
     return {
       sirtakiMenu: undefined,
       spaceMenu: undefined,
+      sirtakiEnabled: true,
+      spaceEnabled: true,
     };
   },
   components: {
@@ -32,10 +34,10 @@ export default {
 
       //Désactivation des cartes à désactiver
       if(!res.sirtakiEnabled) {
-        document.getElementsByClassName("view-content")[0].childNodes[1].style.display = "none";
+        this.sirtakiEnabled = false;
       }
       if (!res.spaceEnabled) {
-        document.getElementsByClassName("view-content")[0].childNodes[0].style.display = "none";
+        this.spaceEnabled = false;
       }
 
       //Si aucun menu n'est récupérer, afficher une erreur.
