@@ -15,7 +15,7 @@
         >{{ msToWaitTime(remainingTime)[1]
         }}<span>s</span>
       </p>
-      <img src="@/public/Warning.png" height="128px" width="128px" v-if="error == 1">
+      <img src="@/public/assets/Warning.png" height="128px" width="128px" v-if="error == 1"/>
     </div>
     <p class="infos" v-if="error == 0">{{ formatDirectionString() }}</p>
     <p class="infos" v-if="error == 1">Impossible de récuperer les informations pour cet arrêt.</p>

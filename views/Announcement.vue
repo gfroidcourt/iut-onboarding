@@ -2,7 +2,7 @@
     <div class="view-container" v-show="isActive">
         <h1 class="view-title">Annonce de l'Assopeña</h1>
         <div class="announcment">
-            <img src="@/public/Warning.png" id="AssoImg">
+            <img src="@/public/assets/Warning.png" id="AssoImg" />
         </div>
     </div>
 </template>
