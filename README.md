@@ -27,7 +27,7 @@ https://user-images.githubusercontent.com/38594012/157298318-04690aba-c6f1-4f3b-
 
 
 > Affichage des prochains cours
-![image](https://user-images.githubusercontent.com/38594012/157295971-ff3be5bd-fc91-4971-8b98-1391110f316b.png)
+![image](https://github.com/user-attachments/assets/9673b583-7cec-4088-93d4-2c2818951f63)
 
 > Affichage de la météo
 ![image](https://user-images.githubusercontent.com/38594012/157295666-55af2fd6-18b3-42b4-ab67-50e446b9625b.png)

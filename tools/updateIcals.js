@@ -234,6 +234,6 @@ const PROMOTIONS = ["INFO_BUT_S1", "INFO_BUT_S3", "INFO_BUT_S5"];
 
   /////////////// EXPORTATION EN FICHIER //////////////////
   console.log("File updated in src/icals.json");
-  fs.writeFileSync("../src/icals.json", JSON.stringify(icals, null, 4));
+  fs.writeFileSync("../icals.json", JSON.stringify(icals, null, 4));
   /////////////////////////////////////////////////////////
 })();

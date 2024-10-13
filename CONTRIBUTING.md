@@ -3,6 +3,10 @@
 > IUT Onboarding est un projet entièrement porté par les étudiant de l'IUT Informatique de Bordeaux, il est donc vital de pouvoir assurer la relève et d'avoir un flux continu de mainteneurs.
 > C'est dans cette optique de pouvoir garantir un service continu que devenir contributeur du projet permet de prendre le flambeau et de pouvoir le passer aux futurs promos d'étudiant, et pourquoi pas en rendant le projet encore meilleur au passage.
 
+## Avant de commencer
+
+Ce projet à été migré de VueJS vanilla vers Nuxt. De ce fait, des fonction de routage, import de font et SSR (Server Side Rendering) ont été ajoutée. Pour plus d'information, rendez-vous sur [le site officiel de nuxt](https://nuxt.com/). Tenez compte que nuxt permet l'ajout de plugins ! Cela permet d'importer des fonts depuis google fonts ou encore d'optimiser les images (Chose qu'il va falloir mettre en place).
+
 ## Maintenir le projet
 
 Voici ce qu'il faut faire en tant que mainteneur pour que le projet perdure dans le temps :
@@ -20,6 +24,7 @@ Voici ce qu'il faut faire en tant que mainteneur pour que le projet perdure dans
 1. Clone le projet : `git clone git@github.com:gfroidcourt/iut-onboarding.git`
 2. Installer les dépendences : `npm install` (Dans le repertoire du projet)
     - Si vue.js n'est pas installé : `npm i -g @vue` puis `npm i -g @vue/cli` puis `npm i -g netlify`
+    - Si nuxt ou nuxi n'est pas installé: `npm i -g nuxi`
 3. Extensions vscode :
     - vetur (Pour vue.js).
     - eslint (Pour les convention de code).
@@ -28,6 +33,11 @@ Voici ce qu'il faut faire en tant que mainteneur pour que le projet perdure dans
 
 - `netlify dev`
     - ouvrir l'url indiquée dans le terminal  
+
+## Tester le build en local
+
+- Lancer le build avec `npm run build`
+- Puis lancer le serveur aver `npm run start`
 
 ## Franglais (Conventions de nommage):
 
@@ -52,15 +62,18 @@ Voici ce qu'il faut faire en tant que mainteneur pour que le projet perdure dans
 
 ## Structure du projet
 
-Tout le code logique de l'application vue se trouve dans le dossier `src`.
-
-- `App.js` contrôle quelle vue est actuellement affichée à l'écran.
-- Le dossier `views` contient toutes les vues (Pages qui vont être affichées)
-- Le dossier `components` contient les composants qui sont utilisés par les vues
-- Le dossier `assets`contient toutes les images et ressources du projet.
-- La récupération des données externes se fait via les fichiers `.js` :
-    - `api.js` Récupération API TBM et API météo.
-    - `scrapMeal.js` Récupération menus CROUS (Sirtaki / Space).
+ - assets : Comprends les fichier et fonts utilisées uniquement par le serveur.
+ - components : Ensemble de fichier composant les vues comme le background, la barre de chargement etc...
+ - functions: Ensemble des fonction backend utilisées dans l'environnement Netlify functions. ATTENTION: NE PAS EN ABUSER CAR CE SERVICE EST DISPONIBLE DE MANIERE LIMITEE AVANT DE DEVENIR PAYANT
+ - public: Ensemble des assets accessibles publiquement
+ - server: Configuration du serveur Nuxt
+ - stylesheets: Fiches CSS globales
+ - tools: Dossier comprenant un outil pour générer automatiquement le fichier icals.js
+ - view: Dossier comprenant toutes les slides affichée a la vue du client. Ces slides sont souvent composées de composants contenus dans components.
+ - app.vue: Point d'entrée affiché au client gérant l'affichage de toutes les slides
+ - api.js: Fichier comprenant des fonction pour fetch les apis de TBM, de la Météo etc...
+ - icals.json: Contient les identifiants pour récupérer les fichiers icals depuis Hyperplanning
+ - nuxt.config.js: Configuration du projet nuxt. Permet d'importer des fonts depuis google pour tout le projet. Cf contenu de ce fichier.
 
 ## Déployer le projet
 
