@@ -23,11 +23,11 @@
       v-if="Object.keys(views).includes('vendredi')"
       :isActive="currentView == 'vendredi'"
     />
-    <Menus
-      v-if="Object.keys(views).includes('menus')"
-      :isActive="currentView == 'menus'"
-    />
     <client-only>
+      <Menus
+        v-if="Object.keys(views).includes('menus')"
+        :isActive="currentView == 'menus'"
+      />
       <Planning
         v-if="Object.keys(views).includes('planning')"
         :isActive="currentView == 'planning'"

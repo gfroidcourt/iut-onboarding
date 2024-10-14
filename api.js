@@ -74,7 +74,7 @@ export const getTBMLineWaitInterval = async (stopId, lineId) => {
   } catch (e) {
     throw `Erreur de récupération des wait interval TBM (ligne: ${lineId}, arrêt: ${stopId}) : ${e}`;
   }
-};
+};  
 
 export const getAllRestaurantsMenus = async () => {
   try {

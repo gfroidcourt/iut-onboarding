@@ -72,7 +72,7 @@ async function fetchMenu(URL) {
  * Sélectionne les plats du jour actuel pour les deux restaurants crous
  * @return Un objet contennant les plats des restaurants crous
  */
-const getAllRestaurantsMenus = async () => {
+export async function getAllRestaurantsMenus() {
   //Definition des variables
   let sirtaki;
   let space;
