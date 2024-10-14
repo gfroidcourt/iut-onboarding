@@ -12,7 +12,7 @@
   "dependencies": {
     "@nuxt/eslint": "^0.5.7",
     "@nuxtjs/google-fonts": "^3.2.0",
-    "@xabi08yt/iutgradignanhpscheduler": "^1.0.4",
+    "@xabi08yt/iutgradignanhpscheduler": "^1.0.7",
     "cheerio": "^1.0.0",
     "eslint": "^9.12.0",
     "node-fetch": "^2.6.1",
