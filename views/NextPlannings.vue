@@ -159,7 +159,6 @@ export default {
       this.info_but3 = [];
       try {
         for (const c of this.classes) {
-          c.classIcal.getEvents() // For a really stupid and wtf bug, a really stupid and wtf fix
           let primeEvent;
           let secondeEvent;
           const classEvent = await c.classIcal.getEvents()
