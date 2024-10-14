@@ -32,7 +32,7 @@ export const fetch12HoursWeather = async () => {
       hourloop = hourloop - 24;
     }
     try {
-      const result = await fetch(WEATHER_URL_NEXT_12_HOURS + hourloop);
+      const result = await fetch(WEATHER_URL_NEXT_12_HOURS + hourloop, {mode: "cors"});
       const data = await result.json();
       weathertab.push({
         Heure: hourloop,
