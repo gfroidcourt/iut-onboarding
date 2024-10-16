@@ -15,6 +15,8 @@
     "@xabi08yt/iutgradignanhpscheduler": "^1.0.7",
     "cheerio": "^1.0.0",
     "eslint": "^9.12.0",
+    "ical.js": "^2.1.0",
+    "memfs": "^4.14.0",
     "node-fetch": "^2.6.1",
     "nuxt": "^3.13.0",
     "vue": "latest",

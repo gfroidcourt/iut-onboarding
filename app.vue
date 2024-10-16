@@ -94,7 +94,7 @@ const DEVELOPEMENT_MODE = false;
 export default {
   data() {
     return {
-      currentView: "transport",
+      currentView: "planning",
       views: {
         /*
           To active only one or some views, juste comment here what you dont want to be
@@ -113,7 +113,7 @@ export default {
         },
         mercredi: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 3,
+          allowed: () => false && !this.isEndOfDay() && new Date().getDay() === 3,
         },
         jeudi: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -129,16 +129,16 @@ export default {
             // 6h to 17h30
             const currentTime =
             new Date().getHours() * 60 + new Date().getMinutes();
-            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
+            return currentTime >= 6 * 60 && currentTime <= 18 || true;
           }
         },
         transport: {
           time: () => DEVELOPEMENT_MODE ? 10000 : this.getTimeForBusesAndWeather(),
-          allowed: () => true,
+          allowed: () => false,
         },
         weather: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 7 * 1000,
-          allowed: () => true,
+          allowed: () => false,
         },
         menus: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -151,12 +151,12 @@ export default {
         /* Enable this at the start of each year (The QR code has to be updated)*/
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
-          allowed: () => true,
+          allowed: () => false,
         },
         /* Enable when looking for new maintainers */
         maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -266,6 +266,7 @@ export default {
     this.changeView();
   },
   components: {
+    Planning,
     TransitionOverlay,
     Background,
     Lundi,
@@ -276,7 +277,6 @@ export default {
     Menus,
     Transport,
     Weather,
-    Planning,
     DateAndHourHeader,
     LoadingBar,
     Discord,

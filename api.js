@@ -1,8 +1,12 @@
+import ICAL from "ical.js";
+
 const TBM_URL = "https://gateway-apim.infotbm.com/maas-web/web/v1/timetables/stops/stop_area:";
 const WEATHER_URL_NEXT_12_HOURS =
   "https://api.weatherapi.com/v1/forecast.json?key=72687f6b06f94afa9f7103056220603&q=Gradignan&aqi=no&lang=fr&hour=";
 const CURRENT_WEATHER_URL =
   "https://api.weatherapi.com/v1/current.json?key=72687f6b06f94afa9f7103056220603&q=Gradignan&aqi=no&lang=fr";
+const HYPERPLANNING_URL = 
+  "https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/Edt.ics?version=2024.0.8.0"
 
 export const fetchTBM = async (stopId) => {
   try {
@@ -84,3 +88,103 @@ export const getAllRestaurantsMenus = async () => {
     throw `Erreur de récupération des menus CROUS : ${e}`;
   }
 };
+
+const transformDesc = async (desc) => {
+  let stage1 = desc.replaceAll("<br/>",";")
+  let stage2 = stage1.split(";")
+  let stage3 = []
+  for(let i of stage2) {
+    stage3.push(i.split(":"));
+  }
+
+  let stage4 = {};
+  for(let t of stage3) {
+    stage4[t[0]] = t[1];
+  }
+
+  return stage4;
+}
+
+const sameDay = (d1, d2) => {
+  return d1.getFullYear() === d2.getFullYear() &&
+  d1.getMonth() === d2.getMonth() &&
+  d1.getDate() === d2.getDate();
+}
+
+export const getNextCourse = async (icalID) => {
+  console.log("start");
+  try {
+    const tmp = await fetch(`/api/scheduler/hyperplanning/${icalID}`, {mode:"cors"})
+    const txt = await (await tmp.blob()).text();
+    const result = await ICAL.parse(txt);
+
+    // Variables de controle de la boucle
+    let found = false;
+    let i = 0;
+    const events = result[2];
+    
+    // Variables pour la boucle afin d'éviter les répétitions
+    let e;
+    let tstart;
+    let tend;
+    let currentTime = new Date();
+    while(!found && i < events.length) {
+      e = events[i][1];
+      tstart = new Date(e[4][3]);
+      tend = new Date(e[5][3]);
+
+      /*
+      On affiche le cours jusqu'à 30 mn avant sa fin, si on est entre 12 et 14h, alors on affiche celui après la pause
+      */
+
+      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() /*- 30 * 60000*/ ) {
+        found = true;
+      } else if(sameDay(currentTime,tstart) && currentTime <= tstart && currentTime.getHours() < 14 && currentTime.getMinutes() < 35 && tstart.getHours() == 14) {
+        found = true;
+      } else if(sameDay(currentTime,tstart) && currentTime <= tstart && currentTime.getHours() < 8 && currentTime.getMinutes() < 0 && tstart.getHours() == 8) {
+        found = true;
+      }
+
+      ++i;
+    }
+
+    const final = await transformDesc(e[e.length-1][3]);
+    return JSON.stringify(final);
+  } catch (e) {
+    throw e
+  }
+}
+
+export const getAllNextCourses = async (icals) => {
+  let promos = [];
+  let classes = [];
+  let But3_done = false;
+  Object.keys(icals).forEach((promo) => {
+    if (
+      promo === "info_but3_ALT" ||
+      (promo === "info_but3_FI" && !But3_done)
+    ) {
+      promos.push("info_but3");
+    }
+    icals[promo].classes.forEach(async (c) => {
+      let g1;
+      let g2;
+      if(! typeof c.groups === undefined) {
+        g1 = await getNextCourse(c.groups.prime);
+        g2 = await getNextCourse(c.groups.seconde);
+      }
+      let g = await getNextCourse(c.classIcal);
+      classes.push({
+        promotion: promo,
+        className: c.className,
+        nextCourse: g,
+        groups: c.groups ? {
+          prime: g1,
+          seconde: g2,
+        }
+        : [],
+      });
+    });
+  });
+  return classes;
+}

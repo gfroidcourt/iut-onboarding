@@ -60,11 +60,9 @@
 </template>
 
 <script>
+import * as api from "../api";
 import PlanningCard from "../components/PlanningCard.vue";
 import icals from "../icals.json";
-import {HyperplanningScheduler} from "@xabi08yt/iutgradignanhpscheduler";
-
-const proxyUrl = "/api/scheduler/hyperplanning/:schedulerId/:dateParameter";
 
 export default {
   props: {
@@ -73,51 +71,19 @@ export default {
   computed: {},
   data() {
     return {
-      currentHourRangeStr: "",
-      refreshInterval: undefined,
       info_but1: [],
       info_but2: [],
       info_but3: [],
+      currentHourRangeStr: "",
+      refreshInterval: undefined,
       classes: [],
+      fetched: false,
     };
   },
   components: {
     PlanningCard,
   },
   methods: {
-    /**
-     * Récupère tout le fichier icals.json et construit un objet quasi hydentique
-     * mais avec des instance de Schedulers à la place des string d'icals.
-     */
-    generateGroupsSchedulers() {
-      this.promos = [];
-      let But3_done = false;
-      Object.keys(icals).forEach((promo) => {
-        if (
-          promo === "info_but3_ALT" ||
-          (promo === "info_but3_FI" && !But3_done)
-        ) {
-          this.promos.push("info_but3");
-        }
-        icals[promo].classes.forEach((c) => {
-          this.classes.push({
-            promotion: promo,
-            className: c.className,
-            classIcal: new HyperplanningScheduler(c.classIcal, { proxyUrl }),
-            groups: c.groups
-              ? {
-                prime: new HyperplanningScheduler(c.groups.prime, {
-                  proxyUrl,
-                }),
-                seconde: new HyperplanningScheduler(c.groups.seconde, {
-                  proxyUrl,
-                }),
-              }
-              : [],
-          });
-        });
-      });
-    },
     setCurrentHourRange() {
       const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
       if (currentTime < 9 * 60 + 45) {
@@ -134,22 +100,14 @@ export default {
         this.currentHourRangeStr = "16h10 - 18h00";
       }
     },
-    nextEventFilter(event) {
-      // Actual time in minutes relatives to 00:00 of the current day (Ex: 420 for 07:00am)
-      let currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-      const eventStartTime =
-        event.dateStart.getHours() * 60 + event.dateStart.getMinutes();
-      const eventEndTime =
-        event.dateEnd.getHours() * 60 + event.dateEnd.getMinutes();
-
-      // Cas spécial -> afficher les cours de 14h entre 11h30 et 13h30
-      if (currentTime > 11 * 60 + 30 && currentTime < 13 * 60 + 30)
-        currentTime += 2 * 60; // On fais croire qu'il est h+2, soit entre 13h30 et 15h30
-
-      // Display this event 30min before it starts and stop displaying it 30 mins before it ends.
-      return (
-        currentTime > eventStartTime - 30 && currentTime < eventEndTime - 30
-      );
+    refresh() {
+      api.getAllNextCourses(icals).then(
+        (data) => {
+          this.classes = data;
+          this.getAllPlannings();
+          console.log(data);
+        }
+     )
     },
     async getAllPlannings() {
       console.log("Refreshing plannings");
@@ -159,21 +117,10 @@ export default {
       this.info_but3 = [];
       try {
         for (const c of this.classes) {
-          let primeEvent;
-          let secondeEvent;
-          const classEvent = await c.classIcal.getEvents()
-            .then((events) => events.find(this.nextEventFilter));
-          // eslint-disable-next-line eqeqeq
-          if (!c.groups == undefined) {
-            primeEvent = await c.groups.prime
-              .getEvents()
-              .then((events) => events.find(this.nextEventFilter));
-            secondeEvent = await c.groups.seconde
-              .getEvents()
-              .then((events) => events.find(this.nextEventFilter));
-          }
-
-          if (classEvent !== undefined) primeEvent = classEvent;
+          let primeEvent = c.groups.prime;
+          let secondeEvent = c.groups.seconde;
+          const classEvent = c.nextCourse;
+          if(primeEvent == secondeEvent)
 
           //Switching between columns depending on the promotion
           switch (c.promotion) {
@@ -187,15 +134,15 @@ export default {
                 ],
                 subject: [
                   primeEvent
-                    ? primeEvent.subject.split(" ").slice(1).join(" ")
+                    ? primeEvent.Matière
                     : undefined,
                   secondeEvent
-                    ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                    ? secondeEvent.Matière
                     : undefined,
                 ],
                 teacher: [
-                  primeEvent ? primeEvent.teachers.join(" - ") : undefined,
-                  secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+                  primeEvent ? primeEvent.Enseignant: undefined,
+                  secondeEvent ? secondeEventprimeEvent.Enseignant: undefined,
                 ],
                 room: [
                   primeEvent
@@ -280,13 +227,13 @@ export default {
         // eslint-disable-next-line prefer-template
         this.currentHourRangeStr = "Si si tu as cours, c'est juste un bug :)";
       }
+      this.fetched = true;
     },
   },
   mounted() {
-    this.generateGroupsSchedulers();
-    this.getAllPlannings();
+    this.refresh()
     const delay = 1000 * 60 * 5; // Refresh toutes les 5 minutes
-    this.refreshInterval = setInterval(this.getAllPlannings, delay);
+    this.refreshInterval = setInterval(this.refresh());
   },
   unmounted() {
     clearInterval(this.refreshInterval);

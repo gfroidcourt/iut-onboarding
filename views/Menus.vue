@@ -20,8 +20,8 @@ export default {
     return {
       sirtakiMenu: undefined,
       spaceMenu: undefined,
-      sirtakiEnabled: true,
-      spaceEnabled: true,
+      sirtakiEnabled: false,
+      spaceEnabled: false,
     };
   },
   components: {
@@ -32,13 +32,9 @@ export default {
       this.sirtakiMenu = res.sirtaki;
       this.spaceMenu = res.space;
 
-      //Désactivation des cartes à désactiver
-      if(!res.sirtakiEnabled) {
-        this.sirtakiEnabled = false;
-      }
-      if (!res.spaceEnabled) {
-        this.spaceEnabled = false;
-      }
+      //Activation des cartes à désactiver
+      this.sirtakiEnabled = res.sirtakiEnabled;
+      this.spaceEnabled = res.spaceEnabled;
 
       //Si aucun menu n'est récupérer, afficher une erreur.
       if (!res.spaceEnabled && !res.sirtakiEnabled) {
