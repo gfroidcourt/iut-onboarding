@@ -90,7 +90,7 @@ export const getAllRestaurantsMenus = async () => {
 };
 
 const transformDesc = (desc) => {
-  let stage1 = desc.replaceAll("<br/>",";")
+  let stage1 = desc.replaceAll("<br/>",";");
   let stage2 = stage1.split(";")
   let stage3 = []
   for(let i of stage2) {
@@ -99,7 +99,17 @@ const transformDesc = (desc) => {
 
   let stage4 = {};
   for(let t of stage3) {
-    stage4[t[0]] = t[1];
+    let key = t[0];
+    key = key.replaceAll("é","e");
+    key = key.replaceAll(" ","");
+    key = key.replaceAll("è","e");
+    stage4[key] = t[1];
+  }
+
+  if(stage4.Salle !== undefined) {
+    stage4.Salle = stage4.Salle.split(" ")[1];
+  } else {
+    stage4.Salle = "";
   }
 
   return stage4;
@@ -136,7 +146,7 @@ export const getNextCourse = (icalID) => {
       On affiche le cours jusqu'à 30 mn avant sa fin, si on est entre 12 et 14h, alors on affiche celui après la pause
       */
 
-      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() - 30 * 60000 ) {
+      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() + 8 * 60000 *60 ) {
         found = true;
       } else if(sameDay(currentTime,tstart) && currentTime <= tstart && currentTime.getHours() < 14 && currentTime.getMinutes() < 35 && tstart.getHours() == 14) {
         found = true;
@@ -176,7 +186,7 @@ export const getAllNextCourses = async (icals) => {
         classes.push({
           promotion: promo,
           className: c.className,
-          classIcal: JSON.parse(data[0]),
+          nextCourse: JSON.parse(data[0]),
           groups: c.groups
             ? {
               prime: data[1] !== undefined ? JSON.parse(data[1]) : undefined,

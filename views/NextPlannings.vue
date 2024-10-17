@@ -54,35 +54,42 @@ async function getAllPlannings(cls) {
     for (const c of cls) {
       let primeEvent = c.groups.prime;
       let secondeEvent = c.groups.seconde;
-      const classEvent = c.nextCourse;  
+      const classEvent = c.nextCourse;
       //Switching between columns depending on the promotion
+      if(classEvent !== undefined && classEvent !== {}) {
+        primeEvent = classEvent;
+        secondeEvent = classEvent;
+      }
+
+      console.log(classEvent);
+
       switch (c.promotion) {
         case "info_but1":
           edt.info_but1.push({
             className: c.className,
-            isFullClass: classEvent !== undefined,
+            isFullClass: classEvent !== undefined && classEvent !== {},
             type: [
-              primeEvent ? primeEvent.type : undefined,
-              secondeEvent ? secondeEvent.type : undefined,
+              primeEvent ? primeEvent.Type : undefined,
+              secondeEvent ? secondeEvent.Type : undefined,
             ],
             subject: [
               primeEvent
-                ? primeEvent.Matière
+                ? primeEvent.Matiere
                 : undefined,
               secondeEvent
-                ? secondeEvent.Matière
+                ? secondeEvent.Matiere
                 : undefined,
             ],
             teacher: [
               primeEvent ? primeEvent.Enseignant: undefined,
-              secondeEvent ? secondeEventprimeEvent.Enseignant: undefined,
+              secondeEvent ? secondeEvent.Enseignant: undefined,
             ],
             room: [
               primeEvent
-                ? primeEvent.locations[0].split(" ")[0]
+                ? primeEvent.Salle
                 : undefined,
               secondeEvent
-                ? secondeEvent.locations[0].split(" ")[0]
+                ? secondeEvent.Salle
                 : undefined,
             ],
           });
@@ -90,29 +97,29 @@ async function getAllPlannings(cls) {
         case "info_but2":
           edt.info_but2.push({
             className: c.className,
-            isFullClass: classEvent !== undefined,
+            isFullClass: classEvent !== undefined && classEvent !== {},
             type: [
-              primeEvent ? primeEvent.type : undefined,
-              secondeEvent ? secondeEvent.type : undefined,
+              primeEvent ? primeEvent.Type : undefined,
+              secondeEvent ? secondeEvent.Type : undefined,
             ],
             subject: [
               primeEvent
-                ? primeEvent.subject.split(" ").slice(1).join(" ")
+                ? primeEvent.Matiere
                 : undefined,
               secondeEvent
-                ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                ? secondeEvent.Matiere
                 : undefined,
             ],
             teacher: [
-              primeEvent ? primeEvent.teachers.join(" - ") : undefined,
-              secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+              primeEvent ? primeEvent.Enseignant: undefined,
+              secondeEvent ? secondeEvent.Enseignant: undefined,
             ],
             room: [
               primeEvent
-                ? primeEvent.locations[0].split(" ")[0]
+                ? primeEvent.Salle
                 : undefined,
               secondeEvent
-                ? secondeEvent.locations[0].split(" ")[0]
+                ? secondeEvent.Salle
                 : undefined,
             ],
           });
@@ -122,29 +129,29 @@ async function getAllPlannings(cls) {
         case "info_but3":
           edt.info_but3.push({
             className: `[${c.className.split(" ")[1]}] ${c.className.split(" ")[0]}`,
-            isFullClass: classEvent !== undefined,
+            isFullClass: classEvent !== undefined && classEvent !== {},
             type: [
-              primeEvent ? primeEvent.type : undefined,
-              secondeEvent ? secondeEvent.type : undefined,
+              primeEvent ? primeEvent.Type : undefined,
+              secondeEvent ? secondeEvent.Type : undefined,
             ],
             subject: [
               primeEvent
-                ? primeEvent.subject.split(" ").slice(1).join(" ")
+                ? primeEvent.Matiere
                 : undefined,
               secondeEvent
-                ? secondeEvent.subject.split(" ").slice(1).join(" ")
+                ? secondeEvent.Matiere
                 : undefined,
             ],
             teacher: [
-              primeEvent ? primeEvent.teachers.join(" - ") : undefined,
-              secondeEvent ? secondeEvent.teachers.join(" - ") : undefined,
+              primeEvent ? primeEvent.Enseignant: undefined,
+              secondeEvent ? secondeEvent.Enseignant: undefined,
             ],
             room: [
               primeEvent
-                ? primeEvent.locations[0].split(" ")[0]
+                ? primeEvent.Salle
                 : undefined,
               secondeEvent
-                ? secondeEvent.locations[0].split(" ")[0]
+                ? secondeEvent.Salle
                 : undefined,
             ],
           });
@@ -184,7 +191,6 @@ onUnmounted(() => clearInterval(refreshInterval));
             v-for="(data, index) in edt.info_but1.slice(0, 2)"
             :key="index"
             :data="data"
-            :ref="but1_l1"
           />
         </div>
         <div class="view-content">
@@ -192,7 +198,6 @@ onUnmounted(() => clearInterval(refreshInterval));
             v-for="(data, index) in edt.info_but1.slice(2, 4)"
             :key="index"
             :data="data"
-            :ref="but1_l2"
           />
         </div>
       </div>
@@ -203,7 +208,6 @@ onUnmounted(() => clearInterval(refreshInterval));
             v-for="(data, index) in edt.info_but2.slice(0, 2)"
             :key="index"
             :data="data"
-            :ref="but2_l1"
           />
         </div>
         <div class="view-content">
@@ -211,7 +215,6 @@ onUnmounted(() => clearInterval(refreshInterval));
             v-for="(data, index) in edt.info_but2.slice(2, 4)"
             :key="index"
             :data="data"
-            :ref="but2_l2"
           />
         </div>
       </div>
@@ -222,7 +225,6 @@ onUnmounted(() => clearInterval(refreshInterval));
             v-for="(data, index) in edt.info_but3.slice(0, 2)"
             :key="index"
             :data="data"
-            :ref="but3_l1"
           />
         </div>
         <div class="view-content">
@@ -230,7 +232,6 @@ onUnmounted(() => clearInterval(refreshInterval));
             v-for="(data, index) in edt.info_but3.slice(2, 4)"
             :key="index"
             :data="data"
-            :ref="but3_l3"
           />
         </div>
       </div>
