@@ -10,7 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/eslint": "^0.5.7",
+    "@nuxt/eslint": "^0.6.0",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@xabi08yt/iutgradignanhpscheduler": "^1.0.7",
     "cheerio": "^1.0.0",

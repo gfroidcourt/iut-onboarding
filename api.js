@@ -89,7 +89,7 @@ export const getAllRestaurantsMenus = async () => {
   }
 };
 
-const transformDesc = async (desc) => {
+const transformDesc = (desc) => {
   let stage1 = desc.replaceAll("<br/>",";")
   let stage2 = stage1.split(";")
   let stage3 = []
@@ -111,13 +111,12 @@ const sameDay = (d1, d2) => {
   d1.getDate() === d2.getDate();
 }
 
-export const getNextCourse = async (icalID) => {
-  console.log("start");
-  try {
-    const tmp = await fetch(`/api/scheduler/hyperplanning/${icalID}`, {mode:"cors"})
-    const txt = await (await tmp.blob()).text();
-    const result = await ICAL.parse(txt);
-
+export const getNextCourse = (icalID) => {
+  let res = fetch(`/api/scheduler/hyperplanning/${icalID}`, {mode:"cors"}).then((tmp) => {
+    return tmp.blob()
+  }).then(blob => blob.text()).then((data) => {
+    return ICAL.parse(data);
+  }).then((result) => {
     // Variables de controle de la boucle
     let found = false;
     let i = 0;
@@ -137,7 +136,7 @@ export const getNextCourse = async (icalID) => {
       On affiche le cours jusqu'à 30 mn avant sa fin, si on est entre 12 et 14h, alors on affiche celui après la pause
       */
 
-      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() /*- 30 * 60000*/ ) {
+      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() - 30 * 60000 ) {
         found = true;
       } else if(sameDay(currentTime,tstart) && currentTime <= tstart && currentTime.getHours() < 14 && currentTime.getMinutes() < 35 && tstart.getHours() == 14) {
         found = true;
@@ -148,43 +147,45 @@ export const getNextCourse = async (icalID) => {
       ++i;
     }
 
-    const final = await transformDesc(e[e.length-1][3]);
-    return JSON.stringify(final);
-  } catch (e) {
-    throw e
-  }
+    const final = transformDesc(e[e.length-1][3]);
+    return (JSON.stringify(final));
+  }).catch((e) => {throw e;});
+  return res;
 }
 
 export const getAllNextCourses = async (icals) => {
   let promos = [];
   let classes = [];
   let But3_done = false;
-  Object.keys(icals).forEach((promo) => {
+  for(let promo of Object.keys(icals)) {
     if (
       promo === "info_but3_ALT" ||
       (promo === "info_but3_FI" && !But3_done)
     ) {
       promos.push("info_but3");
     }
-    icals[promo].classes.forEach(async (c) => {
-      let g1;
-      let g2;
+    for(let c of icals[promo].classes) {
+      let promises = []
+      promises.push(getNextCourse(c.classIcal));
       if(! typeof c.groups === undefined) {
-        g1 = await getNextCourse(c.groups.prime);
-        g2 = await getNextCourse(c.groups.seconde);
+        promises.push(getNextCourse(c.groups.prime));
+        promises.push(getNextCourse(c.groups.seconde));
       }
-      let g = await getNextCourse(c.classIcal);
-      classes.push({
-        promotion: promo,
-        className: c.className,
-        nextCourse: g,
-        groups: c.groups ? {
-          prime: g1,
-          seconde: g2,
-        }
-        : [],
+      
+      await Promise.all(promises).then(data => {
+        classes.push({
+          promotion: promo,
+          className: c.className,
+          classIcal: JSON.parse(data[0]),
+          groups: c.groups
+            ? {
+              prime: data[1] !== undefined ? JSON.parse(data[1]) : undefined,
+              seconde: data[2] !== undefined ? JSON.parse(data[2]) : undefined,
+            }
+            : [],
+        });
       });
-    });
-  });
+    }
+  };
   return classes;
 }

@@ -22,13 +22,15 @@ export default {
       spaceMenu: undefined,
       sirtakiEnabled: false,
       spaceEnabled: false,
+      interval: null
     };
   },
   components: {
     MenuCard,
   },
-  mounted() {
-    api.getAllRestaurantsMenus().then((res) => {
+  methods: {
+    refresh() {
+      api.getAllRestaurantsMenus().then((res) => {
       this.sirtakiMenu = res.sirtaki;
       this.spaceMenu = res.space;
 
@@ -41,6 +43,14 @@ export default {
         document.getElementById("MenuViewTitle").innerHTML = "Erreur lors de la récupération des menus.";
       }
     });
+    }
   },
+  mounted() {
+    this.refresh();
+    this.interval = setInterval(this.refresh,3600000);
+  },
+  unmounted() {
+    clearInterval(this.interval);
+  }
 };
 </script>
