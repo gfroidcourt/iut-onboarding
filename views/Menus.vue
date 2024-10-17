@@ -20,31 +20,37 @@ export default {
     return {
       sirtakiMenu: undefined,
       spaceMenu: undefined,
-      sirtakiEnabled: true,
-      spaceEnabled: true,
+      sirtakiEnabled: false,
+      spaceEnabled: false,
+      interval: null
     };
   },
   components: {
     MenuCard,
   },
-  mounted() {
-    api.getAllRestaurantsMenus().then((res) => {
+  methods: {
+    refresh() {
+      api.getAllRestaurantsMenus().then((res) => {
       this.sirtakiMenu = res.sirtaki;
       this.spaceMenu = res.space;
 
-      //Désactivation des cartes à désactiver
-      if(!res.sirtakiEnabled) {
-        this.sirtakiEnabled = false;
-      }
-      if (!res.spaceEnabled) {
-        this.spaceEnabled = false;
-      }
+      //Activation des cartes à désactiver
+      this.sirtakiEnabled = res.sirtakiEnabled;
+      this.spaceEnabled = res.spaceEnabled;
 
       //Si aucun menu n'est récupérer, afficher une erreur.
       if (!res.spaceEnabled && !res.sirtakiEnabled) {
         document.getElementById("MenuViewTitle").innerHTML = "Erreur lors de la récupération des menus.";
       }
     });
+    }
   },
+  mounted() {
+    this.refresh();
+    this.interval = setInterval(this.refresh,3600000);
+  },
+  unmounted() {
+    clearInterval(this.interval);
+  }
 };
 </script>

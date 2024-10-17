@@ -10,12 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/eslint": "^0.5.7",
+    "@nuxt/eslint": "^0.6.0",
     "@nuxtjs/google-fonts": "^3.2.0",
-    "@xabi08yt/iutgradignanhpscheduler": "^1.0.7",
     "cheerio": "^1.0.0",
     "eslint": "^9.12.0",
-    "node-fetch": "^2.6.1",
+    "ical.js": "^2.1.0",
+    "memfs": "^4.14.0",
+    "node-fetch": "^3.3.2",
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest",

@@ -63,6 +63,7 @@ Voici ce qu'il faut faire en tant que mainteneur pour que le projet perdure dans
 ## Structure du projet
 
  - assets : Comprends les fichier et fonts utilisées uniquement par le serveur.
+ - classes: Stocke les classes nécessaires au fonctionnement du projets
  - components : Ensemble de fichier composant les vues comme le background, la barre de chargement etc...
  - functions: Ensemble des fonction backend utilisées dans l'environnement Netlify functions. ATTENTION: NE PAS EN ABUSER CAR CE SERVICE EST DISPONIBLE DE MANIERE LIMITEE AVANT DE DEVENIR PAYANT
  - public: Ensemble des assets accessibles publiquement
