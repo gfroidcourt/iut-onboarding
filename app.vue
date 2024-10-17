@@ -129,7 +129,7 @@ export default {
             // 6h to 17h30
             const currentTime =
             new Date().getHours() * 60 + new Date().getMinutes();
-            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
+            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30 ||true;
           }
         },
         transport: {

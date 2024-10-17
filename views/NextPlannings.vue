@@ -46,9 +46,6 @@ async function getAllPlannings(cls) {
   edt.info_but1 = [];
   edt.info_but2 = [];
   edt.info_but3 = [];
-  let classes = await cls;
-  console.log(classes);
-  console.log(await classes.length)
   setCurrentHourRange();
   try {
     for (const c of cls) {
@@ -170,8 +167,7 @@ async function getAllPlannings(cls) {
 onMounted(async () => {
   setCurrentHourRange();
   let classes = await refresh() 
-  await getAllPlannings(classes);
-  console.log(edt);
+  await getAllPlannings(classes)
   refreshInterval = setInterval(refresh(), delay);
 })
 
