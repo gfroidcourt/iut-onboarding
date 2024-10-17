@@ -53,6 +53,10 @@
       v-if="Object.keys(views).includes('announcement')"
       :isActive="currentView == 'announcement'"
     />
+    <Announcement2
+      v-if="Object.keys(views).includes('announcement')"
+      :isActive="currentView == 'announcement2'"
+    />
     <TeacherAnnouncement
       v-if="Object.keys(views).includes('tannouncement')"
       :isActive="currentView == 'tannouncement'"
@@ -81,6 +85,7 @@ import MaintainerProposal from "./views/MaintainerProposal.vue";
 
 import "./stylesheets/reset.css";
 import Announcement from "./views/Announcement.vue";
+import Announcement2 from "./views/Announcement2.vue";
 import TeacherAnnouncement from "./views/TeacherAnnouncement.vue";
 import WelcomeAmericans from "./views/WelcomeMessage.vue";
 import Lundi from "./views/Lundi.vue";
@@ -160,7 +165,11 @@ export default {
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false && !this.isEndOfDay(),
+          allowed: () => true && !this.isEndOfDay(),
+        },
+        announcement2: {
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          allowed: () => true && !this.isEndOfDay(),
         },
         tannouncement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -282,6 +291,7 @@ export default {
     Discord,
     MaintainerProposal,
     Announcement,
+    Announcement2,
     TeacherAnnouncement,
     WelcomeAmericans,
   },
