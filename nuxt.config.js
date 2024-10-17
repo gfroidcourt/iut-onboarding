@@ -16,4 +16,10 @@ export default {
       }
     }
   },
+
+  routeRules: {
+    "/api/hp/**": {
+      proxy: "https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/**"
+    }
+  }
 };

@@ -28,9 +28,9 @@
       :isActive="currentView == 'menus'"
     />
     <Planning
-      v-if="Object.keys(views).includes('planning')"
-      :isActive="currentView == 'planning'"
-    />
+        v-if="Object.keys(views).includes('planning')"
+        :isActive="currentView == 'planning'"
+      />
     <client-only>
       <Transport
         v-if="Object.keys(views).includes('transport')"
@@ -94,7 +94,7 @@ const DEVELOPEMENT_MODE = false;
 export default {
   data() {
     return {
-      currentView: "transport",
+      currentView: "planning",
       views: {
         /*
           To active only one or some views, juste comment here what you dont want to be
@@ -266,6 +266,7 @@ export default {
     this.changeView();
   },
   components: {
+    Planning,
     TransitionOverlay,
     Background,
     Lundi,
@@ -276,7 +277,6 @@ export default {
     Menus,
     Transport,
     Weather,
-    Planning,
     DateAndHourHeader,
     LoadingBar,
     Discord,

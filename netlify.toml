@@ -7,6 +7,6 @@
   node_bundler = "esbuild"
 
 [[redirects]]
-  from = "/api/scheduler/hyperplanning/:schedulerId/:dateParameter"
-  to = "https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/Edt.ics?version=2024.0.8.0&icalsecurise=:schedulerId"
+  from = "/api/scheduler/hyperplanning/:schedulerId"
+  to = "https://hyperplanning.iut.u-bordeaux.fr/Telechargements/ical/Edt.ics?version=2024.0.9.0&icalsecurise=:schedulerId"
   status = 200
