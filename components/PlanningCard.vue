@@ -57,13 +57,13 @@ export default {
   },
   methods: {
     getGroupsComponent() {
-      if (this.data.isFullClass) return [""];
       if (
         // No class
         this.data.subject[0] === undefined &&
         this.data.subject[1] === undefined
       )
         return [undefined];
+      if (this.data.isFullClass) return [""];
       if (this.data.subject[0] === undefined) return ["seconde"];
       if (this.data.subject[1] === undefined) return ["prime"];
       return ["prime", "seconde"]; // Prime et seconde ont cours en même temps

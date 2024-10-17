@@ -113,7 +113,7 @@ export default {
         },
         mercredi: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false && !this.isEndOfDay() && new Date().getDay() === 3,
+          allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 3,
         },
         jeudi: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -129,16 +129,16 @@ export default {
             // 6h to 17h30
             const currentTime =
             new Date().getHours() * 60 + new Date().getMinutes();
-            return currentTime >= 6 * 60 && currentTime <= 18 || true;
+            return currentTime >= 6 * 60 && currentTime <= 17 * 60 + 30;
           }
         },
         transport: {
           time: () => DEVELOPEMENT_MODE ? 10000 : this.getTimeForBusesAndWeather(),
-          allowed: () => false,
+          allowed: () => true,
         },
         weather: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 7 * 1000,
-          allowed: () => false,
+          allowed: () => true,
         },
         menus: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
@@ -151,12 +151,12 @@ export default {
         /* Enable this at the start of each year (The QR code has to be updated)*/
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
-          allowed: () => false,
+          allowed: () => true,
         },
         /* Enable when looking for new maintainers */
         maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
-          allowed: () => false && !this.isEndOfDay(),
+          allowed: () => true && !this.isEndOfDay(),
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,

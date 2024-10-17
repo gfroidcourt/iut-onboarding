@@ -90,6 +90,9 @@ export const getAllRestaurantsMenus = async () => {
 };
 
 const transformDesc = (desc) => {
+  if(desc.length === 0) {
+    return ;
+  }
   let stage1 = desc.replaceAll("<br/>",";");
   let stage2 = stage1.split(";")
   let stage3 = []
@@ -146,7 +149,7 @@ export const getNextCourse = (icalID) => {
       On affiche le cours jusqu'à 30 mn avant sa fin, si on est entre 12 et 14h, alors on affiche celui après la pause
       */
 
-      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() + 8 * 60000 *60 ) {
+      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime()) {
         found = true;
       } else if(sameDay(currentTime,tstart) && currentTime <= tstart && currentTime.getHours() < 14 && currentTime.getMinutes() < 35 && tstart.getHours() == 14) {
         found = true;
