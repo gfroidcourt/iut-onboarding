@@ -1,4 +1,5 @@
 import ICAL from "ical.js";
+import { useFetch } from "nuxt/app";
 
 const TBM_URL = "https://gateway-apim.infotbm.com/maas-web/web/v1/timetables/stops/stop_area:";
 const WEATHER_URL_NEXT_12_HOURS =
@@ -125,10 +126,8 @@ const sameDay = (d1, d2) => {
 }
 
 export const getNextCourse = (icalID) => {
-  let res = fetch(`/api/scheduler/hyperplanning/${icalID}`, {mode:"cors"}).then((tmp) => {
-    return tmp.blob()
-  }).then(blob => blob.text()).then((data) => {
-    return ICAL.parse(data);
+  let res = $fetch(`/api/hp/Edt.ics?version=2024.0.9.0&icalsecurise=${icalID}`).then((tmp) => {
+    return ICAL.parse(tmp);
   }).then((result) => {
     // Variables de controle de la boucle
     let found = false;
@@ -149,7 +148,7 @@ export const getNextCourse = (icalID) => {
       On affiche le cours jusqu'à 30 mn avant sa fin, si on est entre 12 et 14h, alors on affiche celui après la pause
       */
 
-      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() + 10 * 3600000) {
+      if(sameDay(currentTime,tstart) && currentTime.getTime() > tstart.getTime() - 30 * 60000 && currentTime.getTime() < tend.getTime() + 12 * 3600000) {
         found = true;
       } else if(sameDay(currentTime,tstart) && currentTime <= tstart && currentTime.getHours() < 14 && currentTime.getMinutes() < 35 && tstart.getHours() == 14) {
         found = true;

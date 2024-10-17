@@ -58,8 +58,6 @@ async function getAllPlannings(cls) {
         secondeEvent = classEvent;
       }
 
-      console.log(classEvent);
-
       switch (c.promotion) {
         case "info_but1":
           edt.info_but1.push({
