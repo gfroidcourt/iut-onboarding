@@ -109,23 +109,23 @@ export default {
           The order in the object is the display order
         */
         lundi: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 1,
         },
         mardi: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 2,
         },
         mercredi: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 3,
         },
         jeudi: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 4,
         },
         vendredi: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true && !this.isEndOfDay() && new Date().getDay() === 5,
         },
         planning: {
@@ -155,28 +155,28 @@ export default {
         },
         /* Enable this at the start of each year (The QR code has to be updated)*/
         discord: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 30,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true,
         },
         /* Enable when looking for new maintainers */
         maintainer: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
           allowed: () => true && !this.isEndOfDay(),
         },
         announcement: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true && !this.isEndOfDay(),
         },
         announcement2: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => true && !this.isEndOfDay(),
         },
         tannouncement: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => false && !this.isEndOfDay(),
         },
         welcAmericans: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 15,
+          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => false && !this.isEndOfDay(),
         }
       },
