@@ -36,12 +36,12 @@ function setCurrentHourRange() {
   }
 }
 
-async function refresh() {
+async function getCourses() {
   let tmp = await api.getAllNextCourses(icals);
   return tmp;
 };
 
-async function getAllPlannings(cls) {
+async function processPlannings(cls) {
   console.log("Refreshing plannings");
   edt.info_but1 = [];
   edt.info_but2 = [];
@@ -162,10 +162,14 @@ async function getAllPlannings(cls) {
   }
 }
 
+let refresh = async () => {
+  
+}
+
 onMounted(async () => {
   setCurrentHourRange();
-  let classes = await refresh() 
-  await getAllPlannings(classes)
+  let classes = await getCourses() 
+  await processPlannings(classes)
   refreshInterval = setInterval(refresh(), delay);
 })
 
