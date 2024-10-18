@@ -163,7 +163,9 @@ async function processPlannings(cls) {
 }
 
 let refresh = async () => {
-  
+  setCurrentHourRange();
+  let classes = await getCourses();
+  await processPlannings(classes);
 }
 
 onMounted(async () => {
