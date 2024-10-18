@@ -53,7 +53,7 @@ async function processPlannings(cls) {
       let secondeEvent = c.groups.seconde;
       const classEvent = c.nextCourse;
       //Switching between columns depending on the promotion
-      if(classEvent !== undefined && classEvent !== {}) {
+      if(classEvent !== undefined && JSON.stringify(classEvent) !== JSON.stringify({"Salle":""})) {
         primeEvent = classEvent;
         secondeEvent = classEvent;
       }
@@ -62,7 +62,7 @@ async function processPlannings(cls) {
         case "info_but1":
           edt.info_but1.push({
             className: c.className,
-            isFullClass: classEvent !== undefined && classEvent !== {},
+            isFullClass: classEvent !== undefined && JSON.stringify(classEvent) !== JSON.stringify({"Salle":""}),
             type: [
               primeEvent ? primeEvent.Type : undefined,
               secondeEvent ? secondeEvent.Type : undefined,

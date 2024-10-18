@@ -179,11 +179,10 @@ export const getAllNextCourses = async (icals) => {
     for(let c of icals[promo].classes) {
       let promises = []
       promises.push(getNextCourse(c.classIcal));
-      if(! typeof c.groups === undefined) {
+      try {
         promises.push(getNextCourse(c.groups.prime));
-        promises.push(getNextCourse(c.groups.seconde));
-      }
-      
+        promises.push(getNextCourse(c.groups.seconde))
+      } catch(e) {};
       await Promise.all(promises).then(data => {
         classes.push({
           promotion: promo,
