@@ -163,6 +163,9 @@ async function processPlannings(cls) {
 }
 
 let refresh = async () => {
+  edt.info_but1 = [];
+  edt.info_but2 = [];
+  edt.info_but3 = [];
   setCurrentHourRange();
   let classes = await getCourses();
   await processPlannings(classes);
@@ -172,7 +175,7 @@ onMounted(async () => {
   setCurrentHourRange();
   let classes = await getCourses() 
   await processPlannings(classes)
-  refreshInterval = setInterval(refresh(), delay);
+  refreshInterval = setInterval(await refresh, delay);
 })
 
 onUnmounted(() => clearInterval(refreshInterval));
