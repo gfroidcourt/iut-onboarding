@@ -2,8 +2,11 @@
     <div class="view-container" v-show="isActive">
         <h1 class="view-title">Annonce de l'Assopeña</h1>
         <div class="announcment">
-          <h2>Pour bien commencer la dernière semaine, le lundi 21/10/2024, le BDE vends des crêpes 0.5€ l'unité ! <br/> Une offre spéciale thé + 1 crêpe est disponible à 0.80€ !</h2>
-          <img src="@/public/assets/asso/assoCrepes.png" id="AssoImg" />
+          <h2>Toute la nuit du 31 octobre, c'est le Barathon d'Halloween ! <br/> 1500 personnes sont attendues, alors ramenez vos amis ! Scannez le QR code pour vous inscrire.</h2>
+          <div id="AssoImg">
+            <img src="@/public/assets/asso/asso.jpg" />
+            <img src="@/public/assets/asso/qrcodeBarathon.png" />
+          </div>
         </div>
     </div>
 </template>
@@ -15,9 +18,17 @@ export default{
 };
 </script>
 <style>
+
 #AssoImg {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#AssoImg > img {
     max-height: 425px;
     max-width: 325px;
+    margin: 10px;
 }
 
 .announcment {
