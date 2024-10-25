@@ -156,20 +156,20 @@ export default {
         /* Enable this at the start of each year (The QR code has to be updated)*/
         discord: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true,
+          allowed: () => false,
         },
         /* Enable when looking for new maintainers */
         maintainer: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         },
         announcement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         },
         announcement2: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         },
         tannouncement: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
