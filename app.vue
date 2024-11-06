@@ -177,7 +177,7 @@ export default {
         },
         welcAmericans: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 10,
-          allowed: () => true && !this.isEndOfDay(),
+          allowed: () => false && !this.isEndOfDay(),
         }
       },
     };
