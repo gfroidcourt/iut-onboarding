@@ -3,9 +3,9 @@
     <h1 class="view-title">🎉🎉 Bienvenue à l'IUT de gradignan ! 🎉🎉</h1>
     <div class="announcment" id="WelcomeMessage">
       <h2>
-        A tous ceux qui intègrent pour la première fois l'IUT, <br /> nous sommes ravis de vous accueillir parmi nous. <br /> N'hésitez pas à poser des questions !
+        Un accueil à 13h avec un café gourmand vous est proposé au 1er étage. <br/>Si vous arrivez vers 13h45, un étudiant viendra vous accueillir dans le hall.
       </h2>
-      <img src="https://framerusercontent.com/images/9GOLkRv44U9bspljOXgIWwdQk.png"/>
+      <img src="https://img.freepik.com/photos-gratuite/mot-bienvenue-disponible-lancement-ouvert_53876-124476.jpg?semt=ais_hybrid"/>
     </div>
   </div>
 </template>
