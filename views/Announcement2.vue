@@ -2,8 +2,8 @@
     <div class="view-container" v-show="isActive">
         <h1 class="view-title">Annonce de l'Assopeña</h1>
         <div class="announcment">
-            <h2>Intéressé(e) par un tournois Super Smash Bros ? Scan-moi !</h2>
-            <img src="@/public/assets/asso/smash.png" id="AssoImg2"/>
+            <h2>Mardi prochain, c'est téléthon ! Achetez un petit déj' pendant une pause exceptionnellement rallongée !</h2>
+            <img src="@/public/assets/asso/telethon.png" id="AssoImg2"/>
         </div>
     </div>
 </template>
@@ -16,7 +16,7 @@ export default{
 </script>
 <style>
 #AssoImg2 {
-    height: 525px;
+    height: 625px;
     width: 525px;
     margin-top: 25px;
 }

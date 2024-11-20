@@ -2,10 +2,9 @@
     <div class="view-container" v-show="isActive">
         <h1 class="view-title">Annonce de l'Assopeña</h1>
         <div class="announcment">
-          <h2>Toute la nuit du 31 octobre, c'est le Barathon d'Halloween ! <br/> 1500 personnes sont attendues, alors ramenez vos amis ! Scannez le QR code pour vous inscrire.</h2>
+          <h2>Vous voulez des défis pendant toute une nuit ? Les inscriptions, c'est par ici !</h2>
           <div id="AssoImg">
-            <img src="@/public/assets/asso/asso.jpg" />
-            <img src="@/public/assets/asso/qrcodeBarathon.png" />
+            <img src="@/public/assets/asso/post3.jpg" />
           </div>
         </div>
     </div>
@@ -27,8 +26,10 @@ export default{
 
 #AssoImg > img {
     max-height: 425px;
-    max-width: 325px;
+    max-width: 425px;
     margin: 10px;
+    width: 425px;
+    height: 425px;
 }
 
 .announcment {
