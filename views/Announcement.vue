@@ -4,7 +4,7 @@
         <div class="announcment">
           <h2>Vous voulez des défis pendant toute une nuit ? Les inscriptions, c'est par ici !</h2>
           <div id="AssoImg">
-            <img src="@/public/assets/asso/post3.jpg" />
+            <img src="@/public/assets/logo_iut.png" />
           </div>
         </div>
     </div>

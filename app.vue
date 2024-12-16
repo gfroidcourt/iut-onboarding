@@ -85,7 +85,6 @@ import MaintainerProposal from "./views/MaintainerProposal.vue";
 
 import "./stylesheets/reset.css";
 import Announcement from "./views/Announcement.vue";
-import Announcement2 from "./views/Announcement2.vue";
 import TeacherAnnouncement from "./views/TeacherAnnouncement.vue";
 import WelcomeAmericans from "./views/WelcomeMessage.vue";
 import Lundi from "./views/Lundi.vue";
@@ -164,10 +163,6 @@ export default {
           allowed: () => false && !this.isEndOfDay(),
         },
         announcement: {
-          time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
-          allowed: () => false && !this.isEndOfDay(),
-        },
-        announcement2: {
           time: () => DEVELOPEMENT_MODE ? 10000 : 1000 * 7,
           allowed: () => false && !this.isEndOfDay(),
         },
@@ -291,7 +286,6 @@ export default {
     Discord,
     MaintainerProposal,
     Announcement,
-    Announcement2,
     TeacherAnnouncement,
     WelcomeAmericans,
   },

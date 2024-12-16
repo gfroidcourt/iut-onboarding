@@ -10,7 +10,7 @@ export default {
     return {
       active: false,
       duration: 3000,
-      logoIut: "/assets/logo_iut.svg",
+      logoIut: "/assets/logo_iut.png",
       logoGP: "/assets/gitpoule.png",
       currentLogo: null
     };
