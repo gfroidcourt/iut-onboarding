@@ -53,10 +53,6 @@
       v-if="Object.keys(views).includes('announcement')"
       :isActive="currentView == 'announcement'"
     />
-    <Announcement2
-      v-if="Object.keys(views).includes('announcement')"
-      :isActive="currentView == 'announcement2'"
-    />
     <TeacherAnnouncement
       v-if="Object.keys(views).includes('tannouncement')"
       :isActive="currentView == 'tannouncement'"
